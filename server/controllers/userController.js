@@ -2,6 +2,14 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 
+// Функция для генерации токена
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d", // Токен истекает через 30 дней
+  });
+};
+
+// Регистрация пользователя
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -18,48 +26,39 @@ export const registerUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        token: generateToken(user._id), // ✅ Добавили токен в ответ
       });
     } else {
       res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
-  }  
+  }
 };
 
-// Generate JWT
-const generateToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: "30d", // Token expires in 30 days
-    });
-  };
-  
-  // Login User
-  export const loginUser = async (req, res) => {
-    const { email, password } = req.body;
-  
-    try {
-      // Проверяем, существует ли пользователь
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-  
-      // Проверяем пароль
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).json({ message: "Invalid email or password" });
-      }
-  
-      // Возвращаем данные пользователя и токен
-      res.status(200).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id),
-      });
-    } catch (error) {
-      console.error("Error during login:", error);
-      res.status(500).json({ message: "Server error" });
+// Вход пользователя (не меняем)
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-  };
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    res.status(200).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
+  } catch (error) {
+    console.error("Error during login:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
