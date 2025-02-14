@@ -1,12 +1,12 @@
 import WeightEntry from "../models/WeightEntry.js";
 
-// Добавить новую запись веса
+// Add a new weight entry
 export const addWeightEntry = async (req, res) => {
   try {
     const { weight, date, note } = req.body;
 
     const weightEntry = new WeightEntry({
-      userId: req.user.id, // Получаем ID пользователя из токена
+      userId: req.user.id, // get the user ID from the request
       weight,
       date,
       note,
@@ -19,17 +19,34 @@ export const addWeightEntry = async (req, res) => {
   }
 };
 
-// Получить все записи пользователя
+// Get all weight entries
 export const getWeightEntries = async (req, res) => {
   try {
-    const entries = await WeightEntry.find({ userId: req.user.id }).sort({ date: -1 });
+    const { sortBy, order, minWeight, maxWeight, page, limit } = req.query;
+    const query = { userId: req.user.id };
+
+    if (minWeight) query.weight = { ...query.weight, $gte: minWeight };
+    if (maxWeight) query.weight = { ...query.weight, $lte: maxWeight };
+
+    const sortOptions = {};
+    if (sortBy) sortOptions[sortBy] = order === "desc" ? 1 : -1;
+
+    const pageNumber = parseInt(page) || 1;
+    const pageSize = parseInt(limit) || 10;
+    const skip = (pageNumber - 1) * pageSize;
+
+    const entries = await WeightEntry.find(query)
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(pageSize);
+
     res.json(entries);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching weight entries", error });
+    res.status(500).json({ message: "Error getting weight entries", error });
   }
 };
 
-// Обновить запись веса
+// Update a weight entry
 export const updateWeightEntry = async (req, res) => {
   try {
     const entry = await WeightEntry.findById(req.params.id);
@@ -53,7 +70,7 @@ export const updateWeightEntry = async (req, res) => {
   }
 };
 
-// Удалить запись веса
+// Delete a weight entry
 export const deleteWeightEntry = async (req, res) => {
   try {
     const entry = await WeightEntry.findById(req.params.id);
