@@ -21,8 +21,8 @@ app.use(helmet());
 
 // Ограничение запросов (100 запросов за 15 минут)
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, 
-  max: 100, 
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: "Too many requests, please try again later.",
 });
 app.use(limiter);
@@ -46,7 +46,7 @@ app.use(errorHandler);
 
 // Подключение к MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 

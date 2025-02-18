@@ -5,14 +5,13 @@ import {
   updateWeightEntry,
   deleteWeightEntry,
 } from "../controllers/weightController.js";
-import { protect } from "../middleware/authMiddleware.js";
-
+import { protect } from "../middleware/authMiddleware.js"; 
 const router = express.Router();
 
 // CRUD для записей веса
-router.post("/", protect, addWeightEntry); // Добавить запись
-router.get("/", protect, getWeightEntries); // Получить все записи пользователя
-router.put("/:id", protect, updateWeightEntry); // Обновить запись
-router.delete("/:id", protect, deleteWeightEntry); // Удалить запись
+router.post("/", protect, addWeightEntry);
+router.get("/", protect, getWeightEntries);
+router.put("/:id", protect, updateWeightEntry);
+router.delete("/:id", protect, deleteWeightEntry);
 
 export default router;

@@ -3,15 +3,18 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 
 // Функция для генерации токена
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d", // Токен истекает через 30 дней
-  });
+const generateAccessToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "15m" }); // Токен теперь живёт 15 минут
 };
 
+const generateRefreshToken = (id) => {
+  return jwt.sign({ id }, process.env.REFRESH_SECRET, { expiresIn: "30d" }); // Refresh Token - 30 дней
+};
 // Регистрация пользователя
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
+
+  console.log("Пришли данные:", req.body); // Лог перед обработкой
 
   try {
     const userExists = await User.findOne({ email });
@@ -20,18 +23,21 @@ export const registerUser = async (req, res) => {
     }
 
     const user = await User.create({ name, email, password });
+    console.log("Пользователь создан:", user); // Лог после создания
 
     if (user) {
       res.status(201).json({
         _id: user._id,
         name: user.name,
         email: user.email,
-        token: generateToken(user._id), // Добавили токен в ответ
+        accessToken: generateAccessToken(user._id),
+        refreshToken: generateRefreshToken(user._id),
       });
     } else {
       res.status(400).json({ message: "Invalid user data" });
     }
   } catch (error) {
+    console.error("Error during registration:", error);
     if (error.name === "ValidationError") {
       return res.status(400).json({ message: error.message });
     }
@@ -39,7 +45,7 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Вход пользователя (не меняем)
+// Вход пользователя
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
@@ -58,10 +64,27 @@ export const loginUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      accessToken: generateAccessToken(user._id),
+      refreshToken: generateRefreshToken(user._id), //  Отдаём Refresh Token
     });
   } catch (error) {
     console.error("Error during login:", error);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Обновление токена (новый эндпоинт)
+export const refreshToken = async (req, res) => {
+  const { refreshToken } = req.body;
+  if (!refreshToken) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+    const newAccessToken = generateAccessToken(decoded.id);
+    res.json({ accessToken: newAccessToken });
+  } catch (error) {
+    res.status(403).json({ message: "Invalid refresh token" });
   }
 };
