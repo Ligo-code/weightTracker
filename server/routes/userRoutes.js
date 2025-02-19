@@ -1,8 +1,9 @@
 import express from "express";
-import { registerUser, loginUser, refreshToken } from "../controllers/userController.js";
+import { registerUser, loginUser, refreshToken, getUserProfile } from "../controllers/userController.js";
 import rateLimit from "express-rate-limit";
 import { logoutUser } from "../controllers/userController.js";
 import { resetPassword } from "../controllers/userController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ const loginLimiter = rateLimit({
 // Маршруты
 router.post("/register", registerUser); // Регистрация без изменений
 router.post("/login", loginLimiter, loginUser); // Теперь ограничение на 5 попыток
+router.get("/profile", protect, getUserProfile);
 router.post("/refresh-token", refreshToken); // Новый эндпоинт для обновления токена
 router.post("/logout", logoutUser);
 router.post("/reset-password", resetPassword);

@@ -1,10 +1,11 @@
+import AuthForm from "../components/UI/AuthForm";
+
 const Auth = () => {
-    return (
-      <div>
-        <h1>Login / Register</h1>
-      </div>
-    );
-  };
-  
-  export default Auth;
-  
+  return (
+    <div>
+      <AuthForm />
+    </div>
+  );
+};
+
+export default Auth;
