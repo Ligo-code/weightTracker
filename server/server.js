@@ -1,17 +1,20 @@
 import express from "express";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import xss from "xss-clean";
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
+import connectDB from "./db/connect.js";
 import userRoutes from "./routes/userRoutes.js";
 import weightRoutes from "./routes/weightRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
 // Инициализация .env
 dotenv.config();
+
+// Подключаем базу данных
+connectDB();
 
 // Создаем Express-приложение
 const app = express();
@@ -43,12 +46,6 @@ app.use("/api/weight", weightRoutes);
 
 // Глобальная обработка ошибок
 app.use(errorHandler);
-
-// Подключение к MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Запуск сервера
 const PORT = process.env.PORT || 5000;
