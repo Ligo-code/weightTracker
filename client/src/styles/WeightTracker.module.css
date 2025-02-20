@@ -1,0 +1,65 @@
+.container {
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2, h3 {
+    text-align: center;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background: #0056b3;
+  }
+  
+  .list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .listItem {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .editButton, .deleteButton {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .editButton {
+    color: #ffc107;
+  }
+  
+  .deleteButton {
+    color: #dc3545;
+  }
+  

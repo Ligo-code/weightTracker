@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { refreshToken, logoutUser } from "../api/auth";
+import WeightTracker from "../components/UI/WeightTracker";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -50,6 +51,7 @@ const Profile = () => {
   return (
     <div>
       <h2>Profile</h2>
+      <WeightTracker />
       {error && <p style={{ color: "red" }}>{error}</p>}
       {user ? (
         <div>
