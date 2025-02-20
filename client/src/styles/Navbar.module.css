@@ -2,9 +2,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
     background-color: #333;
     padding: 15px 20px;
     color: white;
+    border-radius: 8px;
+  }
+
+  .navbar a {
+    color: white;
+    font-size: 1.1rem;
+    padding: 10px 15px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
+  
+  .navbar a:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .navbar a.active {
+    background: #007bff;
   }
   
   .logo {

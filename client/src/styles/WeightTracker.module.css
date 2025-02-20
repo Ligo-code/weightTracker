@@ -41,11 +41,17 @@
   .listItem {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background: white;
-    padding: 10px;
+    padding: 12px;
     margin: 5px 0;
-    border-radius: 5px;
+    border-radius: 6px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .listItem:hover {
+    transform: scale(1.02);
   }
   
   .editButton, .deleteButton {
@@ -57,9 +63,20 @@
   
   .editButton {
     color: #ffc107;
+    transition: color 0.3s ease, transform 0.2s ease-in-out;
+  }
+  
+  .editButton:hover {
+    color: #d39e00;
+    transform: scale(1.1);
   }
   
   .deleteButton {
     color: #dc3545;
+    transition: color 0.3s ease, transform 0.2s ease-in-out;
   }
   
+  .deleteButton:hover {
+    color: #b02a37;
+    transform: scale(1.1);
+  }
