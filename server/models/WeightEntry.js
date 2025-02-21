@@ -4,7 +4,7 @@ const weightEntrySchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // Ссылка на пользователя
+      ref: "User", 
       required: true,
     },
     weight: {

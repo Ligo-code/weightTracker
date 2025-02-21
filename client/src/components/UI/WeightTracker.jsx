@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { 
-  getWeightEntries, 
-  addWeightEntry, 
-  updateWeightEntry, 
-  deleteWeightEntry 
+import {
+  getWeightEntries,
+  addWeightEntry,
+  updateWeightEntry,
+  deleteWeightEntry,
 } from "../../api/weight";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/WeightTracker.module.css";
@@ -11,32 +11,26 @@ import styles from "../../styles/WeightTracker.module.css";
 const WeightTracker = () => {
   const [weight, setWeight] = useState("");
   const [note, setNote] = useState("");
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState(null);
   const [error, setError] = useState(null);
-  const [editingId, setEditingId] = useState(null); 
+  const [editingId, setEditingId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     if (!token) return;
-    const fetchData = async () => {
-      try {
-        const data = await getWeightEntries();
-        console.log("Entries received in useEffect:", data); // Логируем данные
-        setEntries(data);
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-    fetchData();
-  }, [token]);
+    fetchEntries();
+  }, [token, currentPage]);
 
   const fetchEntries = async () => {
-    if (!token) return;
     try {
-      const data = await getWeightEntries();
-      setEntries(data);
+      const data = await getWeightEntries(currentPage, 5);
+      console.log("Entries received:", data);
+      setEntries(data.entries || []);
+      setTotalPages(data.totalPages || 1);
     } catch (err) {
       setError(err.message);
     }
@@ -45,31 +39,31 @@ const WeightTracker = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!token) return setError("You must be logged in to add an entry.");
-  
-    try {      
-      const date = new Date().toISOString(); // Генерируем дату
-  
+
+    try {
+      const date = new Date().toISOString();
+      let updatedEntries;
+
       if (editingId) {
-        // Редактируем запись
-        const updatedEntry = await updateWeightEntry(editingId, { weight, note, date }, token);
-        setEntries(entries.map((entry) => (entry._id === editingId ? updatedEntry : entry)));
+        const updatedEntry = await updateWeightEntry(editingId, { weight, note, date });
+        updatedEntries = entries.map((entry) =>
+          entry._id === editingId ? updatedEntry : entry
+        );
         setEditingId(null);
       } else {
-        // Добавляем новую запись
         const newEntry = await addWeightEntry(weight, note, date);
-        setEntries([...entries, newEntry]);
+        updatedEntries = [newEntry, ...entries];
       }
-  
+
+      setEntries(updatedEntries);
       setWeight("");
       setNote("");
     } catch (err) {
       setError(err.message);
     }
   };
-  
 
   const handleDelete = async (id) => {
-    if (!token) return;
     try {
       await deleteWeightEntry(id);
       setEntries(entries.filter((entry) => entry._id !== id));
@@ -84,24 +78,36 @@ const WeightTracker = () => {
     setEditingId(entry._id);
   };
 
-    // Если пользователь не вошел в систему
-    if (!token) {
-      return (
-        <div className={styles.container}>
-          <h2>Weight Tracker</h2>
-          <p>You need to be logged in to access this page.</p>
-          <button onClick={() => navigate("/auth")} className={styles.button}>
-            Go to Login
-          </button>
-        </div>
-      );
-    }
+  const handlePreviousPage = () => {
+    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
+  if (!token) {
+    return (
+      <div className={styles.container}>
+        <h2>Weight Tracker</h2>
+        <p>You need to be logged in to access this page.</p>
+        <button onClick={() => navigate("/auth")} className={styles.button}>
+          Go to Login
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <h2>Weight Tracker</h2>
       {error && <p className={styles.error}>{error}</p>}
-      
+
       <form onSubmit={handleSubmit}>
         <input
           type="number"
@@ -124,15 +130,48 @@ const WeightTracker = () => {
       </form>
 
       <h3>Previous Entries</h3>
-      <ul className={styles.list}>
-        {entries.map((entry) => (
-          <li key={entry._id} className={styles.listItem}>
-            {entry.weight} kg - {entry.note || "No note"}
-            <button onClick={() => handleEdit(entry)} className={styles.editButton}>✏️ Edit</button>
-            <button onClick={() => handleDelete(entry._id)} className={styles.deleteButton}>❌ Delete</button>
-          </li>
-        ))}
-      </ul>
+
+      {entries === null ? (
+        <p>Loading weight entries...</p>
+      ) : entries.length === 0 ? (
+        <p>No weight entries found.</p>
+      ) : (
+        <ul className={styles.list}>
+          {entries.map((entry) => (
+            <li key={entry._id} className={styles.listItem}>
+              <strong>{formatDate(entry.date)}</strong> - {entry.weight} kg -{" "}
+              {entry.note || "No note"}
+              <button onClick={() => handleEdit(entry)} className={styles.editButton}>
+                ✏️ Edit
+              </button>
+              <button onClick={() => handleDelete(entry._id)} className={styles.deleteButton}>
+                ❌ Delete
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className={styles.pagination}>
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+          className={styles.pageButton}
+        >
+          ⬅ Previous
+        </button>
+        <span>
+          {" "}
+          Page {currentPage} of {totalPages}{" "}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={currentPage === totalPages}
+          className={styles.pageButton}
+        >
+          Next ➡
+        </button>
+      </div>
     </div>
   );
 };

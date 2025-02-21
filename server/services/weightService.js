@@ -1,6 +1,10 @@
 import WeightEntry from "../models/WeightEntry.js";
 
 export const addWeightEntryService = async (userId, { weight, date, note }) => {
+  if (!weight || isNaN(weight) || weight <= 0) {
+    throw new Error("Weight must be a number greater than 0");
+  }
+
   const weightEntry = new WeightEntry({ userId, weight, date, note });
   return await weightEntry.save();
 };
@@ -12,13 +16,19 @@ export const getWeightEntriesService = async (userId, { sortBy, order, minWeight
   if (maxWeight) query.weight = { ...query.weight, $lte: maxWeight };
 
   const sortOptions = {};
-  if (sortBy) sortOptions[sortBy] = order === "desc" ? 1 : -1;
+  if (sortBy) sortOptions[sortBy] = order === "desc" ? -1 : 1;
 
-  const pageNumber = parseInt(page) || 1;
-  const pageSize = parseInt(limit) || 10;
+  const pageNumber = parseInt(page, 10) || 1;
+  const pageSize = parseInt(limit, 10) || 10;
   const skip = (pageNumber - 1) * pageSize;
 
-  return await WeightEntry.find(query).sort(sortOptions).skip(skip).limit(pageSize);
+  // Получаем общее количество записей
+  const totalEntries = await WeightEntry.countDocuments(query);
+  const totalPages = Math.ceil(totalEntries / pageSize);
+
+  const entries = await WeightEntry.find(query).sort(sortOptions).skip(skip).limit(pageSize);
+
+  return { entries, totalPages };
 };
 
 export const updateWeightEntryService = async (userId, entryId, { weight, date, note }) => {
@@ -26,7 +36,13 @@ export const updateWeightEntryService = async (userId, entryId, { weight, date, 
   if (!entry) throw new Error("Entry not found");
   if (entry.userId.toString() !== userId) throw new Error("Not authorized");
 
-  entry.weight = weight || entry.weight;
+  if (weight !== undefined) {
+    if (!weight || isNaN(weight) || weight <= 0) {
+      throw new Error("Weight must be a number greater than 0");
+    }
+    entry.weight = weight;
+  }
+  
   entry.date = date || entry.date;
   entry.note = note || entry.note;
 

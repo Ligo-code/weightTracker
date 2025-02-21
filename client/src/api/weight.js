@@ -2,9 +2,9 @@ const API_URL = "http://localhost:5000/api/weight";
 const getToken = () => localStorage.getItem("accessToken");
 
 // Получить все записи веса
-export const getWeightEntries = async () => {
+export const getWeightEntries = async (page = 1, limit = 5) => {
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -14,9 +14,7 @@ export const getWeightEntries = async () => {
 
     if (!response.ok) throw new Error("Failed to fetch weight entries");
 
-    const data = await response.json();
-    console.log("[Fetched Entries]:", data);
-    return data;
+    return await response.json();
   } catch (error) {
     console.error("[Get Weight Entries Error]:", error.message);
     throw error;
@@ -24,9 +22,8 @@ export const getWeightEntries = async () => {
 };
 
 // Добавить новую запись веса
-export const addWeightEntry = async (weight, note) => {
-  try {
-    const date = new Date().toISOString();
+export const addWeightEntry = async (weight, note, date) => {
+  try {    
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
@@ -36,7 +33,10 @@ export const addWeightEntry = async (weight, note) => {
       body: JSON.stringify({ weight, note, date }),
     });
 
-    if (!response.ok) throw new Error("Failed to add weight entry");
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to add weight entry");
+    }
 
     return await response.json();
   } catch (error) {
