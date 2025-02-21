@@ -2,9 +2,9 @@ const API_URL = "http://localhost:5000/api/weight";
 const getToken = () => localStorage.getItem("accessToken");
 
 // Получить все записи веса
-export const getWeightEntries = async (page = 1, limit = 5) => {
+export const getWeightEntries = async (page = 1, limit = 5, sortBy = "date", order = "desc") => {
   try {
-    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`, {
+    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

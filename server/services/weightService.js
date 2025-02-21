@@ -9,7 +9,7 @@ export const addWeightEntryService = async (userId, { weight, date, note }) => {
   return await weightEntry.save();
 };
 
-export const getWeightEntriesService = async (userId, { sortBy, order, minWeight, maxWeight, page, limit }) => {
+export const getWeightEntriesService = async (userId, { sortBy="date", order="desc", minWeight, maxWeight, page=1, limit=5 }) => {
   const query = { userId };
 
   if (minWeight) query.weight = { ...query.weight, $gte: minWeight };
@@ -18,11 +18,10 @@ export const getWeightEntriesService = async (userId, { sortBy, order, minWeight
   const sortOptions = {};
   if (sortBy) sortOptions[sortBy] = order === "desc" ? -1 : 1;
 
-  const pageNumber = parseInt(page, 10) || 1;
-  const pageSize = parseInt(limit, 10) || 10;
+  const pageNumber = Number(page) || 1;
+  const pageSize = Number(limit) || 5;
   const skip = (pageNumber - 1) * pageSize;
-
-  // Получаем общее количество записей
+ 
   const totalEntries = await WeightEntry.countDocuments(query);
   const totalPages = Math.ceil(totalEntries / pageSize);
 
@@ -42,7 +41,7 @@ export const updateWeightEntryService = async (userId, entryId, { weight, date, 
     }
     entry.weight = weight;
   }
-  
+
   entry.date = date || entry.date;
   entry.note = note || entry.note;
 
