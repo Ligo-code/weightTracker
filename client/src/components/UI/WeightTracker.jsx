@@ -5,6 +5,7 @@ import {
   updateWeightEntry, 
   deleteWeightEntry 
 } from "../../api/weight";
+import { useNavigate } from "react-router-dom";
 import styles from "../../styles/WeightTracker.module.css";
 
 const WeightTracker = () => {
@@ -12,9 +13,13 @@ const WeightTracker = () => {
   const [note, setNote] = useState("");
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
-  const [editingId, setEditingId] = useState(null); // ID редактируемой записи
+  const [editingId, setEditingId] = useState(null); 
+
+  const navigate = useNavigate();
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
+    if (!token) return;
     const fetchData = async () => {
       try {
         const data = await getWeightEntries();
@@ -25,9 +30,10 @@ const WeightTracker = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   const fetchEntries = async () => {
+    if (!token) return;
     try {
       const data = await getWeightEntries();
       setEntries(data);
@@ -38,10 +44,9 @@ const WeightTracker = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
+    if (!token) return setError("You must be logged in to add an entry.");
   
-    try {
-      const token = localStorage.getItem("accessToken"); // Добавляем токен
+    try {      
       const date = new Date().toISOString(); // Генерируем дату
   
       if (editingId) {
@@ -64,6 +69,7 @@ const WeightTracker = () => {
   
 
   const handleDelete = async (id) => {
+    if (!token) return;
     try {
       await deleteWeightEntry(id);
       setEntries(entries.filter((entry) => entry._id !== id));
@@ -77,6 +83,19 @@ const WeightTracker = () => {
     setNote(entry.note || "");
     setEditingId(entry._id);
   };
+
+    // Если пользователь не вошел в систему
+    if (!token) {
+      return (
+        <div className={styles.container}>
+          <h2>Weight Tracker</h2>
+          <p>You need to be logged in to access this page.</p>
+          <button onClick={() => navigate("/auth")} className={styles.button}>
+            Go to Login
+          </button>
+        </div>
+      );
+    }
 
   return (
     <div className={styles.container}>
