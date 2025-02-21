@@ -29,10 +29,13 @@ export const getUserProfile = async (req, res) => {
 // Вход пользователя
 export const loginUser = async (req, res) => {
   try {
+    console.log("Login request received:", req.body);
     const userData = await loginUserService(req.body);
     res.status(200).json(userData);
   } catch (error) {
-    console.error("Error during login:", error);
+    console.error("Error during login:", error.message);
+    // Логируем, что сервер реально отправляет ошибку с message
+    console.log("Sending error response:", { message: error.message });
     res.status(400).json({ message: error.message });
   }
 };

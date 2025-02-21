@@ -3,12 +3,16 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 
 // Функция генерации токенов
-const generateAccessToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "15m" });
-const generateRefreshToken = (id) => jwt.sign({ id }, process.env.REFRESH_SECRET, { expiresIn: "30d" });
+const generateAccessToken = (id) =>
+  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "15m" });
+const generateRefreshToken = (id) =>
+  jwt.sign({ id }, process.env.REFRESH_SECRET, { expiresIn: "30d" });
 
 export const registerUserService = async ({ name, email, password }) => {
   const userExists = await User.findOne({ email });
-  if (userExists) throw new Error("User already exists");
+  if (userExists) {
+    throw new Error("User with this email already exists"); // Выбрасываем ошибку вместо использования res
+  }
 
   const user = await User.create({ name, email, password });
 
@@ -26,7 +30,13 @@ export const loginUserService = async ({ email, password }) => {
   if (!user) throw new Error("User not found");
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) throw new Error("Invalid email or password");
+
+  console.log("🔹 Login request received:", email, password);
+  console.log("🔹 Found user:", user);
+  console.log("🔹 Password comparison result:", isPasswordValid);
+  if (!isPasswordValid) {
+    throw new Error("Invalid email or password"); // Выбрасываем ошибку вместо использования res
+  }
 
   return {
     _id: user._id,
@@ -61,4 +71,3 @@ export const resetPasswordService = async (email, newPassword) => {
   await user.save();
   return { message: "Password updated successfully" };
 };
-

@@ -36,8 +36,13 @@ app.use(xss());
 // Защита от NoSQL-инъекций
 app.use(mongoSanitize());
 
-// Включаем CORS
-app.use(cors());
+// Разрешаем CORS для запросов с фронта
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true, // Разрешаем передачу cookies и токенов
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // Подключаем маршруты
