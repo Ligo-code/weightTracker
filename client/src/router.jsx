@@ -1,16 +1,15 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
-import Auth from "./pages/Auth";
-import Tracker from "./pages/Tracker";
+import WeightChart from "./pages/WeightChart";
 import Profile from "./pages/Profile";
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/tracker" element={<Tracker />} />
+      <Route path="/" element={<Home />} />      
+      <Route path="/weightchart" element={<WeightChart />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="*" element={<Home />} />
     </Routes>
   );
 };

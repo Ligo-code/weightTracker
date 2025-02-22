@@ -1,14 +1,15 @@
+import React from "react";
+import AuthForm from "../components/UI/AuthForm";
 import styles from "../styles/Home.module.css";
 
-import React from "react";
-
 const Home = () => {
-    return (
-      <div className={styles.container}>
-        <h1>Welcome to Weight Tracker</h1>
-      </div>
-    );
-  };
-  
-  export default Home;
-  
+  return (
+    <div className={styles.container}>
+      <h2>Welcome to Weight Tracker</h2>
+      <p>Log your weight and track your progress over time.</p>
+      <AuthForm />
+    </div>
+  );
+};
+
+export default Home;
