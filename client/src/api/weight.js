@@ -85,3 +85,5 @@ export const deleteWeightEntry = async (id) => {
     throw error;
   }
 };
+
+export default { getWeightEntries, addWeightEntry, updateWeightEntry, deleteWeightEntry };

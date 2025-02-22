@@ -1,7 +1,8 @@
 .container {
-    max-width: 400px;
-    margin: auto;
+    max-width: 500px;
+    margin: 0 auto;
     padding: 20px;
+    text-align: center;
     background: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -10,11 +11,68 @@
   h2, h3 {
     text-align: center;
   }
+
+  .userInfo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .logoutButton {
+    margin-top: 8px;
+    padding: 5px 10px;
+    background: #d9534f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .logoutButton:hover {
+    background: #c9302c;
+  } 
+
+  .entryContent {
+    flex-grow: 1;
+    text-align: left;
+  }
+
+  .entryContent strong {
+    display: block;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .entryContent span {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .note {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    word-wrap: break-word;
+  }
+  
   
   .input {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
+    box-sizing: border-box;
+    background: white;
+    color: #333;
+    font-size: 14px;
+    outline: none;    
     border: 1px solid #ddd;
     border-radius: 5px;
   }
@@ -45,6 +103,7 @@
     background: white;
     padding: 12px;
     margin: 5px 0;
+    margin-bottom: 10px;
     border-radius: 6px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease-in-out;
@@ -53,6 +112,36 @@
   .listItem:hover {
     transform: scale(1.02);
   }
+
+  .entryContent {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin-bottom: 8px;
+  }
+  
+  .entryContent strong {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .entryContent span {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 4px 0;
+  }
+
+  .note {
+    font-size: 14px;
+    color: gray;
+    word-wrap: break-word;
+  }
+  
+  .entryActions {
+    display: flex;
+    gap: 8px;
+  }
+  
   
   .editButton, .deleteButton {
     border: none;
@@ -79,4 +168,16 @@
   .deleteButton:hover {
     color: #b02a37;
     transform: scale(1.1);
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  
+  .pageButton {
+    padding: 5px 10px;
+    cursor: pointer;
   }

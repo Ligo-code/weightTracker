@@ -45,7 +45,11 @@ const WeightTracker = () => {
       let updatedEntries;
 
       if (editingId) {
-        const updatedEntry = await updateWeightEntry(editingId, { weight, note, date });
+        const updatedEntry = await updateWeightEntry(editingId, {
+          weight,
+          note,
+          date,
+        });
         updatedEntries = entries.map((entry) =>
           entry._id === editingId ? updatedEntry : entry
         );
@@ -91,6 +95,14 @@ const WeightTracker = () => {
     return date.toLocaleDateString();
   };
 
+  const user = JSON.parse(localStorage.getItem("user")); // Получаем данные о пользователе
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+    navigate("/auth"); // Перенаправляем на страницу входа
+  };
+
   if (!token) {
     return (
       <div className={styles.container}>
@@ -105,6 +117,13 @@ const WeightTracker = () => {
 
   return (
     <div className={styles.container}>
+    {user && (
+      <div className={styles.userInfo}>
+        <p><strong>Name:</strong> {user.name}</p>
+        <p><strong>Email:</strong> {user.email}</p>
+        <button className={styles.logoutButton} onClick={handleLogout}>Logout</button>
+      </div>
+    )}
       <h2>Weight Tracker</h2>
       {error && <p className={styles.error}>{error}</p>}
 
@@ -139,14 +158,25 @@ const WeightTracker = () => {
         <ul className={styles.list}>
           {entries.map((entry) => (
             <li key={entry._id} className={styles.listItem}>
-              <strong>{formatDate(entry.date)}</strong> - {entry.weight} kg -{" "}
-              {entry.note || "No note"}
-              <button onClick={() => handleEdit(entry)} className={styles.editButton}>
-                ✏️ Edit
-              </button>
-              <button onClick={() => handleDelete(entry._id)} className={styles.deleteButton}>
-                ❌ Delete
-              </button>
+              <div className={styles.entryContent}>
+                <strong>{formatDate(entry.date)}</strong>
+                <span>{entry.weight} kg</span>
+                <p className={styles.note}>{entry.note || "No note"}</p>
+              </div>
+              <div className={styles.entryActions}>
+                <button
+                  onClick={() => handleEdit(entry)}
+                  className={styles.editButton}
+                >
+                  ✏️ Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(entry._id)}
+                  className={styles.deleteButton}
+                >
+                  ❌ Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>
@@ -161,8 +191,7 @@ const WeightTracker = () => {
           ⬅ Previous
         </button>
         <span>
-          {" "}
-          Page {currentPage} of {totalPages}{" "}
+          Page {currentPage} of {totalPages}
         </span>
         <button
           onClick={handleNextPage}
