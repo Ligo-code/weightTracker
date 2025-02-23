@@ -39,29 +39,22 @@ const WeightTracker = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!token) return setError("You must be logged in to add an entry.");
-
+  
     try {
       const date = new Date().toISOString();
-      let updatedEntries;
-
+  
       if (editingId) {
-        const updatedEntry = await updateWeightEntry(editingId, {
-          weight,
-          note,
-          date,
-        });
-        updatedEntries = entries.map((entry) =>
-          entry._id === editingId ? updatedEntry : entry
-        );
+        await updateWeightEntry(editingId, { weight, note, date });
         setEditingId(null);
       } else {
-        const newEntry = await addWeightEntry(weight, note, date);
-        updatedEntries = [newEntry, ...entries];
+        await addWeightEntry(weight, note, date);
       }
-
-      setEntries(updatedEntries);
+  
       setWeight("");
       setNote("");
+  
+      // 🔹 После добавления записи заново загружаем данные с сервера
+      fetchEntries();
     } catch (err) {
       setError(err.message);
     }
@@ -117,13 +110,19 @@ const WeightTracker = () => {
 
   return (
     <div className={styles.container}>
-    {user && (
-      <div className={styles.userInfo}>
-        <p><strong>Name:</strong> {user.name}</p>
-        <p><strong>Email:</strong> {user.email}</p>
-        <button className={styles.logoutButton} onClick={handleLogout}>Logout</button>
-      </div>
-    )}
+      {user && (
+        <div className={styles.userInfo}>
+          <p>
+            <strong>Name:</strong> {user.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <button className={styles.logoutButton} onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      )}
       <h2>Weight Tracker</h2>
       {error && <p className={styles.error}>{error}</p>}
 
