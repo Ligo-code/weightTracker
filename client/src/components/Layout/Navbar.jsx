@@ -1,29 +1,47 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import styles from "../../styles/Navbar.module.css";
 
 const Navbar = () => {
-  const token = localStorage.getItem("accessToken"); // Проверяем, авторизован ли пользователь
+  const [token, setToken] = useState(localStorage.getItem("accessToken"));
+
+  // Обновляем токен при изменениях в localStorage
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setToken(localStorage.getItem("accessToken"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   return (
     <nav className={styles.navbar}>
       <h2 className={styles.logo}>Weight Tracker</h2>
       <ul className={styles.navLinks}>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""}>
+            Home
+          </NavLink>
         </li>
-        {token && ( // Показываем, только если пользователь авторизован
+        {token ? (
           <>
             <li>
-              <Link to="/weightchart">Weight Chart</Link>
+              <NavLink to="/weightchart" className={({ isActive }) => isActive ? styles.active : ""}>
+                Weight Chart
+              </NavLink>
             </li>
             <li>
-              <Link to="/profile">Profile</Link>
+              <NavLink to="/profile" className={({ isActive }) => isActive ? styles.active : ""}>
+                Profile
+              </NavLink>
             </li>
           </>
-        )}
-        {!token && (
+        ) : (
           <li>
-            <Link to="/">Login</Link> {/* Ведёт на Home, где есть AuthForm */}
+            <NavLink to="/" className={({ isActive }) => isActive ? styles.active : ""}>
+              Login
+            </NavLink>
           </li>
         )}
       </ul>

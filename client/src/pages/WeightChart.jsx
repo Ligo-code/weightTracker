@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import { useNavigate } from "react-router-dom";
 import { getWeightEntries } from "../api/weight";
 import { Line } from "react-chartjs-2";
@@ -13,7 +13,10 @@ const WeightChart = () => {
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      navigate("/"); // Если нет токена — редиректим на логин
+      return;
+    }
     fetchEntries();
   }, [timeRange, token]);
 
@@ -25,7 +28,11 @@ const WeightChart = () => {
         setEntries(sortedEntries);
       }
     } catch (err) {
-      setError(err.message);
+      console.error("Error fetching weight data:", err);
+      setError("Session expired. Please log in again.");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
+      navigate("/");
     }
   };
 
@@ -56,14 +63,13 @@ const WeightChart = () => {
     return (
       <div className={styles.container}>
         <h2>Weight Chart</h2>
-        <p>You need to be logged in to view this page.</p>
+        <p>Your session has expired. Please log in again.</p>
         <button onClick={() => navigate("/")} className={styles.button}>
           Go to Login
         </button>
       </div>
     );
   }
-
 
   return (
     <div className={styles.container}>

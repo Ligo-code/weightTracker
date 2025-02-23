@@ -61,7 +61,7 @@ export const refreshToken = async () => {
 
     if (!storedRefreshToken) throw new Error("No refresh token available");
 
-    console.log("Обновление токена...");
+    console.log("Refreshing access token...");
 
     const response = await fetch(`${API_URL}/refresh-token`, {
       method: "POST",
@@ -72,19 +72,22 @@ export const refreshToken = async () => {
     });
 
     const data = await response.json();
-    console.log("JSON-ответ (обновление токена):", data);
+    console.log("Token refreshed:", data);
 
     if (!response.ok) {
       throw new Error(data.message || "Failed to refresh token");
     }
 
     localStorage.setItem("accessToken", data.accessToken);
-    return data;
+    return data.accessToken;
   } catch (error) {
     console.error("[Refresh Token Error]:", error.message);
-    throw error;
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    return null;
   }
 };
+
 
 // Функция выхода из аккаунта
 export const logoutUser = () => {

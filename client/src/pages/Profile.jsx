@@ -11,8 +11,11 @@ const Profile = () => {
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
-    if (!token) return; // Если нет токена, не загружаем данные
-    const fetchUserData = async () => {    
+    const fetchUserData = async () => {
+      if (!token) {
+        navigate("/"); // Редиректим, если нет токена
+        return;
+      }
 
       try {
         const response = await fetch("http://localhost:5000/api/users/profile", {
@@ -20,35 +23,39 @@ const Profile = () => {
         });
 
         if (response.status === 401) {
+          // Попытка обновить токен
           const newToken = await refreshToken();
           if (newToken) {
             localStorage.setItem("accessToken", newToken);
             return fetchUserData();
           } else {
-            throw new Error("Session expired");
+            throw new Error("Session expired. Please log in again.");
           }
         }
 
         const data = await response.json();
         setUser(data);
       } catch (err) {
-        setError(err.message);
+        console.error("Error fetching profile:", err);
+        setError("Session expired. Please log in again.");
+        logoutUser();
+        navigate("/");
       }
     };
 
     fetchUserData();
-  }, [token]);
+  }, [navigate, token]);
 
   const handleLogout = () => {
     logoutUser();
-    navigate ("/");
+    navigate("/");
   };
 
   if (!token) {
     return (
       <div className={styles.container}>
         <h2>Profile</h2>
-        <p>You need to be logged in to view this page.</p>
+        <p>Your session has expired. Please log in again.</p>
         <button onClick={() => navigate("/")} className={styles.button}>
           Go to Login
         </button>
@@ -60,12 +67,14 @@ const Profile = () => {
     <div className={styles.container}>
       <h2>Profile</h2>
       {error && <p className={styles.error}>{error}</p>}
-      {user && (
+      {user ? (
         <div className={styles.userInfo}>
           <p><strong>Name:</strong> {user.name}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
         </div>
+      ) : (
+        <p>Loading...</p>
       )}
       <WeightTracker />
     </div>
