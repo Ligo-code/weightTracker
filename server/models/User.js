@@ -25,7 +25,30 @@ password: {
     type: String,
     required: [true, 'Please add a password'],
     minLength: [6, 'Password must be at least 6 characters'],        
-}    
+}, 
+goal: {
+  type: String,
+  enum: ['lose', 'gain'],
+  required: [true, 'Please select a goal'],
+},
+initialWeight: {
+  type: Number,
+  required: [true, 'Please add an initial weight'],
+  min: [1, 'Initial weight must be greater than 0'],
+},
+targetWeight: {
+  type: Number,
+  required: [true, 'Please add a target weight'],
+  min: [1, 'Target weight must be greater than 0'],
+},  
+currentWeight: {
+  type: Number,
+  default: 0,
+},  
+createdAt: {
+  type: Date,
+  default: Date.now,
+},
 });
 
 // Hash the password before saving

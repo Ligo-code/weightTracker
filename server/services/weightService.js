@@ -1,6 +1,7 @@
 import WeightEntry from "../models/WeightEntry.js";
 
 export const addWeightEntryService = async (userId, { weight, date, note }) => {
+  console.log("Добавляем запись:", userId, weight, date, note);
   if (!weight || isNaN(weight) || weight <= 0) {
     throw new Error("Weight must be a number greater than 0");
   }

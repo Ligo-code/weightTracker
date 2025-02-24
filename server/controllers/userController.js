@@ -1,4 +1,10 @@
-import { registerUserService, loginUserService, refreshTokenService, logoutUserService, resetPasswordService } from "../services/userService.js";
+import {
+  registerUserService,
+  loginUserService,
+  refreshTokenService,
+  logoutUserService,
+  resetPasswordService,
+} from "../services/userService.js";
 import User from "../models/User.js";
 // Регистрация пользователя
 export const registerUser = async (req, res) => {
@@ -20,7 +26,23 @@ export const getUserProfile = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    res.json(user);
+
+    console.log("User data being returned:", {
+      name: user.name,
+      email: user.email,
+      goal: user.goal,
+      initialWeight: user.initialWeight,
+      targetWeight: user.targetWeight,
+      currentWeight: user.currentWeight,
+    });
+    res.json({
+      name: user.name,
+      email: user.email,
+      goal: user.goal,
+      initialWeight: user.initialWeight,
+      targetWeight: user.targetWeight,
+      currentWeight: user.currentWeight, // <-- Убедитесь, что это поле отправляется
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
@@ -39,7 +61,6 @@ export const loginUser = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-
 
 // Обновление токена (новый эндпоинт)
 export const refreshToken = async (req, res) => {
@@ -62,7 +83,10 @@ export const logoutUser = async (req, res) => {
 
 export const resetPassword = async (req, res) => {
   try {
-    const response = await resetPasswordService(req.body.email, req.body.newPassword);
+    const response = await resetPasswordService(
+      req.body.email,
+      req.body.newPassword
+    );
     res.json(response);
   } catch (error) {
     res.status(400).json({ message: error.message });

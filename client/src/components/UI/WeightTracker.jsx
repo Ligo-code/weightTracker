@@ -8,7 +8,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/WeightTracker.module.css";
 
-const WeightTracker = () => {
+const WeightTracker = ({ fetchUserData }) => {
   const [weight, setWeight] = useState("");
   const [note, setNote] = useState("");
   const [entries, setEntries] = useState(null);
@@ -19,9 +19,13 @@ const WeightTracker = () => {
 
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    if (!token) return;
+    if (!token) {
+      setError("You must be logged in to access this page.");
+      return;
+    }
     fetchEntries();
   }, [token, currentPage]);
 
@@ -38,24 +42,28 @@ const WeightTracker = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!token) return setError("You must be logged in to add an entry.");
-  
+
+    if (!token) {
+      setError("You must be logged in to add an entry.");
+      return;
+    }
+
     try {
       const date = new Date().toISOString();
-  
+
       if (editingId) {
         await updateWeightEntry(editingId, { weight, note, date });
         setEditingId(null);
       } else {
         await addWeightEntry(weight, note, date);
       }
-  
+
       setWeight("");
       setNote("");
-  
-      // 🔹 После добавления записи заново загружаем данные с сервера
-      fetchEntries();
+      await fetchEntries();
+      await fetchUserData(); // Обновляем профиль пользователя после изменения
     } catch (err) {
+      console.error("[Handle Submit Error]:", err.message);
       setError(err.message);
     }
   };
@@ -64,6 +72,7 @@ const WeightTracker = () => {
     try {
       await deleteWeightEntry(id);
       setEntries(entries.filter((entry) => entry._id !== id));
+      await fetchUserData(); // Обновляем профиль пользователя после удаления записи
     } catch (err) {
       setError(err.message);
     }
@@ -88,12 +97,10 @@ const WeightTracker = () => {
     return date.toLocaleDateString();
   };
 
-  const user = JSON.parse(localStorage.getItem("user")); // Получаем данные о пользователе
-
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("user");
-    navigate("/auth"); // Перенаправляем на страницу входа
+    navigate("/auth");
   };
 
   if (!token) {

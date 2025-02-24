@@ -8,18 +8,21 @@ const generateAccessToken = (id) =>
 const generateRefreshToken = (id) =>
   jwt.sign({ id }, process.env.REFRESH_SECRET, { expiresIn: "30d" });
 
-export const registerUserService = async ({ name, email, password }) => {
+export const registerUserService = async ({ name, email, password, goal, targetWeight, currentWeight, initialWeight }) => {
   const userExists = await User.findOne({ email });
   if (userExists) {
     throw new Error("User with this email already exists"); // Выбрасываем ошибку вместо использования res
   }
 
-  const user = await User.create({ name, email, password });
+  const user = await User.create({ name, email, password, goal, targetWeight, currentWeight, initialWeight });
 
   return {
     _id: user._id,
     name: user.name,
     email: user.email,
+    goal: user.goal,
+    initialWeight: user.currentWeight,
+    targetWeight: user.targetWeight,    
     accessToken: generateAccessToken(user._id),
     refreshToken: generateRefreshToken(user._id),
   };
@@ -31,9 +34,9 @@ export const loginUserService = async ({ email, password }) => {
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
-  console.log("🔹 Login request received:", email, password);
-  console.log("🔹 Found user:", user);
-  console.log("🔹 Password comparison result:", isPasswordValid);
+  console.log("Login request received:", email, password);
+  console.log("Found user:", user);
+  console.log("Password comparison result:", isPasswordValid);
   if (!isPasswordValid) {
     throw new Error("Invalid email or password"); // Выбрасываем ошибку вместо использования res
   }

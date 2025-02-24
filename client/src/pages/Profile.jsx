@@ -8,54 +8,85 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const token = localStorage.getItem("accessToken");
+
+  const fetchUserData = async () => {
+    const token = localStorage.getItem("accessToken");
+
+    if (!token) {
+      handleSessionExpired();
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/users/profile",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 401) {
+        const newToken = await refreshToken();
+        if (newToken) {
+          localStorage.setItem("accessToken", newToken);
+          return fetchUserData();
+        } else {
+          throw new Error("Session expired. Please log in again.");
+        }
+      }
+
+      const data = await response.json();
+
+      console.log("Fetched user data:", data);
+      setUser(data);
+    } catch (err) {
+      console.error("Error fetching profile:", err);
+      handleSessionExpired();
+    }
+  };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (!token) {
-        navigate("/"); // Редиректим, если нет токена
-        return;
-      }
-
-      try {
-        const response = await fetch("http://localhost:5000/api/users/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (response.status === 401) {
-          // Попытка обновить токен
-          const newToken = await refreshToken();
-          if (newToken) {
-            localStorage.setItem("accessToken", newToken);
-            return fetchUserData();
-          } else {
-            throw new Error("Session expired. Please log in again.");
-          }
-        }
-
-        const data = await response.json();
-        setUser(data);
-      } catch (err) {
-        console.error("Error fetching profile:", err);
-        setError("Session expired. Please log in again.");
-        logoutUser();
-        navigate("/");
-      }
-    };
-
     fetchUserData();
-  }, [navigate, token]);
+  }, []);
+
+  const handleSessionExpired = () => {
+    setError("Your session has expired. Please log in again.");
+    logoutUser();
+    navigate("/");
+  };
 
   const handleLogout = () => {
     logoutUser();
     navigate("/");
   };
 
-  if (!token) {
+  const currentWeight = user?.currentWeight || user?.initialWeight;
+  const targetWeight = user?.targetWeight || 0;
+  const initialWeight = user?.initialWeight || currentWeight;
+
+  let progressPercentage = 0;
+
+  if (user?.goal === "lose") {
+    if (initialWeight > targetWeight) {
+      progressPercentage = ((initialWeight - currentWeight) / (initialWeight - targetWeight)) * 100;
+    }
+  } else if (user?.goal === "gain") {
+    if (initialWeight < targetWeight) {
+      progressPercentage = ((currentWeight - initialWeight) / (targetWeight - initialWeight)) * 100;
+    }
+  }
+  
+  progressPercentage = Math.max(0, Math.min(progressPercentage, 100)).toFixed(1);
+
+  if (!user) {
     return (
       <div className={styles.container}>
         <h2>Profile</h2>
-        <p>Your session has expired. Please log in again.</p>
+        {error ? (
+          <p className={styles.error}>{error}</p>
+        ) : (
+          <p>Loading user data...</p>
+        )}
         <button onClick={() => navigate("/")} className={styles.button}>
           Go to Login
         </button>
@@ -67,16 +98,35 @@ const Profile = () => {
     <div className={styles.container}>
       <h2>Profile</h2>
       {error && <p className={styles.error}>{error}</p>}
-      {user ? (
+      {user && (
         <div className={styles.userInfo}>
-          <p><strong>Name:</strong> {user.name}</p>
-          <p><strong>Email:</strong> {user.email}</p>
-          <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
+          <p>
+            <strong>Name:</strong> {user.name}
+          </p>
+          <p>
+            <strong>Email:</strong> {user.email}
+          </p>
+          <p>
+            <strong>Goal:</strong> {user.goal === "lose" ? "Lose Weight" : "Gain Weight"}
+          </p>
+          <p>
+            <strong>Initial Weight:</strong> {user.initialWeight} kg
+          </p>
+          <p>
+            <strong>Current Weight:</strong> {user.currentWeight} kg
+          </p>
+          <p>
+            <strong>Target Weight:</strong> {user.targetWeight} kg
+          </p>
+          <p>
+            <strong>Progress:</strong> {progressPercentage}% of target
+          </p>
+          <button onClick={handleLogout} className={styles.logoutButton}>
+            Logout
+          </button>
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
-      <WeightTracker />
+      <WeightTracker fetchUserData={fetchUserData} />
     </div>
   );
 };
