@@ -109,9 +109,6 @@ const WeightChart = () => {
           <p>
             <strong>Email:</strong> {user.email}
           </p>
-          <button onClick={handleLogout} className={styles.logoutButton}>
-            Logout
-          </button>
         </div>
       )}
 

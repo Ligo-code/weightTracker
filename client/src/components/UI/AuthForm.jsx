@@ -27,7 +27,15 @@ const AuthForm = () => {
     setError(null);
     setLoading(true);
 
-    const { email, password, name, goal, targetWeight, currentWeight, initialWeight } = formData;
+    const {
+      email,
+      password,
+      name,
+      goal,
+      targetWeight,
+      currentWeight,
+      initialWeight,
+    } = formData;
 
     if (!email || !password) {
       setError("Please enter email and password.");
@@ -41,7 +49,11 @@ const AuthForm = () => {
       return;
     }
 
-    if (!email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+    if (
+      !email.match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
+    ) {
       setError("Please enter a valid email.");
       setLoading(false);
       return;
@@ -54,8 +66,11 @@ const AuthForm = () => {
     }
 
     try {
-      console.log("Отправляю запрос на сервер:", isLogin ? { email, password } : formData);
-      
+      console.log(
+        "Отправляю запрос на сервер:",
+        isLogin ? { email, password } : formData
+      );
+
       const data = isLogin
         ? await loginUser({ email, password })
         : await registerUser(formData);
@@ -97,12 +112,11 @@ const AuthForm = () => {
     }
   };
 
-
   return (
     <div className={styles.authContainer}>
       <h2>{isLogin ? "Login" : "Register"}</h2>
       {error && <p className={styles.error}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         {!isLogin && (
           <>
             <input
@@ -113,12 +127,32 @@ const AuthForm = () => {
               onChange={handleChange}
               required
             />
-            <label>Goal:</label>
-            <select name="goal" value={formData.goal} onChange={handleChange} required>
-              <option value="">Select a goal</option>
-              <option value="lose">Lose Weight</option>
-              <option value="gain">Gain Weight</option>
-            </select>
+
+            <div className={styles.goalContainer}>
+              <label htmlFor="goal">Goal:</label>
+              <select
+                id="goal"
+                name="goal"
+                value={formData.goal}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select a goal</option>
+                <option value="lose">Lose Weight</option>
+                <option value="gain">Gain Weight</option>
+              </select>
+            </div>
+
+            <input
+              type="number"
+              name="initialWeight"
+              placeholder="Initial Weight (kg)"
+              value={formData.initialWeight}
+              onChange={handleChange}
+              min="1"
+              required
+            />
+
             <input
               type="number"
               name="targetWeight"
@@ -128,15 +162,6 @@ const AuthForm = () => {
               min="1"
               required
             />
-                        <input
-              type="number"
-              name="initialWeight"
-              placeholder="Initial Weight (kg)"
-              value={formData.initialWeight}
-              onChange={handleChange}
-              min="1"
-              required
-            />            
           </>
         )}
         <input
@@ -159,7 +184,11 @@ const AuthForm = () => {
           {loading ? "Processing..." : isLogin ? "Login" : "Register"}
         </button>
       </form>
-      <button className={styles.switchBtn} onClick={() => setIsLogin(!isLogin)} disabled={loading}>
+      <button
+        className={styles.switchBtn}
+        onClick={() => setIsLogin(!isLogin)}
+        disabled={loading}
+      >
         {isLogin ? "Create an account" : "Already have an account?"}
       </button>
     </div>

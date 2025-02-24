@@ -46,7 +46,11 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    fetchUserData();
+    if (!localStorage.getItem("accessToken")) {
+      navigate("/"); // Если нет токена, перенаправляем на Home
+    } else {
+      fetchUserData();
+    }    
   }, []);
 
   const handleSessionExpired = () => {
@@ -121,9 +125,6 @@ const Profile = () => {
           <p>
             <strong>Progress:</strong> {progressPercentage}% of target
           </p>
-          <button onClick={handleLogout} className={styles.logoutButton}>
-            Logout
-          </button>
         </div>
       )}
       <WeightTracker fetchUserData={fetchUserData} />
