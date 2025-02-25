@@ -51,7 +51,7 @@ const WeightChart = () => {
       const data = await getWeightEntries();
       if (data.entries) {
         const sortedEntries = data.entries.sort(
-          (a, b) => new Date(a.date) - new Date(b.date)
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
         );
         setEntries(sortedEntries);
       }
@@ -74,7 +74,7 @@ const WeightChart = () => {
   const filterEntriesByRange = () => {
     const now = new Date();
     return entries.filter((entry) => {
-      const entryDate = new Date(entry.date);
+      const entryDate = new Date(entry.createdAt).getTime();
       if (timeRange === "week") return now - entryDate <= 7 * 24 * 60 * 60 * 1000;
       if (timeRange === "month") return now - entryDate <= 30 * 24 * 60 * 60 * 1000;
       return true;
@@ -83,7 +83,7 @@ const WeightChart = () => {
 
   const chartData = {
     labels: filterEntriesByRange().map((entry) =>
-      new Date(entry.date).toLocaleDateString()
+      new Date(entry.createdAt).toLocaleDateString()
     ),
     datasets: [
       {

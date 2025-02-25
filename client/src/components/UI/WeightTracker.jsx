@@ -52,6 +52,7 @@ const WeightTracker = ({ fetchUserData }) => {
       const date = new Date().toISOString();
 
       if (editingId) {
+        console.log("Updating entry ID:", editingId); // Проверка ID
         await updateWeightEntry(editingId, { weight, note, date });
         setEditingId(null);
       } else {
@@ -79,6 +80,7 @@ const WeightTracker = ({ fetchUserData }) => {
   };
 
   const handleEdit = (entry) => {
+    console.log("Editing entry ID:", entry._id);
     setWeight(entry.weight);
     setNote(entry.note || "");
     setEditingId(entry._id);

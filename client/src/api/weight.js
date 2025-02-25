@@ -48,6 +48,7 @@ export const addWeightEntry = async (weight, note, date) => {
 // Обновить запись веса
 export const updateWeightEntry = async (id, data) => {
   try {
+    console.log("Updating entry with ID:", id); // Проверка ID
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: {

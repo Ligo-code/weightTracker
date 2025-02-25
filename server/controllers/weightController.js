@@ -4,7 +4,9 @@ import {
   getWeightEntriesService,
   updateWeightEntryService,
   deleteWeightEntryService,
+  getLatestWeightEntry
 } from "../services/weightService.js";
+
 
 
 export const addWeightEntry = async (req, res) => {
@@ -20,11 +22,13 @@ export const addWeightEntry = async (req, res) => {
     const user = await User.findById(req.user.id);
     if (!user) throw new Error("User not found");
 
-    // Обновляем текущий вес пользователя
-    user.currentWeight = weight;
+    // ✅ Создаём новую запись веса
+    const newEntry = await addWeightEntryService(req.user.id, { weight, note, date });
+
+    // ✅ Теперь `currentWeight` обновляется на **самую последнюю** запись
+    user.currentWeight = newEntry.weight;
     await user.save();
 
-    const newEntry = await addWeightEntryService(req.user.id, { weight, note, date });
     console.log("Новая запись сохранена:", newEntry);
     res.status(201).json(newEntry);
   } catch (error) {
@@ -32,6 +36,7 @@ export const addWeightEntry = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 export const getWeightEntries = async (req, res) => {
   try {
@@ -60,16 +65,15 @@ export const updateWeightEntry = async (req, res) => {
     const user = await User.findById(req.user.id);
     if (!user) throw new Error("User not found");
 
-    // Обновляем текущий вес пользователя
-    user.currentWeight = weight;
-    await user.save();
+    const updatedEntry = await updateWeightEntryService(req.user.id, req.params.id, { weight, note, date });
 
-    const updatedEntry = await updateWeightEntryService(req.user.id, req.params.id, req.body);
+    // ✅ НЕ обновляем `currentWeight`, просто перезапрашиваем его на фронте
     res.json(updatedEntry);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
+
 export const deleteWeightEntry = async (req, res) => {
   try {
     const response = await deleteWeightEntryService(req.user.id, req.params.id);
