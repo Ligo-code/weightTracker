@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "../../styles/Navbar.module.css";
-import { FaMoon, FaSun } from "react-icons/fa";
+import {  FaMoon, FaSun, FaHome, FaChartLine, FaUser, FaSignOutAlt } from "react-icons/fa";
 
 const Navbar = () => {
   const token = localStorage.getItem("accessToken");
@@ -36,20 +36,21 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <h2 className={styles.logo}>Weight Tracker</h2>
+      
       <ul className={styles.navLinks}>
         <li>
           <NavLink to="/" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            Home
+            <FaHome title="Home" /> {/* Иконка для Home */}
           </NavLink>
         </li>
         <li>
           <NavLink to="/weightchart" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            Weight Chart
+            <FaChartLine title="Weight Chart" /> {/* Иконка для Weight Chart */}
           </NavLink>
         </li>
         <li>
           <NavLink to="/profile" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            Profile
+            <FaUser title="Profile" /> {/* Иконка для Profile */}
           </NavLink>
         </li>
         <li>
@@ -58,7 +59,7 @@ const Navbar = () => {
             onClick={() => setIsDarkMode(!isDarkMode)} 
             className={({ isActive }) => (isActive ? styles.active : styles.link)}
           >
-            {isDarkMode ? <FaSun /> : <FaMoon />} {isDarkMode ? "Light Mode" : "Dark Mode"}
+            {isDarkMode ? <FaSun title="Light Mode" /> : <FaMoon title="Dark Mode" />} {/* Иконка для темы */}
           </NavLink>
         </li>
         {token && (
@@ -68,7 +69,7 @@ const Navbar = () => {
               onClick={handleLogout} 
               className={({ isActive }) => (isActive ? styles.active : styles.link)}
             >
-              Logout
+              <FaSignOutAlt title="Logout" /> {/* Иконка для Logout */}
             </NavLink>
           </li>
         )}
