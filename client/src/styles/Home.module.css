@@ -1,7 +1,10 @@
 .container {
-    text-align: center;
-    color: #333;
-    font-family: Arial, sans-serif;
-    margin-top: 50px;
-  }
-  
+  text-align: center;
+  color: #2c3e36; /* Темно-зеленый */
+  font-family: Arial, sans-serif;
+  margin-top: 50px;
+}
+
+.dark-mode .container {
+  color: #e0f2e9; /* Светло-зеленый */
+}

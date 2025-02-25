@@ -1,83 +1,129 @@
-/* Общие стили для всех страниц */
+/* global.css */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background: linear-gradient(135deg, #e0f2e9, #c8e6c9); /* Градиент светлый */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Общий контейнер */
+body.dark-mode {
+  background: linear-gradient(135deg, #1a2a1f, #2a3b2f); /* Градиент темный */
+  color: #e0f2e9; /* Светло-зеленый */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
 .container {
-  max-width: 400px;
-  margin: auto;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Заголовки */
-h2, h3 {
+h1, h2, h3 {
+  color: #2c3e36; /* Темно-зеленый */
   text-align: center;
-  color: #333;
 }
 
-/* Поля ввода */
-.input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  transition: border 0.3s ease;
+.dark-mode h1, .dark-mode h2, .dark-mode h3 {
+  color: #e0f2e9; /* Светло-зеленый */
 }
 
-.input:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-/* Кнопки */
 .button {
-  width: 100%;
-  padding: 12px;
-  background: #007bff;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.3s ease;
-  font-size: 16px;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .button:hover {
-  background: #0056b3;
+  background: linear-gradient(135deg, #6b9f88, #4a6b5a);
+  transform: translateY(-2px);
 }
 
-/* Ошибки */
+.button:active {
+  transform: translateY(0);
+}
+
+.dark-mode .button {
+  background: linear-gradient(135deg, #2a3b2f, #4a6b5a);
+}
+
+.dark-mode .button:hover {
+  background: linear-gradient(135deg, #4a6b5a, #2a3b2f);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 2px solid #c8e6c9; /* Светло-зеленый */
+  border-radius: 6px;
+  transition: border 0.3s ease;
+  background: #ffffff;
+  color: #2c3e36;
+}
+
+.dark-mode .input {
+  background: #2a3b2f; /* Темный мох */
+  border-color: #4a6b5a; /* Средний зеленый */
+  color: #e0f2e9;
+}
+
+.input:focus {
+  border-color: #4a6b5a; /* Средний зеленый */
+  outline: none;
+}
+
 .error {
-  color: red;
+  color: #ff4d4d; /* Красный */
   font-size: 14px;
   text-align: center;
 }
 
-/* Ссылки */
+.dark-mode .error {
+  color: #ff4d4d;
+}
+
 a {
   text-decoration: none;
-  color: #007bff;
+  color: #4a6b5a; /* Средний зеленый */
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #6b9f88; /* Светло-зеленый */
 }
 
-/* Стили для мобильных устройств */
-@media (max-width: 600px) {
+.dark-mode a {
+  color: #e0f2e9; /* Светло-зеленый */
+}
+
+.dark-mode a:hover {
+  color: #4a6b5a; /* Средний зеленый */
+}
+
+@media (max-width: 768px) {
   .container {
-    max-width: 100%;
     padding: 10px;
   }
-}
 
+  h1, h2, h3 {
+    font-size: 1.5rem;
+  }
+}

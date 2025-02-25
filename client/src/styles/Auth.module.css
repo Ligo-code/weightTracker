@@ -1,35 +1,54 @@
+/* Auth.module.css */
 .authContainer {
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  background: #fff;
+  background: #f0faf7; /* Светлый мятный */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   border-radius: 10px;
   animation: fadeIn 0.3s ease-in-out;
 }
 
+.dark-mode .authContainer {
+  background: #1a2a1f; /* Темный мох */
+}
+
 .authContainer h2 {
   margin-bottom: 15px;
+  color: #2c3e36; /* Темно-зеленый */
+}
+
+.dark-mode .authContainer h2 {
+  color: #e0f2e9; /* Светло-зеленый */
 }
 
 .authContainer input {
-  width: 100%;
+  width: calc(100% - 24px); /* Учитываем padding */
+  max-width: 320px; /* Ограничиваем максимальную ширину */
   padding: 12px;
   margin-bottom: 10px;
-  border: 2px solid #ddd;
+  border: 2px solid #c8e6c9; /* Светло-зеленый */
   border-radius: 6px;
   transition: border 0.3s ease;
+  background: #ffffff;
+  color: #2c3e36;
+}
+
+.dark-mode .authContainer input {
+  background: #2a3b2f; /* Темный мох */
+  border-color: #4a6b5a; /* Средний зеленый */
+  color: #e0f2e9;
 }
 
 .authContainer input:focus {
-    border-color: #007bff;
-  }
+  border-color: #4a6b5a; /* Средний зеленый */
+}
 
 .authContainer button {
   width: 100%;
   padding: 12px;
-  background-color: #007bff;
+  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
   color: white;
   border: none;
   cursor: pointer;
@@ -39,25 +58,19 @@
 }
 
 .authContainer button:hover {
-  background-color: #0056b3;
-}
-
-.authContainer input {
-  width: 100%;  /* Делаем инпуты на всю ширину контейнера */
-  max-width: 320px; /* Ограничиваем максимальную ширину */
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box; /* Учитываем padding в ширине */
+  background: linear-gradient(135deg, #6b9f88, #4a6b5a);
 }
 
 .switchBtn {
   margin-top: 15px;
   background: none;
   border: none;
-  color: #007bff;
+  color: #4a6b5a; /* Средний зеленый */
   cursor: pointer;
+}
+
+.dark-mode .switchBtn {
+  color: #6b9f88; /* Светло-зеленый */
 }
 
 .switchBtn:hover {
@@ -65,28 +78,28 @@
 }
 
 .error {
-  color: red;
+  color: #ff4d4d; /* Красный */
   font-size: 14px;
   margin-bottom: 10px;
 }
 
 .error-message {
-    color: red;
-    background: #ffe6e6;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 10px;
+  color: #ff4d4d;
+  background: #ffe6e6;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

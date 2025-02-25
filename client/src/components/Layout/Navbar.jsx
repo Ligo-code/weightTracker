@@ -1,10 +1,23 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "../../styles/Navbar.module.css";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const Navbar = () => {
   const token = localStorage.getItem("accessToken");
   const navigate = useNavigate();
+  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("theme") === "dark");
+
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDarkMode]);
+
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -39,12 +52,21 @@ const Navbar = () => {
             Profile
           </NavLink>
         </li>
+        <li>
+          <NavLink 
+            to="#" 
+            onClick={() => setIsDarkMode(!isDarkMode)} 
+            className={({ isActive }) => (isActive ? styles.active : styles.link)}
+          >
+            {isDarkMode ? <FaSun /> : <FaMoon />} {isDarkMode ? "Light Mode" : "Dark Mode"}
+          </NavLink>
+        </li>
         {token && (
           <li>
-            <NavLink
-              to="/"
+            <NavLink 
+              to="/" 
+              onClick={handleLogout} 
               className={({ isActive }) => (isActive ? styles.active : styles.link)}
-              onClick={handleLogout}
             >
               Logout
             </NavLink>
@@ -53,6 +75,6 @@ const Navbar = () => {
       </ul>
     </nav>
   );
-};   
+};
 
 export default Navbar;

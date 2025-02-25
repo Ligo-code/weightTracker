@@ -1,54 +1,74 @@
+/* Navbar.module.css */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-    background-color: #333;
-    padding: 15px 20px;
-    color: white;
-    border-radius: 8px;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
+  padding: 15px 20px;
+  color: white;
+  border-radius: 8px;
+}
 
-  .navbar a {
-    color: white;
-    font-size: 1.1rem;
-    padding: 10px 15px;
-    border-radius: 6px;
-    transition: background 0.3s ease;
-  }
-  
-  .navbar a:hover {
-    background: rgba(255, 255, 255, 0.2);
-  }
-  
-  .navbar a.active {
-    background: #007bff;
-  }
-  
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .navLinks {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .navLinks li {
-    display: inline;
-  }
-  
-  .navLinks a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .navLinks a:hover {
-    color: #f39c12;
-  }
+.dark-mode .navbar {
+  background: linear-gradient(135deg, #1a2a1f, #2a3b2f); /* Градиент темный */
+}
 
- 
+.navbar a {
+  color: white;
+  font-size: 1.1rem;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.navbar a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.navbar a.active {
+  background: #6b9f88; /* Светло-зеленый */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks li {
+  display: inline;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover {
+  color: #c8e6c9; /* Светло-зеленый */
+}
+
+.logoutLink.active {
+  background: none !important;
+}
+
+.themeButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.dark-mode .themeButton:hover {
+  background: linear-gradient(135deg, #2a3b2f, #4a6b5a);
+}

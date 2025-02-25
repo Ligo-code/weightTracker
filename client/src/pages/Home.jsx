@@ -5,8 +5,8 @@ import styles from "../styles/Home.module.css";
 const Home = () => {
   return (
     <div className={styles.container}>
-      <h2>Welcome to Weight Tracker</h2>
-      <p>Log your weight and track your progress over time.</p>
+      <h1>Welcome to Weight Tracker</h1>
+      <h3>Log your weight and track your progress over time.</h3>
       <AuthForm />
     </div>
   );

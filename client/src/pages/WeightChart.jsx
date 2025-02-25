@@ -89,8 +89,8 @@ const WeightChart = () => {
       {
         label: "Weight (kg)",
         data: filterEntriesByRange().map((entry) => entry.weight),
-        borderColor: "blue",
-        backgroundColor: "rgba(0, 0, 255, 0.1)",
+        borderColor: "#2c3e36",
+        backgroundColor: "rgba(44, 62, 54, 0.1)",
         tension: 0.3,
       },
     ],
