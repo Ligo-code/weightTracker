@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(135deg, #e0f2e9, #c8e6c9); /* Градиент светлый */
+  background: linear-gradient(135deg,  #daf7ea, #6b9f88 ); /* Градиент светлый */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@ body {
 }
 
 body.dark-mode {
-  background: linear-gradient(135deg, #1a2a1f, #2a3b2f); /* Градиент темный */
+  background: linear-gradient(135deg, #1a2a1f, #294130); /* Градиент темный */
   color: #e0f2e9; /* Светло-зеленый */
 }
 
@@ -33,17 +33,17 @@ body.dark-mode {
 }
 
 h1, h2, h3 {
-  color: #2c3e36; /* Темно-зеленый */
+  color: #2e3b34; /* Темно-зеленый */
   text-align: center;
 }
 
 .dark-mode h1, .dark-mode h2, .dark-mode h3 {
-  color: #e0f2e9; /* Светло-зеленый */
+  color: #a8b1ae; /* Светло-зеленый */
 }
 
 .button {
   padding: 10px 20px;
-  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
+  background: linear-gradient(135deg, #4a6b5a, #86b9a1); /* Градиент зеленый */
   color: white;
   border: none;
   border-radius: 6px;

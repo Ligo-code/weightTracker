@@ -132,7 +132,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #c6f4de;
+  background: #c8f4e0;
   padding: 12px;
   margin: 5px 0;
   margin-bottom: 10px;
@@ -212,7 +212,7 @@
 
 /* ✅ Новый стиль для Current Weight */
 .currentWeightItem {
-  background-color: #b8e5ce;
+  background-color: #a7d6c1;
   border: 2px solid #377556;
   padding: 12px;
   border-radius: 6px;

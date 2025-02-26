@@ -11,7 +11,7 @@ const Home = () => {
       {!authMode ? (
         <>
           <h1>Welcome to Weight Tracker!</h1>
-          <h3>Log your weight and track your progress over time!</h3>
+          <h2>Log your weight and track your progress over time!</h2>
 
           <div className={styles.buttonContainer}>
             <button onClick={() => setAuthMode("login")} className={styles.primaryButton}>
@@ -24,7 +24,7 @@ const Home = () => {
         </>
       ) : (
         <div className={`${styles.authContainer} ${styles.fadeIn}`}>
-          <h2>{authMode === "login" ? "Login" : "Create an Account"}</h2>
+          <h2>{authMode === "login" ? "" : ""}</h2>
           <AuthForm authMode={authMode} />  {/* 🔹 Передаем authMode в AuthForm */}
           <button onClick={() => setAuthMode(null)} className={styles.backButton}>
             <FaArrowLeft /> Back
