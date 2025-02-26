@@ -132,7 +132,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
+  background: #c6f4de;
   padding: 12px;
   margin: 5px 0;
   margin-bottom: 10px;
@@ -163,22 +163,22 @@
 }
 
 .editButton {
-  color: #ffc107; /* Желтый */
+  color: #589175; /* Желтый */
   transition: color 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .editButton:hover {
-  color: #d39e00; /* Темный желтый */
+  color: #377556; /* Темный желтый */
   transform: scale(1.1);
 }
 
 .deleteButton {
-  color: #dc3545; /* Красный */
+  color: #f88a9a; /* Красный */
   transition: color 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .deleteButton:hover {
-  color: #b02a37; /* Темный красный */
+  color: #f85770; /* Темный красный */
   transform: scale(1.1);
 }
 

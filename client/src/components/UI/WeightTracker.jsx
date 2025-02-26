@@ -29,16 +29,18 @@ const WeightTracker = ({ fetchUserData }) => {
     }
     fetchEntries();
   }, [token, currentPage]);
-
   const fetchEntries = async () => {
     try {
       const data = await getWeightEntries(currentPage, 5);
       console.log("Entries received:", data);
-
-      setCurrentWeight(data.entries[0] || null); // ✅ Current Weight теперь всегда на каждой странице
+  
+      if (!editingId) {
+        setCurrentWeight(data.entries[0] || null);
+      }
+  
       setEntries(data.entries.slice(1) || []);
-
-      setTotalPages(data.totalPages || 1);
+  
+      setTotalPages(data.totalPages || Math.ceil(data.entries.length / 5));
     } catch (err) {
       setError(err.message);
     }
@@ -61,24 +63,39 @@ const WeightTracker = ({ fetchUserData }) => {
   
         setEntries((prevEntries) =>
           prevEntries.map((entry) =>
-            entry._id === editingId ? { ...entry, weight, note } : entry
+            entry._id === editingId ? { ...entry, weight: updatedEntry.weight, note: updatedEntry.note } : entry
           )
         );
+  
+        if (currentWeight && currentWeight._id === editingId) {
+          setCurrentWeight(updatedEntry);
+        }
   
         setEditingId(null);
       } else {
         const newEntry = await addWeightEntry(weight, note, date);
-  
-        // 🔹 Сохраняем предыдущее значение currentWeight
         const previousCurrentWeight = currentWeight;
   
-        // 🔹 Обновляем currentWeight в карточке
         setCurrentWeight(newEntry);
   
-        // 🔹 В список добавляем previousCurrentWeight, если он есть
-        setEntries((prevEntries) => 
-          previousCurrentWeight ? [previousCurrentWeight, newEntry, ...prevEntries] : [newEntry, ...prevEntries]
-        );
+        setEntries((prevEntries) => {
+          // Убираем currentWeight из списка, если он там уже есть
+          let filteredEntries = prevEntries.filter(entry => entry._id !== previousCurrentWeight?._id);
+        
+          let updatedEntries = previousCurrentWeight
+            ? [previousCurrentWeight, ...filteredEntries]
+            : filteredEntries;
+        
+          if (updatedEntries.length > 4) {
+            updatedEntries = updatedEntries.slice(0, 4);
+          }
+        
+          return updatedEntries;
+        });
+
+        setTotalPages((prevTotalPages) => {
+          return Math.ceil((entries.length + (previousCurrentWeight ? 2 : 1)) / 5);
+        });
       }
   
       setWeight("");
@@ -89,8 +106,6 @@ const WeightTracker = ({ fetchUserData }) => {
       setError(err.message);
     }
   };
-  
-  
   
 
   const handleDelete = async (id) => {

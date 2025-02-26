@@ -51,12 +51,12 @@ h3 {
 }
 
 .secondaryButton {
-  background: #2196f3;
+  background: #4caf50;
   color: white;
 }
 
 .secondaryButton:hover {
-  background: #1565c0;
+  background: #388e3c;
 }
 
 .authContainer {
@@ -89,7 +89,7 @@ h3 {
 .backButton {
   margin-top: 15px;
   padding: 8px 15px;
-  background: #ff5722;
+  background: #f88a9a;
   color: white;
   border: none;
   font-size: 1rem;
@@ -102,5 +102,5 @@ h3 {
 }
 
 .backButton:hover {
-  background: #e64a19;
+  background: #f85770;
 }

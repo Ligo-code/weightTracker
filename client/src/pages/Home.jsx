@@ -25,7 +25,7 @@ const Home = () => {
       ) : (
         <div className={`${styles.authContainer} ${styles.fadeIn}`}>
           <h2>{authMode === "login" ? "Login" : "Create an Account"}</h2>
-          <AuthForm mode={authMode} />
+          <AuthForm authMode={authMode} />  {/* 🔹 Передаем authMode в AuthForm */}
           <button onClick={() => setAuthMode(null)} className={styles.backButton}>
             <FaArrowLeft /> Back
           </button>
