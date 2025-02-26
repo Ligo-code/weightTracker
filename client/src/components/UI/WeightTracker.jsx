@@ -42,7 +42,9 @@ const WeightTracker = ({ fetchUserData }) => {
     } catch (err) {
       setError(err.message);
     }
-  };const handleSubmit = async (e) => {
+  };
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
   
     if (!token) {
@@ -67,12 +69,15 @@ const WeightTracker = ({ fetchUserData }) => {
       } else {
         const newEntry = await addWeightEntry(weight, note, date);
   
-        // Обновляем currentWeight в карточке
+        // 🔹 Сохраняем предыдущее значение currentWeight
+        const previousCurrentWeight = currentWeight;
+  
+        // 🔹 Обновляем currentWeight в карточке
         setCurrentWeight(newEntry);
   
-        // Добавляем currentWeight в начало списка ТОЛЬКО на первой странице
+        // 🔹 В список добавляем previousCurrentWeight, если он есть
         setEntries((prevEntries) => 
-          currentPage === 1 ? [newEntry, ...prevEntries] : prevEntries
+          previousCurrentWeight ? [previousCurrentWeight, newEntry, ...prevEntries] : [newEntry, ...prevEntries]
         );
       }
   
@@ -84,6 +89,7 @@ const WeightTracker = ({ fetchUserData }) => {
       setError(err.message);
     }
   };
+  
   
   
 
