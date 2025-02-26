@@ -63,7 +63,8 @@ export const updateWeightEntry = async (id, data) => {
       throw new Error(errorData.message || "Failed to update weight entry");
     }
 
-    return await response.json();
+    const updatedEntry = await response.json();
+    return updatedEntry; // Возвращаем обновленную запись
   } catch (error) {
     console.error("[Update Weight Entry Error]:", error.message);
     throw error;

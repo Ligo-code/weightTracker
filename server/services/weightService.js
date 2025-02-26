@@ -11,30 +11,38 @@ export const addWeightEntryService = async (userId, { weight, date, note }) => {
   return await weightEntry.save();
 };
 
-export const getWeightEntriesService = async (userId, { sortBy="createdAt", order="desc", page=1, limit=5, latest = false }) => {
+export const getWeightEntriesService = async (userId, { sortBy = "createdAt", order = "desc", page = 1, limit = 5 }) => {
   const query = { userId };
-  const sortOptions = { [sortBy]: order === "desc" ? -1 : 1 };
 
-  if (latest) {
-    // Теперь currentWeight определяется по последней записи по времени добавления
-    const latestEntry = await WeightEntry.findOne(query).sort({ createdAt: -1 });
-    return latestEntry ? latestEntry.weight : null;
-  }
+  const sortOptions = {};
+  sortOptions[sortBy] = order === "desc" ? -1 : 1; // ✅ Сортируем по `createdAt`
 
   const pageNumber = Number(page) || 1;
   const pageSize = Number(limit) || 5;
   const skip = (pageNumber - 1) * pageSize;
+
   const totalEntries = await WeightEntry.countDocuments(query);
   const totalPages = Math.ceil(totalEntries / pageSize);
 
-  const entries = await WeightEntry.find(query).sort(sortOptions).skip(skip).limit(pageSize);
-  
+  let entries = await WeightEntry.find(query).sort(sortOptions).skip(skip).limit(pageSize);
+
+  // ✅ Получаем `currentWeight` (самая последняя добавленная запись)
+  const latestEntry = await WeightEntry.findOne({ userId }).sort({ createdAt: -1 });
+
+  // ✅ currentWeight всегда в начале списка
+  if (latestEntry) {
+    entries = entries.filter((entry) => entry._id.toString() !== latestEntry._id.toString());
+    entries.unshift(latestEntry);
+  }
+
   return { entries, totalPages };
 };
 
 
+
 export const updateWeightEntryService = async (userId, entryId, { weight, date, note }) => {
-  console.log("Updating entry with ID:", entryId); // Проверка ID
+  console.log("Updating entry with ID:", entryId);
+  
   const entry = await WeightEntry.findById(entryId);
   if (!entry) throw new Error("Entry not found");
   if (entry.userId.toString() !== userId) throw new Error("Not authorized");
@@ -49,11 +57,16 @@ export const updateWeightEntryService = async (userId, entryId, { weight, date, 
   entry.date = date || entry.date;
   entry.note = note || entry.note;
 
-  // ✅ Добавляем поле updatedAt для предотвращения сортировки по дате обновления
-  entry.updatedAt = new Date();
+  // ✅ Обновляем запись, но **не изменяем createdAt**
+  const savedEntry = await entry.save();
 
-  return await entry.save();
+  // ✅ Получаем самую последнюю запись (по createdAt)
+  const latestEntry = await WeightEntry.findOne({ userId }).sort({ createdAt: -1 });
+
+  return { updatedEntry: savedEntry, latestEntry: latestEntry || savedEntry };
 };
+
+
 
 export const deleteWeightEntryService = async (userId, entryId) => {
   const entry = await WeightEntry.findById(entryId);

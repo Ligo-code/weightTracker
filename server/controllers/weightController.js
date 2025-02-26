@@ -48,7 +48,10 @@ export const getWeightEntries = async (req, res) => {
     }
 
     const entriesData = await getWeightEntriesService(req.user.id, req.query);
-    res.json(entriesData);
+    res.json({
+      entries: entriesData.entries,
+      totalPages: entriesData.totalPages, // ✅ Убедиться, что `totalPages` передаётся клиенту
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -65,14 +68,29 @@ export const updateWeightEntry = async (req, res) => {
     const user = await User.findById(req.user.id);
     if (!user) throw new Error("User not found");
 
-    const updatedEntry = await updateWeightEntryService(req.user.id, req.params.id, { weight, note, date });
+    // ✅ Получаем отредактированную запись и самую последнюю запись
+    const result = await updateWeightEntryService(req.user.id, req.params.id, { weight, note, date });
 
-    // ✅ НЕ обновляем `currentWeight`, просто перезапрашиваем его на фронте
+    if (!result || !result.updatedEntry) {
+      return res.status(500).json({ message: "Failed to update entry" });
+    }
+
+    const { updatedEntry, latestEntry } = result;
+
+    // ✅ Проверяем, является ли обновлённая запись самой последней
+    if (latestEntry && updatedEntry._id.toString() === latestEntry._id.toString()) {
+      user.currentWeight = latestEntry.weight;
+      await user.save();
+    }
+
     res.json(updatedEntry);
   } catch (error) {
+    console.error("[Update Weight Entry Error]:", error);
     res.status(400).json({ message: error.message });
   }
 };
+
+
 
 export const deleteWeightEntry = async (req, res) => {
   try {
