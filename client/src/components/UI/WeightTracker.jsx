@@ -42,8 +42,7 @@ const WeightTracker = ({ fetchUserData }) => {
     } catch (err) {
       setError(err.message);
     }
-  };
-  const handleSubmit = async (e) => {
+  };const handleSubmit = async (e) => {
     e.preventDefault();
   
     if (!token) {
@@ -66,17 +65,14 @@ const WeightTracker = ({ fetchUserData }) => {
   
         setEditingId(null);
       } else {
-        const previousCurrentWeight = { ...currentWeight }; // Сохраняем старый current weight
         const newEntry = await addWeightEntry(weight, note, date);
   
-        // Обновляем current weight в карточке
+        // Обновляем currentWeight в карточке
         setCurrentWeight(newEntry);
   
-        // Добавляем предыдущий current weight в список (если он есть)
+        // Добавляем currentWeight в начало списка ТОЛЬКО на первой странице
         setEntries((prevEntries) => 
-          previousCurrentWeight.weight
-            ? [previousCurrentWeight, ...prevEntries]
-            : prevEntries
+          currentPage === 1 ? [newEntry, ...prevEntries] : prevEntries
         );
       }
   
@@ -88,8 +84,6 @@ const WeightTracker = ({ fetchUserData }) => {
       setError(err.message);
     }
   };
-  
-  
   
   
 
@@ -195,13 +189,22 @@ const WeightTracker = ({ fetchUserData }) => {
       <h3>Previous Entries</h3>
 
       {currentWeight && (
-  <ul className={styles.list}>
-    <li key={currentWeight._id} className={styles.currentWeightItem}>
+        <ul className={styles.list}>
+  {/* 🔹 Current Weight в зеленой карточке (всегда без редактирования) */}
+  <li key="current-weight-card" className={`${styles.listItem} ${styles.currentWeightItem}`}>
+  <div className={styles.entryContent}>
+    <strong>{formatDate(currentWeight.date)}</strong>
+    <span>{currentWeight.weight} kg</span>
+    <p className={styles.currentWeightLabel}>Current Weight</p> {/* 🔹 Добавлено */}
+    <p className={styles.note}>{currentWeight.note || "No note"}</p>
+  </div>
+</li>
+
+  {/* 🔹 Current Weight в списке (только на первой странице, с редактированием) */}
+  {currentPage === 1 && currentWeight && (
+    <li key="current-weight-list" className={styles.listItem}>
       <div className={styles.entryContent}>
-        <strong>
-          {formatDate(currentWeight.date)}{" "}
-          <span className={styles.currentWeightLabel}>Current Weight</span>
-        </strong>
+        <strong>{formatDate(currentWeight.date)}</strong>
         <span>{currentWeight.weight} kg</span>
         <p className={styles.note}>{currentWeight.note || "No note"}</p>
       </div>
@@ -220,37 +223,34 @@ const WeightTracker = ({ fetchUserData }) => {
         </button>
       </div>
     </li>
-  </ul>
-)}
+  )}
 
-      {entries.length === 0 ? (
-        <p>No weight entries found.</p>
-      ) : (
-        <ul className={styles.list}>
-          {entries.map((entry) => (
-            <li key={entry._id} className={styles.listItem}>
-              <div className={styles.entryContent}>
-                <strong>{formatDate(entry.date)}</strong>
-                <span>{entry.weight} kg</span>
-                <p className={styles.note}>{entry.note || "No note"}</p>
-              </div>
-              <div className={styles.entryActions}>
-                <button
-                  onClick={() => handleEdit(entry)}
-                  className={styles.editButton}
-                >
-                  ✏️ Edit
-                </button>
-                <button
-                  onClick={() => handleDelete(entry._id)}
-                  className={styles.deleteButton}
-                >
-                  ❌ Delete
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+  {/* 🔹 Остальные записи */}
+  {entries.map((entry) => (
+    <li key={entry._id} className={styles.listItem}>
+      <div className={styles.entryContent}>
+        <strong>{formatDate(entry.date)}</strong>
+        <span>{entry.weight} kg</span>
+        <p className={styles.note}>{entry.note || "No note"}</p>
+      </div>
+      <div className={styles.entryActions}>
+        <button
+          onClick={() => handleEdit(entry)}
+          className={styles.editButton}
+        >
+          ✏️ Edit
+        </button>
+        <button
+          onClick={() => handleDelete(entry._id)}
+          className={styles.deleteButton}
+        >
+          ❌ Delete
+        </button>
+      </div>
+    </li>
+  ))}
+</ul>
+
       )}
 
       <div className={styles.pagination}>
