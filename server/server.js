@@ -11,7 +11,7 @@ import weightRoutes from "./routes/weightRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
 // Инициализация .env
-dotenv.config();
+import "dotenv/config"; // Заменяет `dotenv.config();`
 
 // Подключаем базу данных
 connectDB();
