@@ -1,10 +1,26 @@
 import express from "express";
-import { registerUser, loginUser } from "../controllers/userController.js";
+import { registerUser, loginUser, refreshToken, getUserProfile } from "../controllers/userController.js";
+import rateLimit from "express-rate-limit";
+import { logoutUser } from "../controllers/userController.js";
+import { resetPassword } from "../controllers/userController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
+// Ограничение на 10 попыток входа за 10 минут
+const loginLimiter = rateLimit({
+    windowMs: 10 * 60 * 1000,
+    max: 10,
+    message: "Too many login attempts. Please try again later.",
+  });
+  
 
+// Маршруты
+router.post("/register", registerUser); // Регистрация без изменений
+router.post("/login", loginLimiter, loginUser); // Теперь ограничение на 5 попыток
+router.get("/profile", protect, getUserProfile);
+router.post("/refresh-token", refreshToken); // Новый эндпоинт для обновления токена
+router.post("/logout", logoutUser);
+router.post("/reset-password", resetPassword);
 
 export default router;

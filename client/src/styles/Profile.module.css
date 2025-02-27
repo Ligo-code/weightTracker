@@ -1,0 +1,64 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.userInfo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #a7d6c1; /* Светлый мятный */
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: #2c3e36; /* Темно-зеленый */
+}
+
+.dark-mode .userInfo {
+  background: #2a3b2f; /* Темный мох */
+  color: #e0f2e9; /* Светло-зеленый */
+}
+
+.logoutButton {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #d9534f; /* Красный */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.logoutButton:hover {
+  background: #c9302c; /* Темный красный */
+}
+
+.title {
+  margin-top: 80px;
+  text-align: center;
+  color: #2c3e36; /* Темно-зеленый */
+}
+
+.dark-mode .title {
+  color: #e0f2e9; /* Светло-зеленый */
+}
+
+.error {
+  color: #ff4d4d; /* Красный */
+  text-align: center;
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .userInfo {
+    position: static; /* Убираем фиксированное позиционирование */
+    margin: 10px auto; /* Центрируем карточку */
+    width: 90%; /* Ширина карточки */
+    max-width: 300px; /* Максимальная ширина */
+    text-align: center; /* Выравниваем текст по центру */
+  }
+}

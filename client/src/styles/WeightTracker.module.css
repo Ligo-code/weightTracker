@@ -1,0 +1,238 @@
+/* WeightTracker.module.css */
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background: white; /* Белый фон для карточки */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .container {
+  background: white; /* Оставляем белый фон в темной теме */
+  color: #2c3e36; /* Темно-зеленый текст для контраста */
+}
+
+.userInfo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #f0faf7; /* Светлый мятный */
+  padding: 10px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  color: #2c3e36; /* Темно-зеленый */
+}
+
+.dark-mode .userInfo {
+  background: #2a3b2f; /* Темный мох */
+  color: #e0f2e9; /* Светло-зеленый */
+}
+
+.logoutButton {
+  margin-top: 8px;
+  padding: 5px 10px;
+  background: #d9534f; /* Красный */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  background: #c9302c; /* Темный красный */
+}
+
+.entryContent {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.entryContent strong {
+  display: block;
+  font-size: 14px;
+  color: #2c3e36; /* Темно-зеленый */
+}
+
+.dark-mode .entryContent strong {
+  color: #2c3e36; /* Оставляем темно-зеленый текст */
+}
+
+.entryContent span {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e36; /* Темно-зеленый */
+}
+
+.dark-mode .entryContent span {
+  color: #2c3e36; /* Оставляем темно-зеленый текст */
+}
+
+.note {
+  display: block;
+  font-size: 14px;
+  color: #3e3d3d; /* Серый */
+  word-wrap: break-word;
+}
+
+.dark-mode .note {
+  color: #3e3d3d; /* Оставляем серый текст */
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #2c3e36; /* Темно-зеленый */
+  font-size: 14px;
+  outline: none;
+  border: 1px solid #c8e6c9; /* Светло-зеленый */
+  border-radius: 5px;
+}
+
+.dark-mode .input {
+  background: #ffffff; /* Оставляем белый фон */
+  border-color: #4a6b5a; /* Средний зеленый */
+  color: #2c3e36; /* Темно-зеленый */
+}
+
+.button {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #6b9f88, #4a6b5a);
+}
+
+.dark-mode .button {
+  background: linear-gradient(135deg, #2a3b2f, #4a6b5a);
+}
+
+.dark-mode .button:hover {
+  background: linear-gradient(135deg, #4a6b5a, #2a3b2f);
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #c8f4e0;
+  padding: 12px;
+  margin: 5px 0;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.dark-mode .listItem {
+  background: #ffffff; /* Оставляем белый фон */
+}
+
+.listItem:hover {
+  transform: scale(1.02);
+}
+
+.entryActions {
+  display: flex;
+  gap: 8px;
+}
+
+.editButton, .deleteButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.editButton {
+  color: #589175; /* Желтый */
+  transition: color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.editButton:hover {
+  color: #377556; /* Темный желтый */
+  transform: scale(1.1);
+}
+
+.deleteButton {
+  color: #f88a9a; /* Красный */
+  transition: color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.deleteButton:hover {
+  color: #f85770; /* Темный красный */
+  transform: scale(1.1);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.pageButton {
+  padding: 5px 10px;
+  cursor: pointer;
+  background: #4a6b5a; /* Средний зеленый */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.pageButton:hover {
+  background: #6b9f88; /* Светло-зеленый */
+}
+
+.dark-mode .pageButton {
+  background: #2a3b2f; /* Темный мох */
+}
+
+.dark-mode .pageButton:hover {
+  background: #4a6b5a; /* Средний зеленый */
+}
+
+/* ✅ Новый стиль для Current Weight */
+.currentWeightItem {
+  background-color: #a7d6c1;
+  border: 2px solid #377556;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+.currentWeightItem .entryContent {
+  flex-grow: 1;
+}
+
+.currentWeightItem .currentWeightLabel {
+  font-weight: bold;
+  font-size: 14px;
+  color: #377556;
+}
+
+.currentWeightItem .entryActions {
+  display: flex;
+  gap: 8px;
+}

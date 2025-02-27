@@ -1,0 +1,129 @@
+/* global.css */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: linear-gradient(135deg,  #e8fbf2, #b0dcc8 ); /* Градиент светлый */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.5s ease, color 0.5s ease;
+}
+
+body.dark-mode {
+  background: linear-gradient(135deg, #294130, #1a2a1f ); /* Градиент темный */
+  color: #e0f2e9; /* Светло-зеленый */
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  color: #35463d; /* Темно-зеленый */
+  text-align: center;
+}
+
+.dark-mode h1, .dark-mode h2, .dark-mode h3 {
+  color: #a8b1ae; /* Светло-зеленый */
+}
+
+.button {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #4a6b5a, #86b9a1); /* Градиент зеленый */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #6b9f88, #4a6b5a);
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.dark-mode .button {
+  background: linear-gradient(135deg, #2a3b2f, #4a6b5a);
+}
+
+.dark-mode .button:hover {
+  background: linear-gradient(135deg, #4a6b5a, #2a3b2f);
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 2px solid #c8e6c9; /* Светло-зеленый */
+  border-radius: 6px;
+  transition: border 0.3s ease;
+  background: #ffffff;
+  color: #2c3e36;
+}
+
+.dark-mode .input {
+  background: #2a3b2f; /* Темный мох */
+  border-color: #4a6b5a; /* Средний зеленый */
+  color: #e0f2e9;
+}
+
+.input:focus {
+  border-color: #4a6b5a; /* Средний зеленый */
+  outline: none;
+}
+
+.error {
+  color: #ff4d4d; /* Красный */
+  font-size: 14px;
+  text-align: center;
+}
+
+.dark-mode .error {
+  color: #ff4d4d;
+}
+
+a {
+  text-decoration: none;
+  color: #4a6b5a; /* Средний зеленый */
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #6b9f88; /* Светло-зеленый */
+}
+
+.dark-mode a {
+  color: #e0f2e9; /* Светло-зеленый */
+}
+
+.dark-mode a:hover {
+  color: #4a6b5a; /* Средний зеленый */
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  h1, h2, h3 {
+    font-size: 1.5rem;
+  }
+}

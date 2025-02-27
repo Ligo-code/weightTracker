@@ -1,64 +1,94 @@
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
+import {
+  registerUserService,
+  loginUserService,
+  refreshTokenService,
+  logoutUserService,
+  resetPasswordService,
+} from "../services/userService.js";
 import User from "../models/User.js";
-
-// Функция для генерации токена
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d", // Токен истекает через 30 дней
-  });
-};
-
 // Регистрация пользователя
 export const registerUser = async (req, res) => {
-  const { name, email, password } = req.body;
+  console.log("Пришли данные:", req.body);
 
   try {
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-
-    const user = await User.create({ name, email, password });
-
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user._id), // ✅ Добавили токен в ответ
-      });
-    } else {
-      res.status(400).json({ message: "Invalid user data" });
-    }
+    const userData = await registerUserService(req.body);
+    res.status(201).json(userData);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error during registration:", error);
+    res.status(400).json({ message: error.message });
   }
 };
 
-// Вход пользователя (не меняем)
-export const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-
+// Получение профиля пользователя
+export const getUserProfile = async (req, res) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findById(req.user.id).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: "Invalid email or password" });
-    }
-
-    res.status(200).json({
-      _id: user._id,
+    console.log("User data being returned:", {
       name: user.name,
       email: user.email,
-      token: generateToken(user._id),
+      goal: user.goal,
+      initialWeight: user.initialWeight,
+      targetWeight: user.targetWeight,
+      currentWeight: user.currentWeight,
+    });
+    res.json({
+      name: user.name,
+      email: user.email,
+      goal: user.goal,
+      initialWeight: user.initialWeight,
+      targetWeight: user.targetWeight,
+      currentWeight: user.currentWeight, // <-- Убедитесь, что это поле отправляется
     });
   } catch (error) {
-    console.error("Error during login:", error);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Вход пользователя
+export const loginUser = async (req, res) => {
+  try {
+    console.log("Login request received:", req.body);
+    const userData = await loginUserService(req.body);
+    res.status(200).json(userData);
+  } catch (error) {
+    console.error("Error during login:", error.message);
+    // Логируем, что сервер реально отправляет ошибку с message
+    console.log("Sending error response:", { message: error.message });
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// Обновление токена (новый эндпоинт)
+export const refreshToken = async (req, res) => {
+  try {
+    const newAccessToken = refreshTokenService(req.body.refreshToken);
+    res.json({ accessToken: newAccessToken });
+  } catch (error) {
+    res.status(403).json({ message: error.message });
+  }
+};
+
+export const logoutUser = async (req, res) => {
+  try {
+    const response = await logoutUserService(req.body.refreshToken);
+    res.json(response);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const response = await resetPasswordService(
+      req.body.email,
+      req.body.newPassword
+    );
+    res.json(response);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
   }
 };

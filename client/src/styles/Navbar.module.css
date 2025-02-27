@@ -1,0 +1,76 @@
+/* Navbar.module.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
+  padding: 15px 20px;
+  color: white;
+  border-radius: 8px;
+}
+
+.dark-mode .navbar {
+  background: linear-gradient(135deg, #1a2a1f, #2a3b2f); /* Градиент темный */
+}
+
+.navbar a {
+  color: white;
+  font-size: 1.1rem;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.navbar a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.navbar a.active {
+  background: #6b9f88; /* Светло-зеленый */
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navLinks li {
+  display: inline;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: white;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.navLinks a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.navLinks a.active {
+  background: #6b9f88;
+}
+
+/* Стили для мобильных устройств */
+@media (max-width: 768px) {
+  .navLinks {
+    gap: 10px; /* Уменьшаем отступы между иконками */
+  }
+
+  .navLinks a {
+    padding: 8px; /* Уменьшаем padding для мобильных устройств */
+  }
+}
