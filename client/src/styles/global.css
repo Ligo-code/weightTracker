@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(135deg,  #daf7ea, #6b9f88 ); /* Градиент светлый */
+  background: linear-gradient(135deg,  #e8fbf2, #b0dcc8 ); /* Градиент светлый */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@ body {
 }
 
 body.dark-mode {
-  background: linear-gradient(135deg, #1a2a1f, #294130); /* Градиент темный */
+  background: linear-gradient(135deg, #294130, #1a2a1f ); /* Градиент темный */
   color: #e0f2e9; /* Светло-зеленый */
 }
 
@@ -33,7 +33,7 @@ body.dark-mode {
 }
 
 h1, h2, h3 {
-  color: #2e3b34; /* Темно-зеленый */
+  color: #35463d; /* Темно-зеленый */
   text-align: center;
 }
 
