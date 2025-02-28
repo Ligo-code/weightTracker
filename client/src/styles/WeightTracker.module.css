@@ -6,7 +6,7 @@
   text-align: center;
   background: white; /* Белый фон для карточки */
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  
 }
 
 .dark-mode .container {
@@ -219,8 +219,12 @@
   margin-bottom: 10px;
   display: flex;  
   justify-content:center;
+  flex-direction: column;
   align-items: center;
-  text-align: center;
+  gap: 10px;
+  color: #00684A;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color : #00684A;
   
 }
 
@@ -230,8 +234,11 @@
 
 .currentWeightItem .currentWeightLabel {
   font-weight: bold;
-  font-size: 14px;
-  color: #377556;
+  justify-content: center;
+  display: flex;
+  font-size: 18px;
+  color: #00684A;
+  align-items: center;
 }
 
 .currentWeightItem .entryActions {
