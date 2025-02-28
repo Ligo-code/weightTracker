@@ -18,12 +18,13 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  background: #f0faf7; /* Светлый мятный */
+  background: #22a37e; /* Светлый мятный */
   padding: 12px 18px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
-  color: #2c3e36; /* Темно-зеленый */
+  color: #e0f2e9; /* Светло-зеленый */
+  
 }
 
 .dark-mode .userInfo {
@@ -49,7 +50,7 @@
 .title {
   margin-top: 80px;
   text-align: center;
-  color: #2c3e36; /* Темно-зеленый */
+  color: #00684A; /* Темно-зеленый */
 }
 
 .dark-mode .title {

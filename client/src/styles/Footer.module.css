@@ -2,15 +2,14 @@
 .footer {
     text-align: center;
     padding: 10px 0;
-    background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
-    border-top: 1px solid #4a6b5a;
+    background: linear-gradient(135deg, #d7dfe2, #717576);  /* Градиент зеленый */   
     width: 100%;
     font-size: 14px;
-    color: #ffffff;
+    color: #00684A;
     margin-top: auto;
   }
   
   .dark-mode .footer {
-    background: linear-gradient(135deg, #1a2a1f, #2a3b2f); /* Градиент темный */
+    background: linear-gradient(135deg, #717576, #3e4041); /* Градиент темный */
     border-top: 1px solid #1a2a1f;
   }

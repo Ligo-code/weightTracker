@@ -9,12 +9,12 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  background: #a7d6c1; /* Светлый мятный */
+  background: #22a37e; /* Светлый мятный */
   padding: 12px 18px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
-  color: #2c3e36; /* Темно-зеленый */
+  color: #e0f2e9; /* Темно-зеленый */
 }
 
 .dark-mode .userInfo {

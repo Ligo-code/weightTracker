@@ -3,7 +3,7 @@
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  background: #c1e3d8; /* Светлый мятный */
+  background: #afb7b9; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   border-radius: 10px;
@@ -11,24 +11,24 @@
 }
 
 .dark-mode .authContainer {
-  background: #1a2a1f; /* Темный мох */
+  background: #4f5456; /* Темный мох */
 }
 
 .authContainer h2 {
   margin-bottom: 15px;
-  color: #2c3e36; /* Темно-зеленый */
+  color: #00684A; 
 }
 
 .dark-mode .authContainer h2 {
-  color: #e0f2e9; /* Светло-зеленый */
+  color: #e0f2e9; 
 }
 
 .authContainer input {
-  width: calc(100% - 24px); /* Учитываем padding */
+  width: calc(100% - 24px); 
   max-width: 320px; /* Ограничиваем максимальную ширину */
   padding: 12px;
   margin-bottom: 10px;
-  border: 2px solid #c8e6c9; /* Светло-зеленый */
+  border: 2px solid #22a37e; /* Светло-зеленый */
   border-radius: 6px;
   transition: border 0.3s ease;
   background: #ffffff;
@@ -48,7 +48,7 @@
 .authContainer button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
+  background: linear-gradient(135deg, #00684A, #69b19d); /* Градиент зеленый */
   color: white;
   border: none;
   cursor: pointer;
@@ -58,7 +58,7 @@
 }
 
 .authContainer button:hover {
-  background: linear-gradient(135deg, #6b9f88, #4a6b5a);
+  background: linear-gradient(135deg, #69b19d, #00684A);
 }
 
 .switchBtn {

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/weight";
+const API_URL = "https://weighttracker-8dar.onrender.com/api/weight";
 const getToken = () => localStorage.getItem("accessToken");
 
 // Получить все записи веса

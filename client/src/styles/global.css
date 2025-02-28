@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(135deg,  #e8fbf2, #b0dcc8 ); /* Градиент светлый */
+  background: linear-gradient(135deg, #d7dfe2, #7b8082 ); /* Градиент светлый */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,7 +12,7 @@ body {
 }
 
 body.dark-mode {
-  background: linear-gradient(135deg, #294130, #1a2a1f ); /* Градиент темный */
+  background: linear-gradient(135deg, #686868, #0c0c0c ); /* Градиент темный */
   color: #e0f2e9; /* Светло-зеленый */
 }
 
@@ -38,7 +38,7 @@ h1, h2, h3 {
 }
 
 .dark-mode h1, .dark-mode h2, .dark-mode h3 {
-  color: #a8b1ae; /* Светло-зеленый */
+  color: #00684A; /* Светло-зеленый */
 }
 
 .button {
@@ -127,3 +127,4 @@ a:hover {
     font-size: 1.5rem;
   }
 }
+
