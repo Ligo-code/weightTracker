@@ -28,10 +28,23 @@ app.use(xss());
 
 app.use(mongoSanitize());
 
+const allowedOrigins = [
+  "https://weighttracker-8dar.onrender.com",
+  "https://weighttracker-mh14.onrender.com",
+  "http://localhost:5173"
+];
+
 const corsOptions = {
-  origin: "https://weighttracker-8dar.onrender.com/",
-  credentials: true, 
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
 
 app.use(express.json());
