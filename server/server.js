@@ -30,10 +30,11 @@ app.use(mongoSanitize());
 
 const allowedOrigins = [
   "https://weighttracker-8dar.onrender.com",
-  "https://weighttrackers.onrender.com/",
+  "https://weighttrackers.onrender.com",
   "http://localhost:5173"
 ];
 
+// CORS настройки
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -44,6 +45,17 @@ const corsOptions = {
   },
   credentials: true,
 };
+
+app.options("*", cors(corsOptions)); // Разрешаем preflight-запросы
+
+// Добавляем заголовки вручную
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", allowedOrigins.includes(req.headers.origin) ? req.headers.origin : "");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.use(cors(corsOptions));
 
