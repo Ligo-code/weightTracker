@@ -25,7 +25,7 @@ const WeightChart = ({ isDarkMode }) => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/users/profile", {
+      const response = await fetch("https://weighttracker-8dar.onrender.com/api/users/profile", {
         headers: { Authorization: `Bearer ${token}` },
       });
 

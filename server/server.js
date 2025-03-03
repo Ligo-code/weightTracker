@@ -10,8 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import weightRoutes from "./routes/weightRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
-dotenv.config();
-
+import "dotenv/config"; // Заменяет `dotenv.config();`
 connectDB();
 
 const app = express();
@@ -30,7 +29,7 @@ app.use(xss());
 app.use(mongoSanitize());
 
 const corsOptions = {
-  origin: "http://localhost:5173",
+  origin: "https://weighttracker-8dar.onrender.com/",
   credentials: true, 
 };
 app.use(cors(corsOptions));
