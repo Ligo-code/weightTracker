@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://weighttracker-8dar.onrender.com/",
+  "homepage": "https://weighttracker-heqj.onrender.com",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

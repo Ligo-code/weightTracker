@@ -10,7 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import weightRoutes from "./routes/weightRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
-import "dotenv/config"; // Заменяет `dotenv.config();`
+import "dotenv/config"; 
 connectDB();
 
 const app = express();
@@ -28,36 +28,15 @@ app.use(xss());
 
 app.use(mongoSanitize());
 
-const allowedOrigins = [
-  "https://weighttracker-8dar.onrender.com",
-  "https://weighttrackers.onrender.com",
-  "http://localhost:5173"
-];
-
-// CORS настройки
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS not allowed"));
-    }
-  },
-  credentials: true,
+  origin: ["https://weighttracker-heqj.onrender.com", "http://localhost:5173"],
+  credentials: true, 
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Добавляем OPTIONS
 };
 
 app.options("*", cors(corsOptions)); // Разрешаем preflight-запросы
-
-// Добавляем заголовки вручную
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", allowedOrigins.includes(req.headers.origin) ? req.headers.origin : "");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); // Основные CORS-настройки
 
 app.use(express.json());
 

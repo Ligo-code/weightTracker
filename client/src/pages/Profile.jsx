@@ -19,7 +19,7 @@ const Profile = () => {
 
     try {
       const response = await fetch(
-        "https://weighttracker-8dar.onrender.com/api/users/profile",
+        "https://weighttracker-heqj.onrender.com/api/users/profile",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
