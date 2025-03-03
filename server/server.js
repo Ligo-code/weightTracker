@@ -29,14 +29,14 @@ app.use(xss());
 app.use(mongoSanitize());
 
 const corsOptions = {
-  origin: ["https://weighttracker-heqj.onrender.com", "http://localhost:5173"],
+  origin: ["https://weighttracker-heqj.onrender.com", "https://weighttracker-1.onrender.com", "http://localhost:5173"],
   credentials: true, 
   allowedHeaders: ["Content-Type", "Authorization"],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Добавляем OPTIONS
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
 };
 
-app.options("*", cors(corsOptions)); // Разрешаем preflight-запросы
-app.use(cors(corsOptions)); // Основные CORS-настройки
+app.options("*", cors(corsOptions)); 
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
