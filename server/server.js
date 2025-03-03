@@ -10,7 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import weightRoutes from "./routes/weightRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
-import "dotenv/config"; // Заменяет `dotenv.config();`
+import "dotenv/config"; 
 connectDB();
 
 const app = express();
@@ -28,24 +28,15 @@ app.use(xss());
 
 app.use(mongoSanitize());
 
-const allowedOrigins = [
-  "https://weighttracker-8dar.onrender.com",
-  "https://weighttrackers.onrender.com/",
-  "http://localhost:5173"
-];
-
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS not allowed"));
-    }
-  },
-  credentials: true,
+  origin: ["https://weighttracker-heqj.onrender.com", "http://localhost:5173"],
+  credentials: true, 
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Добавляем OPTIONS
 };
 
-app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Разрешаем preflight-запросы
+app.use(cors(corsOptions)); // Основные CORS-настройки
 
 app.use(express.json());
 

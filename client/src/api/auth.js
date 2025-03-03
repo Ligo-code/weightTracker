@@ -1,4 +1,4 @@
-const API_URL = "https://weighttracker-8dar.onrender.com/api/users";
+const API_URL = "https://weighttracker-heqj.onrender.com/api/users";
 
 // Функция для регистрации
 export const registerUser = async (userData) => {
