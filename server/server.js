@@ -30,7 +30,7 @@ app.use(mongoSanitize());
 
 const allowedOrigins = [
   "https://weighttracker-8dar.onrender.com",
-  "https://weighttracker-mh14.onrender.com",
+  "https://weighttrackers.onrender.com/",
   "http://localhost:5173"
 ];
 
