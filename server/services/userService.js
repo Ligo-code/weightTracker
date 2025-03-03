@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 
-// Функция генерации токенов
 const generateAccessToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "15m" });
 const generateRefreshToken = (id) =>
@@ -11,7 +10,7 @@ const generateRefreshToken = (id) =>
 export const registerUserService = async ({ name, email, password, goal, targetWeight, currentWeight, initialWeight }) => {
   const userExists = await User.findOne({ email });
   if (userExists) {
-    throw new Error("User with this email already exists"); // Выбрасываем ошибку вместо использования res
+    throw new Error("User with this email already exists"); 
   }
 
   const user = await User.create({ name, email, password, goal, targetWeight, currentWeight, initialWeight });
@@ -38,7 +37,7 @@ export const loginUserService = async ({ email, password }) => {
   console.log("Found user:", user);
   console.log("Password comparison result:", isPasswordValid);
   if (!isPasswordValid) {
-    throw new Error("Invalid email or password"); // Выбрасываем ошибку вместо использования res
+    throw new Error("Invalid email or password"); 
   }
 
   return {

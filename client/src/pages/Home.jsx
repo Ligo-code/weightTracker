@@ -4,7 +4,7 @@ import { FaSignInAlt, FaUserPlus, FaArrowLeft } from "react-icons/fa";
 import styles from "../styles/Home.module.css";
 
 const Home = () => {
-  const [authMode, setAuthMode] = useState(null); // "login" | "register" | null
+  const [authMode, setAuthMode] = useState(null); 
 
   return (
     <div className={styles.container}>
@@ -25,7 +25,7 @@ const Home = () => {
       ) : (
         <div className={`${styles.authContainer} ${styles.fadeIn}`}>
           <h2>{authMode === "login" ? "" : ""}</h2>
-          <AuthForm authMode={authMode} />  {/* 🔹 Передаем authMode в AuthForm */}
+          <AuthForm authMode={authMode} />  
           <button onClick={() => setAuthMode(null)} className={styles.backButton}>
             <FaArrowLeft /> Back
           </button>

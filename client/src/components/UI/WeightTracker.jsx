@@ -88,8 +88,7 @@ const WeightTracker = ({ fetchUserData }) => {
 
         setCurrentWeight(newEntry);
 
-        setEntries((prevEntries) => {
-          // Убираем currentWeight из списка, если он там уже есть
+        setEntries((prevEntries) => {          
           let filteredEntries = prevEntries.filter(
             (entry) => entry._id !== previousCurrentWeight?._id
           );
@@ -205,7 +204,7 @@ const WeightTracker = ({ fetchUserData }) => {
           type="number"
           step="0.1"
           placeholder="Enter your weight"
-          value={weight === 0 ? "" : weight} // Если 0, показываем пустую строку
+          value={weight === 0 ? "" : weight} 
           onChange={(e) => {
             const value = e.target.value;
             setWeight(value === "" ? "" : Math.max(0, parseFloat(value) || ""));
@@ -228,22 +227,8 @@ const WeightTracker = ({ fetchUserData }) => {
       <h3>Previous Entries</h3>
 
       {currentWeight && (
-        <ul className={styles.list}>
-          {/* 🔹 Current Weight в зеленой карточке (всегда без редактирования) */}
-          <li
-            key="current-weight-card"
-            className={`${styles.listItem} ${styles.currentWeightItem}`}
-          >
-            <div className={styles.entryContent}>
-              <strong>{formatDate(currentWeight.date)}</strong>
-              <span>{currentWeight.weight} kg</span>
-              <p className={styles.currentWeightLabel}>Current Weight</p>{" "}
-              {/* 🔹 Добавлено */}
-              <p className={styles.note}>{currentWeight.note || "No note"}</p>
-            </div>
-          </li>
+        <ul className={styles.list}>         
 
-          {/* 🔹 Current Weight в списке (только на первой странице, с редактированием) */}
           {currentPage === 1 && currentWeight && (
             <li key="current-weight-list" className={styles.listItem}>
               <div className={styles.entryContent}>
@@ -268,7 +253,6 @@ const WeightTracker = ({ fetchUserData }) => {
             </li>
           )}
 
-          {/* 🔹 Остальные записи */}
           {entries.map((entry) => (
             <li key={entry._id} className={styles.listItem}>
               <div className={styles.entryContent}>

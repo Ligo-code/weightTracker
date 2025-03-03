@@ -8,7 +8,6 @@ import {
 import { protect } from "../middleware/authMiddleware.js"; 
 const router = express.Router();
 
-// CRUD для записей веса
 router.post("/", protect, addWeightEntry);
 router.get("/", protect, getWeightEntries);
 router.put("/:id", protect, updateWeightEntry);

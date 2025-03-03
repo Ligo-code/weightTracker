@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
+  background:  #22a37e; 
   padding: 15px 20px;
   color: white;
   border-radius: 8px;
@@ -26,9 +26,6 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-.navbar a.active {
-  background: #6b9f88; /* Светло-зеленый */
-}
 
 .logo {
   font-size: 1.5rem;
@@ -41,27 +38,15 @@
   gap: 20px;
 }
 
-.navLinks li {
-  display: inline;
-}
-
 .navLinks a {
   text-decoration: none;
   color: white;
   font-size: 1.1rem;
-  transition: color 0.3s ease;
-  padding: 10px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
+  transition: #00684A;
 }
 
 .navLinks a:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.navLinks a.active {
-  background: #6b9f88;
+  opacity: 0.8;
 }
 
 /* Стили для мобильных устройств */

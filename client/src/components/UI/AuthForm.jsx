@@ -5,7 +5,7 @@ import styles from "../../styles/Auth.module.css";
 
 const AuthForm = ({ authMode }) => {
   // 🔹 Принимаем authMode как пропс
-  const isLogin = authMode === "login"; // 🔹 Теперь isLogin зависит от authMode
+  const isLogin = authMode === "login"; 
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,8 +35,7 @@ const AuthForm = ({ authMode }) => {
       password,
       name,
       goal,
-      targetWeight,
-      currentWeight,
+      targetWeight,      
       initialWeight,
     } = formData;
 
@@ -90,8 +89,7 @@ const AuthForm = ({ authMode }) => {
               onChange={handleChange}
               required
             />
-            <div className={styles.goalContainer}>
-              <label htmlFor="goal">Goal:</label>
+            <div className={styles.goalContainer}>              
               <select
                 id="goal"
                 name="goal"

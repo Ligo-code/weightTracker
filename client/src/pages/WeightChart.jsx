@@ -6,7 +6,7 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import styles from "../styles/WeightChart.module.css";
 
-const WeightChart = () => {
+const WeightChart = ({ isDarkMode }) => {  
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
   const [timeRange, setTimeRange] = useState("month");
@@ -16,7 +16,7 @@ const WeightChart = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/"); // 🔹 Если нет токена, сразу редирект на логин
+      navigate("/");  
       return;
     }
     fetchUserData();
@@ -66,11 +66,6 @@ const WeightChart = () => {
     navigate("/");
   };
 
-  const handleLogout = () => {
-    logoutUser();
-    navigate("/");
-  };
-
   const filterEntriesByRange = () => {
     const now = new Date();
     return entries.filter((entry) => {
@@ -89,11 +84,42 @@ const WeightChart = () => {
       {
         label: "Weight (kg)",
         data: filterEntriesByRange().map((entry) => entry.weight),
-        borderColor: "#2c3e36",
-        backgroundColor: "rgba(44, 62, 54, 0.1)",
+        borderColor: isDarkMode ? "#464C4F" : "#22a37e", 
+        backgroundColor: isDarkMode ? "rgba(34, 163, 126, 0.1)" : "rgba(44, 62, 54, 0.1)",
+        pointBackgroundColor: isDarkMode ? "#464C4F" : "#22a37e",
+        pointBorderColor: isDarkMode ? "#464C4F" : "#22a37e",
         tension: 0.3,
       },
     ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          color: isDarkMode ? "#464C4F" : "#22a37e",
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: isDarkMode ? "#464C4F" : "#22a37e",
+        },
+        grid: {
+          color: isDarkMode ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)",
+        },
+      },
+      y: {
+        ticks: {
+          color: isDarkMode ? "#464C4F" : "#22a37e",
+        },
+        grid: {
+          color: isDarkMode ? "rgba(34, 163, 126, 0.1)" : "rgba(34, 163, 126, 0.1)",
+        },
+      },
+    },
   };
 
   return (
@@ -118,7 +144,7 @@ const WeightChart = () => {
         <button onClick={() => setTimeRange("all")}>All Time</button>
       </div>
 
-      {entries.length === 0 ? <p>No weight data available.</p> : <Line data={chartData} />}
+      {entries.length === 0 ? <p>No weight data available.</p> : <Line data={chartData} options={options} />}
     </div>
   );
 };

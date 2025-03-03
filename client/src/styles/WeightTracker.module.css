@@ -4,9 +4,10 @@
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background: white; /* Белый фон для карточки */
+  background: transparent; /* Белый фон для карточки */
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: black
 }
 
 .dark-mode .container {
@@ -18,31 +19,17 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  background: #f0faf7; /* Светлый мятный */
-  padding: 10px 15px;
+  background: #889397; /* Светлый мятный */
+  padding: 12px 18px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
-  color: #2c3e36; /* Темно-зеленый */
+  color: white; /* Темно-зеленый */
 }
 
 .dark-mode .userInfo {
   background: #2a3b2f; /* Темный мох */
   color: #e0f2e9; /* Светло-зеленый */
-}
-
-.logoutButton {
-  margin-top: 8px;
-  padding: 5px 10px;
-  background: #d9534f; /* Красный */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.logoutButton:hover {
-  background: #c9302c; /* Темный красный */
 }
 
 .entryContent {
@@ -53,33 +40,35 @@
 .entryContent strong {
   display: block;
   font-size: 14px;
-  color: #2c3e36; /* Темно-зеленый */
+  color: black; /* Темно-зеленый */
 }
 
 .dark-mode .entryContent strong {
-  color: #2c3e36; /* Оставляем темно-зеленый текст */
+  color: black; /* Оставляем темно-зеленый текст */
 }
+
+
 
 .entryContent span {
   display: block;
   font-size: 16px;
   font-weight: bold;
-  color: #2c3e36; /* Темно-зеленый */
+  color: black; /* Темно-зеленый */
 }
 
 .dark-mode .entryContent span {
-  color: #2c3e36; /* Оставляем темно-зеленый текст */
+  color: white important; /* Светло-зеленый */
 }
 
 .note {
   display: block;
   font-size: 14px;
-  color: #3e3d3d; /* Серый */
+  color: black; /* Серый */
   word-wrap: break-word;
 }
 
 .dark-mode .note {
-  color: #3e3d3d; /* Оставляем серый текст */
+  color: black; /* Оставляем серый текст */
 }
 
 .input {
@@ -88,23 +77,23 @@
   margin: 8px 0;
   box-sizing: border-box;
   background: #ffffff;
-  color: #2c3e36; /* Темно-зеленый */
+  color: black; /* Темно-зеленый */
   font-size: 14px;
   outline: none;
-  border: 1px solid #c8e6c9; /* Светло-зеленый */
+  border: 1px solid #00A35C; /* Светло-зеленый */
   border-radius: 5px;
 }
 
 .dark-mode .input {
   background: #ffffff; /* Оставляем белый фон */
-  border-color: #4a6b5a; /* Средний зеленый */
-  color: #2c3e36; /* Темно-зеленый */
+  border-color: #00A35C; /* Средний зеленый */
+  color: black; /* Темно-зеленый */
 }
 
 .button {
   width: 100%;
   padding: 10px;
-  background: linear-gradient(135deg, #4a6b5a, #6b9f88); /* Градиент зеленый */
+  background: #22a37e; /* Градиент зеленый */
   color: white;
   border: none;
   border-radius: 5px;
@@ -112,15 +101,15 @@
 }
 
 .button:hover {
-  background: linear-gradient(135deg, #6b9f88, #4a6b5a);
+  background: #00684A;
 }
 
 .dark-mode .button {
-  background: linear-gradient(135deg, #2a3b2f, #4a6b5a);
+  background: #22a37e;
 }
 
 .dark-mode .button:hover {
-  background: linear-gradient(135deg, #4a6b5a, #2a3b2f);
+  background: #00684A;
 }
 
 .list {
@@ -132,7 +121,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #c8f4e0;
+  background: #bfcfd5;
   padding: 12px;
   margin: 5px 0;
   margin-bottom: 10px;
@@ -163,12 +152,12 @@
 }
 
 .editButton {
-  color: #589175; /* Желтый */
+  color: #22a37e; /* Желтый */
   transition: color 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .editButton:hover {
-  color: #377556; /* Темный желтый */
+  color: #00684A; /* Темный желтый */
   transform: scale(1.1);
 }
 
@@ -192,14 +181,14 @@
 .pageButton {
   padding: 5px 10px;
   cursor: pointer;
-  background: #4a6b5a; /* Средний зеленый */
+  background: #22a37e; /* Средний зеленый */
   color: white;
   border: none;
   border-radius: 5px;
 }
 
 .pageButton:hover {
-  background: #6b9f88; /* Светло-зеленый */
+  background: #00684A; /* Светло-зеленый */
 }
 
 .dark-mode .pageButton {
@@ -212,15 +201,17 @@
 
 /* ✅ Новый стиль для Current Weight */
 .currentWeightItem {
-  background-color: #a7d6c1;
-  border: 2px solid #377556;
-  padding: 12px;
+  background-color: #22a37e;
+  border: 2px solid #00684A;
+  padding: 8px;
   border-radius: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   display: flex;
   justify-content:center;
   align-items: center;
+  min-height: 50px;
 }
+
 
 .currentWeightItem .entryContent {
   flex-grow: 1;
@@ -228,11 +219,19 @@
 
 .currentWeightItem .currentWeightLabel {
   font-weight: bold;
-  font-size: 14px;
-  color: #377556;
+  font-size: 18px;
+  color: black;
 }
 
 .currentWeightItem .entryActions {
   display: flex;
   gap: 8px;
+}
+
+h2, h3 {
+  margin-bottom: 10px; /* Уменьшаем отступ снизу */
+}
+
+h3 {
+  margin-top: 15px; /* Уменьшаем отступ сверху */
 }
