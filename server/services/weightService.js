@@ -15,7 +15,7 @@ export const getWeightEntriesService = async (userId, { sortBy = "createdAt", or
   const query = { userId };
 
   const sortOptions = {};
-  sortOptions[sortBy] = order === "desc" ? -1 : 1; // ✅ Сортируем по `createdAt`
+  sortOptions[sortBy] = order === "desc" ? -1 : 1;
 
   const pageNumber = Number(page) || 1;
   const pageSize = Number(limit) || 5;
@@ -26,10 +26,8 @@ export const getWeightEntriesService = async (userId, { sortBy = "createdAt", or
 
   let entries = await WeightEntry.find(query).sort(sortOptions).skip(skip).limit(pageSize);
 
-  // ✅ Получаем `currentWeight` (самая последняя добавленная запись)
   const latestEntry = await WeightEntry.findOne({ userId }).sort({ createdAt: -1 });
-
-  // ✅ currentWeight всегда в начале списка
+  
   if (latestEntry) {
     entries = entries.filter((entry) => entry._id.toString() !== latestEntry._id.toString());
     entries.unshift(latestEntry);
@@ -37,8 +35,6 @@ export const getWeightEntriesService = async (userId, { sortBy = "createdAt", or
 
   return { entries, totalPages };
 };
-
-
 
 export const updateWeightEntryService = async (userId, entryId, { weight, date, note }) => {
   console.log("Updating entry with ID:", entryId);
@@ -57,16 +53,12 @@ export const updateWeightEntryService = async (userId, entryId, { weight, date, 
   entry.date = date || entry.date;
   entry.note = note || entry.note;
 
-  // ✅ Обновляем запись, но **не изменяем createdAt**
   const savedEntry = await entry.save();
 
-  // ✅ Получаем самую последнюю запись (по createdAt)
   const latestEntry = await WeightEntry.findOne({ userId }).sort({ createdAt: -1 });
 
   return { updatedEntry: savedEntry, latestEntry: latestEntry || savedEntry };
 };
-
-
 
 export const deleteWeightEntryService = async (userId, entryId) => {
   const entry = await WeightEntry.findById(entryId);
@@ -77,7 +69,6 @@ export const deleteWeightEntryService = async (userId, entryId) => {
   return { message: "Entry deleted" };
 };
 
-// ✅ Добавляем функцию для получения самой последней записи по дате
 export const getLatestWeightEntry = async (userId) => {
-  return await WeightEntry.findOne({ userId }).sort({ createdAt: -1 }); // Сортируем по дате (самая последняя запись)
+  return await WeightEntry.findOne({ userId }).sort({ createdAt: -1 }); 
 };

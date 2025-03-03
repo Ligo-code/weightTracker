@@ -6,7 +6,7 @@ import {
   resetPasswordService,
 } from "../services/userService.js";
 import User from "../models/User.js";
-// Регистрация пользователя
+
 export const registerUser = async (req, res) => {
   console.log("Пришли данные:", req.body);
 
@@ -19,7 +19,6 @@ export const registerUser = async (req, res) => {
   }
 };
 
-// Получение профиля пользователя
 export const getUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -41,28 +40,25 @@ export const getUserProfile = async (req, res) => {
       goal: user.goal,
       initialWeight: user.initialWeight,
       targetWeight: user.targetWeight,
-      currentWeight: user.currentWeight, // <-- Убедитесь, что это поле отправляется
+      currentWeight: user.currentWeight,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// Вход пользователя
 export const loginUser = async (req, res) => {
   try {
     console.log("Login request received:", req.body);
     const userData = await loginUserService(req.body);
     res.status(200).json(userData);
   } catch (error) {
-    console.error("Error during login:", error.message);
-    // Логируем, что сервер реально отправляет ошибку с message
+    console.error("Error during login:", error.message);   
     console.log("Sending error response:", { message: error.message });
     res.status(400).json({ message: error.message });
   }
 };
 
-// Обновление токена (новый эндпоинт)
 export const refreshToken = async (req, res) => {
   try {
     const newAccessToken = refreshTokenService(req.body.refreshToken);

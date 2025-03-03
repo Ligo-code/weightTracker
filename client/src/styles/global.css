@@ -1,19 +1,23 @@
-/* global.css */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: linear-gradient(135deg, #d7dfe2, #7b8082 ); /* Градиент светлый */
+  background: white;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   transition: background 0.5s ease, color 0.5s ease;
 }
 
+.container,
+.authPage {
+  background: transparent !important;
+}
+
 body.dark-mode {
-  background: linear-gradient(135deg, #686868, #0c0c0c ); /* Градиент темный */
-  color: #e0f2e9; /* Светло-зеленый */
+  background: black;
+  color: #e0f2e9;
 }
 
 .app-container {
@@ -32,18 +36,23 @@ body.dark-mode {
   padding: 20px;
 }
 
-h1, h2, h3 {
-  color: #35463d; /* Темно-зеленый */
+h1,
+h2,
+h3 {
+  color: black;
   text-align: center;
+  margin-bottom: 10px;
 }
 
-.dark-mode h1, .dark-mode h2, .dark-mode h3 {
-  color: #00684A; /* Светло-зеленый */
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3 {
+  color: white;
 }
 
 .button {
   padding: 10px 20px;
-  background: linear-gradient(135deg, #4a6b5a, #86b9a1); /* Градиент зеленый */
+  background: #22a37e;
   color: white;
   border: none;
   border-radius: 6px;
@@ -52,7 +61,7 @@ h1, h2, h3 {
 }
 
 .button:hover {
-  background: linear-gradient(135deg, #6b9f88, #4a6b5a);
+  background: #00684a;
   transform: translateY(-2px);
 }
 
@@ -68,30 +77,34 @@ h1, h2, h3 {
   background: linear-gradient(135deg, #4a6b5a, #2a3b2f);
 }
 
-.input {
+.input,
+select {
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 2px solid #c8e6c9; /* Светло-зеленый */
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 2px solid #00684a;
   border-radius: 6px;
-  transition: border 0.3s ease;
   background: #ffffff;
-  color: #2c3e36;
+  color: black;
+  transition: border 0.3s ease;
+  box-sizing: border-box;
 }
 
-.dark-mode .input {
-  background: #2a3b2f; /* Темный мох */
-  border-color: #4a6b5a; /* Средний зеленый */
+.dark-mode .input,
+.dark-mode select {
+  background: #2a3b2f;
+  border-color: #4a6b5a;
   color: #e0f2e9;
 }
 
-.input:focus {
-  border-color: #4a6b5a; /* Средний зеленый */
+.input:focus,
+select:focus {
+  border-color: #4a6b5a;
   outline: none;
 }
 
 .error {
-  color: #ff4d4d; /* Красный */
+  color: #ff4d4d; 
   font-size: 14px;
   text-align: center;
 }
@@ -102,20 +115,81 @@ h1, h2, h3 {
 
 a {
   text-decoration: none;
-  color: #4a6b5a; /* Средний зеленый */
+  color: #4a6b5a;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #6b9f88; /* Светло-зеленый */
+  color: #464c4f;
 }
 
 .dark-mode a {
-  color: #e0f2e9; /* Светло-зеленый */
+  color: #e0f2e9; 
 }
 
 .dark-mode a:hover {
-  color: #4a6b5a; /* Средний зеленый */
+  color: #464c4f; 
+}
+
+/* Основные стили */
+select {
+  appearance: none; 
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 12px;
+  border: 2px solid #00684a;
+  border-radius: 6px;
+  width: 97%;
+  background: white;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Темная тема */
+.dark-mode select {
+  background: white;
+  border-color: #00684a;
+  color: black;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.goalContainer {
+  position: relative;
+}
+
+.goalContainer::after {
+  content: "▼";
+  font-size: 12px;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: black;
+}
+
+.pagination span {
+  color: black important;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .pagination span {
+  color: white important;
+}
+
+select option {
+  background-color: white !important;
+  color: black !important;
+}
+
+select option:hover {
+  background-color: #22a37e !important;
+  color: white !important;
 }
 
 @media (max-width: 768px) {
@@ -123,8 +197,9 @@ a:hover {
     padding: 10px;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-size: 1.5rem;
   }
 }
-

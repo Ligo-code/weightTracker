@@ -3,52 +3,56 @@
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  background: #afb7b9; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: transparent !important; /* Светлый мятный */
+  box-shadow: none !important;
   text-align: center;
-  border-radius: 10px;
-  animation: fadeIn 0.3s ease-in-out;
+  border-radius: none !important;
+  
+}
+
+.authPage {
+  background: transparent !important;
 }
 
 .dark-mode .authContainer {
-  background: #4f5456; /* Темный мох */
+  background: black; /* Темный мох */
 }
 
 .authContainer h2 {
   margin-bottom: 15px;
-  color: #00684A; 
+  color: black; /* Темно-зеленый */
 }
 
 .dark-mode .authContainer h2 {
-  color: #e0f2e9; 
+  color: black; /* Светло-зеленый */
 }
 
 .authContainer input {
-  width: calc(100% - 24px); 
+  width: calc(100% - 24px); /* Учитываем padding */
   max-width: 320px; /* Ограничиваем максимальную ширину */
   padding: 12px;
   margin-bottom: 10px;
-  border: 2px solid #22a37e; /* Светло-зеленый */
+  border: 2px solid #00684A; /* Светло-зеленый */
   border-radius: 6px;
   transition: border 0.3s ease;
   background: #ffffff;
-  color: #2c3e36;
+  color: black;
 }
 
 .dark-mode .authContainer input {
-  background: #2a3b2f; /* Темный мох */
-  border-color: #4a6b5a; /* Средний зеленый */
+  background: black; /* Темный мох */
+  border-color: #00684A; /* Средний зеленый */
   color: #e0f2e9;
 }
 
 .authContainer input:focus {
-  border-color: #4a6b5a; /* Средний зеленый */
+  border-color: #00684A; /* Средний зеленый */
 }
 
 .authContainer button {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #00684A, #69b19d); /* Градиент зеленый */
+  background:  #22a37e; /* Градиент зеленый */
   color: white;
   border: none;
   cursor: pointer;
@@ -58,19 +62,19 @@
 }
 
 .authContainer button:hover {
-  background: linear-gradient(135deg, #69b19d, #00684A);
+  background: #00684A;
 }
 
 .switchBtn {
   margin-top: 15px;
   background: none;
   border: none;
-  color: #4a6b5a; /* Средний зеленый */
+  color: #22a37e; /* Средний зеленый */
   cursor: pointer;
 }
 
 .dark-mode .switchBtn {
-  color: #6b9f88; /* Светло-зеленый */
+  color: #22a37e; /* Светло-зеленый */
 }
 
 .switchBtn:hover {

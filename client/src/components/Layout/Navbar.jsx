@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const handleProtectedRoute = (path) => {
     if (!token) {
-      navigate("/"); // Если нет токена, перенаправляем на Home
+      navigate("/"); 
     } else {
       navigate(path);
     }
@@ -40,17 +40,17 @@ const Navbar = () => {
       <ul className={styles.navLinks}>
         <li>
           <NavLink to="/" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            <FaHome title="Home" /> {/* Иконка для Home */}
+            <FaHome title="Home" /> 
           </NavLink>
         </li>
         <li>
           <NavLink to="/weightchart" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            <FaChartLine title="Weight Chart" /> {/* Иконка для Weight Chart */}
+            <FaChartLine title="Weight Chart" /> 
           </NavLink>
         </li>
         <li>
           <NavLink to="/profile" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            <FaUser title="Profile" /> {/* Иконка для Profile */}
+            <FaUser title="Profile" /> 
           </NavLink>
         </li>
         <li>
@@ -59,7 +59,7 @@ const Navbar = () => {
             onClick={() => setIsDarkMode(!isDarkMode)} 
             className={({ isActive }) => (isActive ? styles.active : styles.link)}
           >
-            {isDarkMode ? <FaSun title="Light Mode" /> : <FaMoon title="Dark Mode" />} {/* Иконка для темы */}
+            {isDarkMode ? <FaSun title="Light Mode" /> : <FaMoon title="Dark Mode" />} 
           </NavLink>
         </li>
         {token && (
@@ -69,7 +69,7 @@ const Navbar = () => {
               onClick={handleLogout} 
               className={({ isActive }) => (isActive ? styles.active : styles.link)}
             >
-              <FaSignOutAlt title="Logout" /> {/* Иконка для Logout */}
+              <FaSignOutAlt title="Logout" /> 
             </NavLink>
           </li>
         )}

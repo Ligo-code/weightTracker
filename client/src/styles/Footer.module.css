@@ -1,15 +1,16 @@
 /* Footer.module.css */
 .footer {
-    text-align: center;
-    padding: 10px 0;
-    background: linear-gradient(135deg, #d7dfe2, #717576);  /* Градиент зеленый */   
-    width: 100%;
-    font-size: 14px;
-    color: #00684A;
-    margin-top: auto;
-  }
-  
-  .dark-mode .footer {
-    background: linear-gradient(135deg, #717576, #3e4041); /* Градиент темный */
-    border-top: 1px solid #1a2a1f;
-  }
+  text-align: center;
+  padding: 10px 0;
+  background: #22a37e; /* Градиент зеленый */
+  border-top: 1px solid #22a37e;
+  width: 100%;
+  font-size: 14px;
+  color: white;
+  margin-top: auto;
+}
+
+.dark-mode .footer {
+  background: linear-gradient(135deg, #1a2a1f, #2a3b2f); /* Градиент темный */
+  border-top: 1px solid #1a2a1f;
+}

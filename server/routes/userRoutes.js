@@ -16,10 +16,10 @@ const loginLimiter = rateLimit({
   
 
 // Маршруты
-router.post("/register", registerUser); // Регистрация без изменений
-router.post("/login", loginLimiter, loginUser); // Теперь ограничение на 5 попыток
+router.post("/register", registerUser); 
+router.post("/login", loginLimiter, loginUser); 
 router.get("/profile", protect, getUserProfile);
-router.post("/refresh-token", refreshToken); // Новый эндпоинт для обновления токена
+router.post("/refresh-token", refreshToken);
 router.post("/logout", logoutUser);
 router.post("/reset-password", resetPassword);
 
