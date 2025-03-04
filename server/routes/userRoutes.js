@@ -28,7 +28,7 @@ router.post("/refresh-token", refreshToken);
 router.post("/logout", logoutUser);
 router.post("/reset-password", resetPassword);
 
-// **Новый маршрут для обновления currentWeight**
+// Новый маршрут для обновления currentWeight
 router.put("/updateWeight", protect, updateUserCurrentWeight);
 
 export default router;
