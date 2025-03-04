@@ -123,17 +123,59 @@ const WeightTracker = ({ fetchUserData }) => {
   const handleDelete = async (id) => {
     try {
       await deleteWeightEntry(id);
+
+      let updatedEntries = entries.filter((entry) => entry._id !== id);
+
       if (currentWeight && currentWeight._id === id) {
-        setCurrentWeight(null);
+        // Если удаляем currentWeight, новый currentWeight — первая запись из списка
+        const newCurrentWeight = updatedEntries.length > 0 ? updatedEntries[0] : null;
+        setCurrentWeight(newCurrentWeight);
+
+        if (newCurrentWeight) {
+          // Отправляем обновленный currentWeight в БД
+          await updateUserCurrentWeight(newCurrentWeight.weight);
+        }
       }
-      setEntries((prevEntries) =>
-        prevEntries.filter((entry) => entry._id !== id)
-      );
+
+      setEntries(updatedEntries);
+
+      // Поддержка пагинации после удаления
+      if (updatedEntries.length < 5 && currentPage < totalPages) {
+        fetchEntries();
+      } else {
+        setTotalPages(Math.max(1, Math.ceil((entries.length - 1) / 5)));
+      }
+
+      // Обновляем карточку пользователя
       await fetchUserData();
+      
     } catch (err) {
       setError(err.message);
     }
-  };
+};
+
+// Функция обновления currentWeight в БД
+const updateUserCurrentWeight = async (newWeight) => {
+    try {
+        const response = await fetch("http://localhost:5000/api/users/updateWeight", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify({ currentWeight: newWeight }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to update current weight");
+        }
+
+        console.log("Updated user weight successfully");
+    } catch (err) {
+        console.error("Error updating user weight:", err);
+    }
+};
+
 
   const handleEdit = (entry) => {
     console.log("Editing entry ID:", entry._id);
