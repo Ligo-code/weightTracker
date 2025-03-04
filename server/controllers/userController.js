@@ -88,3 +88,22 @@ export const resetPassword = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// Обновление currentWeight у пользователя
+export const updateUserCurrentWeight = async (req, res) => {
+  try {
+    const { currentWeight } = req.body;
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.currentWeight = currentWeight;
+    await user.save();
+
+    res.status(200).json({ message: "Current weight updated", currentWeight });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};

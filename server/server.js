@@ -19,7 +19,7 @@ app.use(helmet());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100,
+  max: 10000,
   message: "Too many requests, please try again later.",
 });
 app.use(limiter);
@@ -31,28 +31,43 @@ app.use(mongoSanitize());
 const allowedOrigins = [
   "https://weighttracker-1.onrender.com", // Фронтенд
   "https://weighttracker-heqj.onrender.com", // Бэкенд
-  "http://localhost:5173" // Локальная разработка
+  "http://localhost:5173", // Локальная разработка
+  "http://localhost:5000"
 ];
 
+// Настройка CORS
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
+      callback(null, origin || "*");
+      /*callback(null, true);*/
     } else {
-      callback(new Error("CORS not allowed"));
+      console.log(`Blocked CORS request from: ${origin}`);
+      callback(new Error("CORS not allowed"), false);
     }
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.options("*", cors(corsOptions)); 
 app.use(cors(corsOptions));
 
-// Ручная настройка заголовков CORS
+/*// Ручная настройка заголовков CORS
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", allowedOrigins.includes(req.headers.origin) ? req.headers.origin : "");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});*/
+
+// Ручная настройка CORS (подстраховка)
+app.use((req, res, next) => {
+  if (allowedOrigins.includes(req.headers.origin)) {
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+  }
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.header("Access-Control-Allow-Credentials", "true");
