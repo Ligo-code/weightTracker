@@ -39,7 +39,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
           >
             {isDarkMode ? <FaSun /> : <FaMoon />}
           </button>
-          
+
           <ul className={styles.navLinks}>
             <li>
               <NavLink

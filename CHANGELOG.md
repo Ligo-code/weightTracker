@@ -5,6 +5,65 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2025-08-21 - Modern UI/UX Enhancement
+
+### Added
+
+- Modern button styling with hover effects and animations
+- Pixel-perfect form layouts for registration and login
+- Consistent button sizing across all forms
+- Interactive card hover effects in light and dark themes
+- Enhanced navigation bar with proper alignment
+- Professional card styling for weight entries
+- Improved pagination layout and positioning
+- Form validation with better UX for dropdown selections
+
+### Enhanced
+
+- **Authentication Forms**:
+
+  - Unified field sizes for all input elements
+  - Improved button layout with Back and Submit buttons in single row
+  - Enhanced color scheme: green (#22A37E) for submit buttons, pink (#f88a9a) for back buttons
+  - Better form responsiveness on mobile devices
+  - Optimized placeholder text for goal selection dropdown
+
+- **Card Components**:
+
+  - Updated card colors: light theme (#BFCFD5), dark theme (#464C4F)
+  - Added subtle hover animations and transitions
+  - Improved card shadows and depth perception
+  - Better spacing and typography hierarchy
+
+- **Navigation**:
+
+  - Pixel-perfect alignment of navigation elements
+  - Proper positioning of profile card and page controls
+  - Enhanced mobile responsiveness for navigation menu
+  - Consistent spacing and layout across all screen sizes
+
+- **Theme Support**:
+  - Improved contrast ratios for better accessibility
+  - Enhanced dark mode color scheme
+  - Consistent color application across all components
+  - Better visual hierarchy in both light and dark themes
+
+### Changed
+
+- Button dimensions standardized to 48px height with consistent padding
+- Form submit buttons repositioned to the right, back buttons to the left
+- Card hover effects now include subtle transform animations
+- Pagination controls centered and properly aligned with content
+- Profile card positioning optimized for all viewport sizes
+
+### Technical Details
+
+- Enhanced CSS Modules with modern flexbox layouts
+- Improved responsive design breakpoints
+- Better component state management for loading states
+- Optimized form validation and user feedback
+- Enhanced accessibility with proper focus management
+
 ## [1.0.0] - 2025-01-21
 
 ### Added

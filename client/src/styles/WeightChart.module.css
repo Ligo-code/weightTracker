@@ -152,7 +152,7 @@
   width: 100%;
   max-width: 100%;
   height: 450px;
-  background-color: #BFCFD5;
+  background-color: #bfcfd5;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -163,7 +163,7 @@
 }
 
 :global(.dark-mode) .chartContainer {
-  background-color: #464C4F;
+  background-color: #464c4f;
   border-color: rgba(34, 163, 126, 0.2);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }

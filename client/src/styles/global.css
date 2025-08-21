@@ -11,7 +11,9 @@ body {
   overflow-x: hidden;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -114,7 +116,7 @@ select:focus {
 }
 
 .error {
-  color: #ff4d4d; 
+  color: #ff4d4d;
   font-size: 14px;
   text-align: center;
 }
@@ -134,15 +136,15 @@ a:hover {
 }
 
 .dark-mode a {
-  color: #e0f2e9; 
+  color: #e0f2e9;
 }
 
 .dark-mode a:hover {
-  color: #464c4f; 
+  color: #464c4f;
 }
 
 select {
-  appearance: none; 
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   padding: 12px;
