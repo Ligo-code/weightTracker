@@ -1,6 +1,6 @@
 const API_URL = "https://weighttracker-heqj.onrender.com/api/users";
 
-// Функция для регистрации
+
 export const registerUser = async (userData) => {
   try {
     console.log("Отправка запроса на регистрацию:", userData);
@@ -25,7 +25,7 @@ export const registerUser = async (userData) => {
   }
 };
 
-// Функция для входа
+
 export const loginUser = async (formData) => {
   try {
     console.log("Отправка запроса на вход:", formData);
@@ -54,7 +54,7 @@ export const loginUser = async (formData) => {
   }
 };
 
-// Функция для обновления токена
+
 export const refreshToken = async () => {
   try {
     const storedRefreshToken = localStorage.getItem("refreshToken");
@@ -88,7 +88,7 @@ export const refreshToken = async () => {
   }
 };
 
-// Функция выхода из аккаунта
+
 export const logoutUser = () => {
   console.log("Выход из аккаунта...");
   localStorage.removeItem("accessToken");

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../../styles/Auth.module.css";
 
 const AuthForm = ({ authMode }) => {
-  // 🔹 Принимаем authMode как пропс
+
   const isLogin = authMode === "login"; 
 
   const [formData, setFormData] = useState({

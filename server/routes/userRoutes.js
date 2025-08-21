@@ -14,14 +14,14 @@ import { validateUserRegistration } from "../middleware/validationMiddleware.js"
 
 const router = express.Router();
 
-// Ограничение на 10 попыток входа за 10 минут
+
 const loginLimiter = rateLimit({
   windowMs: 10 * 60 * 1000,
   max: 100,
   message: "Too many login attempts. Please try again later.",
 });
 
-// Маршруты
+
 router.post("/register", validateUserRegistration, registerUser);
 router.post("/login", loginLimiter, loginUser);
 router.get("/profile", protect, getUserProfile);
@@ -29,7 +29,7 @@ router.post("/refresh-token", refreshToken);
 router.post("/logout", logoutUser);
 router.post("/reset-password", resetPassword);
 
-// Новый маршрут для обновления currentWeight
+
 router.put("/updateWeight", protect, updateUserCurrentWeight);
 
 export default router;

@@ -8,7 +8,6 @@ import { useToast } from "./hooks/useToast";
 import "./styles/global.css";
 
 function App() {
-  // Хранение состояния темы (единственный источник правды!)
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );

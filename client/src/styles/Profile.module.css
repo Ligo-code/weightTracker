@@ -9,41 +9,40 @@
   position: absolute;
   top: 20px;
   left: 20px;
-  background: #889397; /* Светлый мятный */
+  background: #889397;
   padding: 12px 18px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
-  color: white; /* Темно-зеленый */
+  color: white;
 }
 
 .dark-mode .userInfo {
-  background: #2a3b2f; /* Темный мох */
-  color: #e0f2e9; /* Светло-зеленый */
+  background: #2a3b2f;
+  color: #e0f2e9;
 }
 
 .title {
   margin-top: 80px;
   text-align: center;
-  color: #2c3e36; /* Темно-зеленый */
+  color: #2c3e36;
 }
 
 .dark-mode .title {
-  color: #e0f2e9; /* Светло-зеленый */
+  color: #e0f2e9;
 }
 
 .error {
-  color: #ff4d4d; /* Красный */
+  color: #ff4d4d;
   text-align: center;
 }
 
-/* Стили для мобильных устройств */
 @media (max-width: 768px) {
   .userInfo {
-    position: static; /* Убираем фиксированное позиционирование */
-    margin: 10px auto; /* Центрируем карточку */
-    width: 90%; /* Ширина карточки */
-    max-width: 300px; /* Максимальная ширина */
-    text-align: center; /* Выравниваем текст по центру */
+    position: static;
+    margin: 10px auto;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
   }
 }

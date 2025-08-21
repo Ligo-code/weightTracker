@@ -127,34 +127,34 @@ const WeightTracker = ({ fetchUserData }) => {
       let updatedEntries = entries.filter((entry) => entry._id !== id);
 
       if (currentWeight && currentWeight._id === id) {
-        // Если удаляем currentWeight, новый currentWeight — первая запись из списка
+
         const newCurrentWeight =
           updatedEntries.length > 0 ? updatedEntries[0] : null;
         setCurrentWeight(newCurrentWeight);
 
         if (newCurrentWeight) {
-          // Отправляем обновленный currentWeight в БД
+
           await updateUserCurrentWeight(newCurrentWeight.weight);
         }
       }
 
       setEntries(updatedEntries);
 
-      // Поддержка пагинации после удаления
+
       if (updatedEntries.length < 5 && currentPage < totalPages) {
         fetchEntries();
       } else {
         setTotalPages(Math.max(1, Math.ceil((entries.length - 1) / 5)));
       }
 
-      // Обновляем карточку пользователя
+
       await fetchUserData();
     } catch (err) {
       setError(err.message);
     }
   };
 
-  // Функция обновления currentWeight в БД
+
   const updateUserCurrentWeight = async (newWeight) => {
     try {
       const response = await fetch(

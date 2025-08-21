@@ -8,8 +8,8 @@
   }
   
   .dark-mode .authContainer {
-    background: black; /* Темный мох */
-    color: white; /* Светло-зеленый */
+    background: black;
+    color: white;
   }
   
   .form {
@@ -20,7 +20,7 @@
   input {
     padding: 10px;
     margin: 8px 0;
-    border: 1px solid white; /* Светло-зеленый */
+    border: 1px solid white;
     border-radius: 4px;
     width: 100%;
     background: #ffffff;
@@ -28,31 +28,31 @@
   }
   
   .dark-mode input {
-    background: #2a3b2f; /* Темный мох */
-    border-color: #4a6b5a; /* Средний зеленый */
+    background: #2a3b2f;
+    border-color: #4a6b5a;
     color: #e0f2e9;
   }  
   
   .switchText {
     margin-top: 10px;
     font-size: 14px;
-    color: #2c3e36; /* Темно-зеленый */
+    color: #2c3e36;
   }
   
   .dark-mode .switchText {
-    color: #e0f2e9; /* Светло-зеленый */
+    color: #e0f2e9;
   }
   
   .switchBtn {
     background: none;
     border: none;
-    color: #4a6b5a; /* Средний зеленый */
+    color: #4a6b5a;
     cursor: pointer;
     font-weight: bold;
   }
   
   .dark-mode .switchBtn {
-    color: #6b9f88; /* Светло-зеленый */
+    color: #6b9f88;
   }
   
   .switchBtn:hover {
@@ -60,6 +60,6 @@
   }
   
   .error {
-    color: #ff4d4d; /* Красный */
+    color: #ff4d4d;
     margin-bottom: 10px;
   }

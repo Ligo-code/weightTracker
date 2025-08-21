@@ -1,35 +1,34 @@
-/* WeightTracker.module.css */
 .container {
   max-width: 500px;
   margin: 0 auto;
   padding: 20px;
   text-align: center;
-  background: transparent; /* Белый фон для карточки */
+  background: transparent;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: black
 }
 
 .dark-mode .container {
-  background: white; /* Оставляем белый фон в темной теме */
-  color: #2c3e36; /* Темно-зеленый текст для контраста */
+  background: white;
+  color: #2c3e36;
 }
 
 .userInfo {
   position: absolute;
   top: 20px;
   left: 20px;
-  background: #889397; /* Светлый мятный */
+  background: #889397;
   padding: 12px 18px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
-  color: white; /* Темно-зеленый */
+  color: white;
 }
 
 .dark-mode .userInfo {
-  background: #2a3b2f; /* Темный мох */
-  color: #e0f2e9; /* Светло-зеленый */
+  background: #2a3b2f;
+  color: #e0f2e9;
 }
 
 .entryContent {
@@ -40,11 +39,11 @@
 .entryContent strong {
   display: block;
   font-size: 14px;
-  color: black; /* Темно-зеленый */
+  color: black;
 }
 
 .dark-mode .entryContent strong {
-  color: black; /* Оставляем темно-зеленый текст */
+  color: black;
 }
 
 
@@ -53,22 +52,22 @@
   display: block;
   font-size: 16px;
   font-weight: bold;
-  color: black; /* Темно-зеленый */
+  color: black;
 }
 
 .dark-mode .entryContent span {
-  color: white important; /* Светло-зеленый */
+  color: white important;
 }
 
 .note {
   display: block;
   font-size: 14px;
-  color: black; /* Серый */
+  color: black;
   word-wrap: break-word;
 }
 
 .dark-mode .note {
-  color: black; /* Оставляем серый текст */
+  color: black;
 }
 
 .input {
@@ -77,23 +76,23 @@
   margin: 8px 0;
   box-sizing: border-box;
   background: #ffffff;
-  color: black; /* Темно-зеленый */
+  color: black;
   font-size: 14px;
   outline: none;
-  border: 1px solid #00A35C; /* Светло-зеленый */
+  border: 1px solid #00A35C;
   border-radius: 5px;
 }
 
 .dark-mode .input {
-  background: #ffffff; /* Оставляем белый фон */
-  border-color: #00A35C; /* Средний зеленый */
-  color: black; /* Темно-зеленый */
+  background: #ffffff;
+  border-color: #00A35C;
+  color: black;
 }
 
 .button {
   width: 100%;
   padding: 10px;
-  background: #22a37e; /* Градиент зеленый */
+  background: #22a37e;
   color: white;
   border: none;
   border-radius: 5px;
@@ -131,7 +130,7 @@
 }
 
 .dark-mode .listItem {
-  background: #ffffff; /* Оставляем белый фон */
+  background: #ffffff;
 }
 
 .listItem:hover {
@@ -152,22 +151,22 @@
 }
 
 .editButton {
-  color: #22a37e; /* Желтый */
+  color: #22a37e;
   transition: color 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .editButton:hover {
-  color: #00684A; /* Темный желтый */
+  color: #00684A;
   transform: scale(1.1);
 }
 
 .deleteButton {
-  color: #f88a9a; /* Красный */
+  color: #f88a9a;
   transition: color 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .deleteButton:hover {
-  color: #f85770; /* Темный красный */
+  color: #f85770;
   transform: scale(1.1);
 }
 
@@ -181,25 +180,24 @@
 .pageButton {
   padding: 5px 10px;
   cursor: pointer;
-  background: #22a37e; /* Средний зеленый */
+  background: #22a37e;
   color: white;
   border: none;
   border-radius: 5px;
 }
 
 .pageButton:hover {
-  background: #00684A; /* Светло-зеленый */
+  background: #00684A;
 }
 
 .dark-mode .pageButton {
-  background: #2a3b2f; /* Темный мох */
+  background: #2a3b2f;
 }
 
 .dark-mode .pageButton:hover {
-  background: #4a6b5a; /* Средний зеленый */
+  background: #4a6b5a;
 }
 
-/* ✅ Новый стиль для Current Weight */
 .currentWeightItem {
   background-color: #22a37e;
   border: 2px solid #00684A;
@@ -229,9 +227,9 @@
 }
 
 h2, h3 {
-  margin-bottom: 10px; /* Уменьшаем отступ снизу */
+  margin-bottom: 10px;
 }
 
 h3 {
-  margin-top: 15px; /* Уменьшаем отступ сверху */
+  margin-top: 15px;
 }

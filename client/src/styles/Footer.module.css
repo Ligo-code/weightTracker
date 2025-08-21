@@ -1,8 +1,7 @@
-/* Footer.module.css */
 .footer {
   text-align: center;
   padding: 10px 0;
-  background: #22a37e; /* Градиент зеленый */
+  background: #22a37e;
   border-top: 1px solid #22a37e;
   width: 100%;
   font-size: 14px;
@@ -11,6 +10,6 @@
 }
 
 .dark-mode .footer {
-  background: linear-gradient(135deg, #1a2a1f, #2a3b2f); /* Градиент темный */
+  background: linear-gradient(135deg, #1a2a1f, #2a3b2f);
   border-top: 1px solid #1a2a1f;
 }

@@ -131,7 +131,6 @@ a:hover {
   color: #464c4f; 
 }
 
-/* Основные стили */
 select {
   appearance: none; 
   -webkit-appearance: none;
@@ -146,7 +145,6 @@ select {
   cursor: pointer;
 }
 
-/* Темная тема */
 .dark-mode select {
   background: white;
   border-color: #00684a;

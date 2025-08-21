@@ -35,7 +35,7 @@ const allowedOrigins = [
   "http://localhost:5000",
 ];
 
-// Настройка CORS
+
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -53,7 +53,7 @@ const corsOptions = {
 app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 
-// Ручная настройка CORS (подстраховка)
+
 app.use((req, res, next) => {
   if (allowedOrigins.includes(req.headers.origin)) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);

@@ -1,7 +1,7 @@
 const API_URL = "https://weighttracker-heqj.onrender.com/api/weight";
 const getToken = () => localStorage.getItem("accessToken");
 
-// Получить все записи веса
+
 export const getWeightEntries = async (
   page = 1,
   limit = 5,
@@ -29,7 +29,7 @@ export const getWeightEntries = async (
   }
 };
 
-// Добавить новую запись веса
+
 export const addWeightEntry = async (weight, note, date) => {
   try {
     const response = await fetch(API_URL, {
@@ -53,7 +53,7 @@ export const addWeightEntry = async (weight, note, date) => {
   }
 };
 
-// Обновить запись веса
+
 export const updateWeightEntry = async (id, data) => {
   try {
     console.log("Updating entry with ID:", id); // Проверка ID
@@ -79,7 +79,7 @@ export const updateWeightEntry = async (id, data) => {
   }
 };
 
-// Удалить запись веса
+
 export const deleteWeightEntry = async (id) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {

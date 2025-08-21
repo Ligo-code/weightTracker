@@ -1,50 +1,49 @@
-/* WeightChart.module.css */
 .container {
   max-width: 800px;  
   margin: auto;
   padding: 20px;
   text-align: center;
-  background: transparent; /* Белый фон для карточки */
+  background: transparent;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: black
 }
 
 .dark-mode .container {
-  background: white; /* Оставляем белый фон в темной теме */
-  color: #00684A; /* Темно-зеленый текст для контраста */
+  background: white;
+  color: #00684A;
 }
 
 .userInfo {
   position: absolute;
   top: 20px;
   left: 20px;
-  background: #889397; /* Светлый мятный */
+  background: #889397;
   padding: 12px 18px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
-  color: white; /* Темно-зеленый */
+  color: white;
 }
 
 .dark-mode .userInfo {
-  background: #2a3b2f; /* Темный мох */
-  color: #e0f2e9; /* Светло-зеленый */
+  background: #2a3b2f;
+  color: #e0f2e9;
 }
 
 
 .title {
   margin-top: 80px;
   text-align: center;
-  color: #00684A; /* Темно-зеленый */
+  color: #00684A;
 }
 
 .dark-mode .title {
-  color: #00684A; /* Оставляем темно-зеленый текст */
+  color: #00684A;
 }
 
 .error {
-  color: #ff4d4d; /* Красный */
+  color: #ff4d4d;
   text-align: center;
 }
 
@@ -58,7 +57,7 @@
 .chartContainer {
   width: 100%;
   height: 400px;
-  background-color: white; /* Белый фон для графика */
+  background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
@@ -68,16 +67,15 @@
 
 
 .error {
-  color: #ff4d4d; /* Красный */
+  color: #ff4d4d;
 }
 
-/* Стили для мобильных устройств */
 @media (max-width: 768px) {
   .userInfo {
-    position: static; /* Убираем фиксированное позиционирование */
-    margin: 10px auto; /* Центрируем карточку */
-    width: 90%; /* Ширина карточки */
-    max-width: 300px; /* Максимальная ширина */
-    text-align: center; /* Выравниваем текст по центру */
+    position: static;
+    margin: 10px auto;
+    width: 90%;
+    max-width: 300px;
+    text-align: center;
   }
 }
