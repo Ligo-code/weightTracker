@@ -47,7 +47,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
-      navigate("/"); // Если нет токена, перенаправляем на Home
+      navigate("/"); 
     } else {
       fetchUserData();
     }

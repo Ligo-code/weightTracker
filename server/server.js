@@ -30,9 +30,9 @@ app.use(xss());
 app.use(mongoSanitize());
 
 const allowedOrigins = [
-  "https://weighttracker-1.onrender.com", // Фронтенд
-  "https://weighttracker-heqj.onrender.com", // Бэкенд
-  "http://localhost:5173", // Локальная разработка
+  "https://weighttracker-1.onrender.com", 
+  "https://weighttracker-heqj.onrender.com", 
+  "http://localhost:5173", 
   "http://localhost:5000",
 ];
 
@@ -68,7 +68,6 @@ app.use(express.json());
 app.use("/api/users", userRoutes);
 app.use("/api/weight", weightRoutes);
 
-// Health check endpoints
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "OK",

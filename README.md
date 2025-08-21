@@ -2,6 +2,12 @@
 
 A modern, full-stack web application for tracking weight progress with beautiful charts and dark mode support.
 
+## 🚀 Live Application
+
+**📱 [https://weighttracker-1.onrender.com/](https://weighttracker-1.onrender.com/)**
+
+_Try the live demo now! Create an account and start tracking your weight progress immediately._
+
 ## 🌟 Features
 
 - **📊 Visual Charts** - Interactive weight progress visualization using Chart.js
@@ -71,15 +77,39 @@ The application is deployed and ready to use! You can create an account and star
    ```
 
 3. **Environment Setup**
-   Create `.env` file in the server directory:
+
+   **⚠️ Security Note**: Never commit `.env` files to version control!
+
+   ```bash
+   # Copy the example file and configure your environment
+   cd server
+   cp .env.example .env
+   ```
+
+   Edit `.env` file with your actual values:
 
    ```env
-   MONGODB_URI=mongodb://localhost:27017/weighttracker
-   JWT_SECRET=your-super-secret-jwt-key
-   JWT_REFRESH_SECRET=your-refresh-secret-key
    PORT=5000
-   NODE_ENV=development
+   MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/database
+   JWT_SECRET=your-super-secure-jwt-secret-minimum-32-characters
+   JWT_LIFETIME=30d
+   REFRESH_SECRET=your-super-secure-refresh-secret-minimum-32-characters
    ```
+
+   **🔐 Generate secure secrets:**
+
+   ```bash
+   # Generate random secrets
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
+
+   **📋 Required Environment Variables:**
+
+   - `PORT` - Server port (default: 5000)
+   - `MONGO_URI` - MongoDB connection string
+   - `JWT_SECRET` - Secret for JWT token signing (min 32 chars)
+   - `JWT_LIFETIME` - JWT token expiration time
+   - `REFRESH_SECRET` - Secret for refresh token signing (min 32 chars)
 
 4. **Start the application**
 
@@ -99,6 +129,47 @@ The application is deployed and ready to use! You can create an account and star
 - **📚 [API Documentation](docs/API.md)** - Complete API reference with examples
 - **📋 [Changelog](CHANGELOG.md)** - Project development history
 - **🚀 [Deployment Info](DEPLOYMENT_INFO.md)** - Live deployment details
+
+## 🔒 Security & Environment Variables
+
+### Environment Variables Security
+
+**🚨 Important Security Guidelines:**
+
+1. **Never commit `.env` files** - They contain sensitive data
+2. **Use strong secrets** - Minimum 32 characters for JWT secrets
+3. **Different secrets for different environments** - Dev, staging, production
+4. **Rotate secrets regularly** - Especially if compromised
+
+### Production Deployment
+
+For production environments (Render, Heroku, Vercel, etc.):
+
+1. **Set environment variables through platform interface**
+2. **Use platform's secret management**
+3. **Enable environment variable encryption if available**
+4. **Monitor for secret leaks in logs**
+
+### Secret Generation
+
+```bash
+# Generate secure JWT secrets
+node -e "console.log('JWT_SECRET=' + require('crypto').randomBytes(32).toString('hex'))"
+node -e "console.log('REFRESH_SECRET=' + require('crypto').randomBytes(32).toString('hex'))"
+
+# Or use online tools (ensure HTTPS):
+# https://generate-secret.vercel.app/32
+```
+
+### Environment Files Structure
+
+```
+server/
+├── .env              # Your local environment (gitignored)
+├── .env.example      # Template for other developers
+├── .env.local        # Local overrides (gitignored)
+└── .env.production   # Production template (gitignored)
+```
 
 ## 🏗️ Project Structure
 

@@ -133,6 +133,6 @@ app.delete("/api/weight/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Mock server running on port ${PORT}`);
+  console.log(`Mock server running on port ${PORT}`);
   console.log(`Health check: http://localhost:${PORT}/api/health`);
 });

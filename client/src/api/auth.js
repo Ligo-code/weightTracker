@@ -13,8 +13,7 @@ export const registerUser = async (userData) => {
     console.log("Response status:", response.status);
     console.log("Response headers:", response.headers);
 
-    // Проверяем есть ли контент для парсинга
-    const responseText = await response.text();
+        const responseText = await response.text();
     console.log("Raw response text:", responseText);
 
     let data;
@@ -25,8 +24,7 @@ export const registerUser = async (userData) => {
         console.error("JSON parse error:", parseError);
         throw new Error("Invalid response format from server");
       }
-    } else {
-      // Пустой ответ
+    } else {      
       data = { message: "Registration successful" };
     }
 

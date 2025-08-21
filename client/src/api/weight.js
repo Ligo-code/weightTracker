@@ -53,7 +53,7 @@ export const addWeightEntry = async (weight, note, date) => {
 
 export const updateWeightEntry = async (id, data) => {
   try {
-    console.log("Updating entry with ID:", id); // Проверка ID
+    console.log("Updating entry with ID:", id); 
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: {
@@ -69,7 +69,7 @@ export const updateWeightEntry = async (id, data) => {
     }
 
     const updatedEntry = await response.json();
-    return updatedEntry; // Возвращаем обновленную запись
+    return updatedEntry; 
   } catch (error) {
     console.error("[Update Weight Entry Error]:", error.message);
     throw error;

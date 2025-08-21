@@ -6,7 +6,7 @@ import {
   getUserProfile,
   logoutUser,
   resetPassword,
-  updateUserCurrentWeight, // Новый обработчик
+  updateUserCurrentWeight, 
 } from "../controllers/userController.js";
 import rateLimit from "express-rate-limit";
 import { protect } from "../middleware/authMiddleware.js";

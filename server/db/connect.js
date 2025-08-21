@@ -14,38 +14,37 @@ const connectDB = async () => {
     await mongoose.connect(mongoURI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 10000, // 10 seconds timeout
-      socketTimeoutMS: 45000, // 45 seconds socket timeout
-      maxPoolSize: 10, // Maximum number of connections in the pool
+      serverSelectionTimeoutMS: 10000, 
+      socketTimeoutMS: 45000, 
+      maxPoolSize: 10, 
       retryWrites: true,
       w: "majority",
     });
 
-    console.log("✅ MongoDB connected successfully");
+    console.log("MongoDB connected successfully");
     console.log("Database name:", mongoose.connection.name);
   } catch (error) {
-    console.error("❌ MongoDB connection error:", error.message);
+    console.error("MongoDB connection error:", error.message);
     console.error("Full error:", error);
-
-    // Don't exit process in production, just log the error
+  
     if (process.env.NODE_ENV !== "production") {
       process.exit(1);
     } else {
-      console.log("⚠️ Running without database connection in production");
+      console.log("Running without database connection in production");
     }
   }
 
-  // Handle connection events
+  
   mongoose.connection.on("connected", () => {
-    console.log("✅ Mongoose connected to MongoDB");
+    console.log("Mongoose connected to MongoDB");
   });
 
   mongoose.connection.on("error", (err) => {
-    console.error("❌ Mongoose connection error:", err);
+    console.error("Mongoose connection error:", err);
   });
 
   mongoose.connection.on("disconnected", () => {
-    console.log("⚠️ Mongoose disconnected from MongoDB");
+    console.log("Mongoose disconnected from MongoDB");
   });
 };
 
