@@ -1,22 +1,10 @@
-import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "../../styles/Navbar.module.css";
 import {  FaMoon, FaSun, FaHome, FaChartLine, FaUser, FaSignOutAlt } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const token = localStorage.getItem("accessToken");
   const navigate = useNavigate();
-  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("theme") === "dark");
-
-  useEffect(() => {
-    if (isDarkMode) {
-      document.body.classList.add("dark-mode");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.body.classList.remove("dark-mode");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDarkMode]);
 
 
   const handleLogout = () => {

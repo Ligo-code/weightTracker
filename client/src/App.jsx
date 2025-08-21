@@ -17,9 +17,9 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
-        <Navbar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />        
+        <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />        
         <main className="main-content">
-          <AppRouter />
+          <AppRouter isDarkMode={isDarkMode} />
         </main>
         <Footer />
       </div>
