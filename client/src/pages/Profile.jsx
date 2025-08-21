@@ -20,9 +20,8 @@ const Profile = () => {
     try {
       const response = await fetch(
         "https://weighttracker-heqj.onrender.com/api/users/profile",
-        /*"http://localhost:5000/api/users/profile",*/
         {
-          headers: { Authorization: `Bearer ${token}`},
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
 
@@ -48,10 +47,10 @@ const Profile = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("accessToken")) {
-      navigate("/"); // Если нет токена, перенаправляем на Home
+      navigate("/"); 
     } else {
       fetchUserData();
-    }    
+    }
   }, []);
 
   const handleSessionExpired = () => {
@@ -73,15 +72,21 @@ const Profile = () => {
 
   if (user?.goal === "lose") {
     if (initialWeight > targetWeight) {
-      progressPercentage = ((initialWeight - currentWeight) / (initialWeight - targetWeight)) * 100;
+      progressPercentage =
+        ((initialWeight - currentWeight) / (initialWeight - targetWeight)) *
+        100;
     }
   } else if (user?.goal === "gain") {
     if (initialWeight < targetWeight) {
-      progressPercentage = ((currentWeight - initialWeight) / (targetWeight - initialWeight)) * 100;
+      progressPercentage =
+        ((currentWeight - initialWeight) / (targetWeight - initialWeight)) *
+        100;
     }
   }
-  
-  progressPercentage = Math.max(0, Math.min(progressPercentage, 100)).toFixed(1);
+
+  progressPercentage = Math.max(0, Math.min(progressPercentage, 100)).toFixed(
+    1
+  );
 
   if (!user) {
     return (
@@ -112,7 +117,8 @@ const Profile = () => {
             <strong>Email:</strong> {user.email}
           </p>
           <p>
-            <strong>Goal:</strong> {user.goal === "lose" ? "Lose Weight" : "Gain Weight"}
+            <strong>Goal:</strong>{" "}
+            {user.goal === "lose" ? "Lose Weight" : "Gain Weight"}
           </p>
           <p>
             <strong>Initial Weight:</strong> {user.initialWeight} kg

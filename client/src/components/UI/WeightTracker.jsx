@@ -88,7 +88,7 @@ const WeightTracker = ({ fetchUserData }) => {
 
         setCurrentWeight(newEntry);
 
-        setEntries((prevEntries) => {          
+        setEntries((prevEntries) => {
           let filteredEntries = prevEntries.filter(
             (entry) => entry._id !== previousCurrentWeight?._id
           );
@@ -127,57 +127,52 @@ const WeightTracker = ({ fetchUserData }) => {
       let updatedEntries = entries.filter((entry) => entry._id !== id);
 
       if (currentWeight && currentWeight._id === id) {
-        // Если удаляем currentWeight, новый currentWeight — первая запись из списка
-        const newCurrentWeight = updatedEntries.length > 0 ? updatedEntries[0] : null;
+        const newCurrentWeight =
+          updatedEntries.length > 0 ? updatedEntries[0] : null;
         setCurrentWeight(newCurrentWeight);
 
         if (newCurrentWeight) {
-          // Отправляем обновленный currentWeight в БД
           await updateUserCurrentWeight(newCurrentWeight.weight);
         }
       }
 
       setEntries(updatedEntries);
 
-      // Поддержка пагинации после удаления
       if (updatedEntries.length < 5 && currentPage < totalPages) {
         fetchEntries();
       } else {
         setTotalPages(Math.max(1, Math.ceil((entries.length - 1) / 5)));
       }
 
-      // Обновляем карточку пользователя
       await fetchUserData();
-      
     } catch (err) {
       setError(err.message);
     }
-};
+  };
 
-// Функция обновления currentWeight в БД
-const updateUserCurrentWeight = async (newWeight) => {
+  const updateUserCurrentWeight = async (newWeight) => {
     try {
-        const response = await fetch("https://weighttracker-heqj.onrender.com/api/users/updateWeight", 
-        /*const response = await fetch("http://localhost:5000/api/users/updateWeight", */
+      const response = await fetch(
+        "https://weighttracker-heqj.onrender.com/api/users/updateWeight",
         {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-            body: JSON.stringify({ currentWeight: newWeight }),
-        });
-
-        if (!response.ok) {
-            throw new Error("Failed to update current weight");
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({ currentWeight: newWeight }),
         }
+      );
 
-        console.log("Updated user weight successfully");
+      if (!response.ok) {
+        throw new Error("Failed to update current weight");
+      }
+
+      console.log("Updated user weight successfully");
     } catch (err) {
-        console.error("Error updating user weight:", err);
+      console.error("Error updating user weight:", err);
     }
-};
-
+  };
 
   const handleEdit = (entry) => {
     console.log("Editing entry ID:", entry._id);
@@ -248,7 +243,7 @@ const updateUserCurrentWeight = async (newWeight) => {
           type="number"
           step="0.1"
           placeholder="Enter your weight"
-          value={weight === 0 ? "" : weight} 
+          value={weight === 0 ? "" : weight}
           onChange={(e) => {
             const value = e.target.value;
             setWeight(value === "" ? "" : Math.max(0, parseFloat(value) || ""));
@@ -271,13 +266,14 @@ const updateUserCurrentWeight = async (newWeight) => {
       <h3>Previous Entries</h3>
 
       {currentWeight && (
-        <ul className={styles.list}>         
-
+        <ul className={styles.list}>
           {currentPage === 1 && currentWeight && (
             <li key="current-weight-list" className={styles.listItem}>
               <div className={styles.entryContent}>
-                <strong>{formatDate(currentWeight.date)}</strong>
-                <span>{currentWeight.weight} kg</span>
+                <div className={styles.entryHeader}>
+                  <strong>{formatDate(currentWeight.date)}</strong>
+                  <span>{currentWeight.weight} kg</span>
+                </div>
                 <p className={styles.note}>{currentWeight.note || "No note"}</p>
               </div>
               <div className={styles.entryActions}>
@@ -300,8 +296,10 @@ const updateUserCurrentWeight = async (newWeight) => {
           {entries.map((entry) => (
             <li key={entry._id} className={styles.listItem}>
               <div className={styles.entryContent}>
-                <strong>{formatDate(entry.date)}</strong>
-                <span>{entry.weight} kg</span>
+                <div className={styles.entryHeader}>
+                  <strong>{formatDate(entry.date)}</strong>
+                  <span>{entry.weight} kg</span>
+                </div>
                 <p className={styles.note}>{entry.note || "No note"}</p>
               </div>
               <div className={styles.entryActions}>

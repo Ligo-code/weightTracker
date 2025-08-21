@@ -4,7 +4,8 @@ import { FaSignInAlt, FaUserPlus, FaArrowLeft } from "react-icons/fa";
 import styles from "../styles/Home.module.css";
 
 const Home = () => {
-  const [authMode, setAuthMode] = useState(null); 
+  const [authMode, setAuthMode] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -14,10 +15,16 @@ const Home = () => {
           <h2>Log your weight and track your progress over time!</h2>
 
           <div className={styles.buttonContainer}>
-            <button onClick={() => setAuthMode("login")} className={styles.primaryButton}>
+            <button
+              onClick={() => setAuthMode("login")}
+              className={styles.primaryButton}
+            >
               <FaSignInAlt /> Login
             </button>
-            <button onClick={() => setAuthMode("register")} className={styles.secondaryButton}>
+            <button
+              onClick={() => setAuthMode("register")}
+              className={styles.secondaryButton}
+            >
               <FaUserPlus /> Create an account
             </button>
           </div>
@@ -25,10 +32,27 @@ const Home = () => {
       ) : (
         <div className={`${styles.authContainer} ${styles.fadeIn}`}>
           <h2>{authMode === "login" ? "" : ""}</h2>
-          <AuthForm authMode={authMode} />  
-          <button onClick={() => setAuthMode(null)} className={styles.backButton}>
-            <FaArrowLeft /> Back
-          </button>
+          <AuthForm authMode={authMode} setLoading={setLoading} />
+          <div className={styles.authButtonRow}>
+            <button
+              onClick={() => setAuthMode(null)}
+              className={styles.backButton}
+            >
+              <FaArrowLeft /> Back
+            </button>
+            <button
+              type="submit"
+              form="auth-form"
+              disabled={loading}
+              className={styles.authSubmitButton}
+            >
+              {loading
+                ? "Processing..."
+                : authMode === "login"
+                ? "Login"
+                : "Register"}
+            </button>
+          </div>
         </div>
       )}
     </div>

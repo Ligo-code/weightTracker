@@ -1,13 +1,11 @@
-/* Auth.module.css */
 .authContainer {
   max-width: 400px;
   margin: auto;
   padding: 20px;
-  background: transparent !important; /* Светлый мятный */
+  background: transparent !important;
   box-shadow: none !important;
   text-align: center;
   border-radius: none !important;
-  
 }
 
 .authPage {
@@ -15,66 +13,85 @@
 }
 
 .dark-mode .authContainer {
-  background: black; /* Темный мох */
+  background: black;
 }
 
 .authContainer h2 {
   margin-bottom: 15px;
-  color: black; /* Темно-зеленый */
+  color: #22a37e;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .dark-mode .authContainer h2 {
-  color: black; /* Светло-зеленый */
+  color: white;
 }
 
-.authContainer input {
-  width: calc(100% - 24px); /* Учитываем padding */
-  max-width: 320px; /* Ограничиваем максимальную ширину */
-  padding: 12px;
-  margin-bottom: 10px;
-  border: 2px solid #00684A; /* Светло-зеленый */
-  border-radius: 6px;
-  transition: border 0.3s ease;
+.authContainer input,
+.authContainer select {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
   background: #ffffff;
   color: black;
+  font-size: 16px;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  height: 50px;
 }
 
-.dark-mode .authContainer input {
-  background: black; /* Темный мох */
-  border-color: #00684A; /* Средний зеленый */
+.dark-mode .authContainer input,
+.dark-mode .authContainer select {
+  background: black;
+  border-color: #00684a;
   color: #e0f2e9;
 }
 
-.authContainer input:focus {
-  border-color: #00684A; /* Средний зеленый */
+.authContainer input:focus,
+.authContainer select:focus {
+  border-color: #22a37e;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(34, 163, 126, 0.1);
 }
 
 .authContainer button {
-  width: 100%;
-  padding: 12px;
-  background:  #22a37e; /* Градиент зеленый */
+  width: 50%;
+  max-width: 200px;
+  height: 48px;
+  margin: 20px auto 10px auto;
+  padding: 12px 24px;
+  background: #22a37e;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 6px;
-  transition: background 0.3s ease;
-  margin-top: 10px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(34, 163, 126, 0.2);
+  display: block;
 }
 
 .authContainer button:hover {
-  background: #00684A;
+  background: #00684a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(34, 163, 126, 0.3);
 }
 
 .switchBtn {
   margin-top: 15px;
   background: none;
   border: none;
-  color: #22a37e; /* Средний зеленый */
+  color: #22a37e;
   cursor: pointer;
 }
 
 .dark-mode .switchBtn {
-  color: #22a37e; /* Светло-зеленый */
+  color: #22a37e;
 }
 
 .switchBtn:hover {
@@ -82,7 +99,7 @@
 }
 
 .error {
-  color: #ff4d4d; /* Красный */
+  color: #ff4d4d;
   font-size: 14px;
   margin-bottom: 10px;
 }
@@ -95,6 +112,40 @@
   text-align: center;
   font-weight: bold;
   margin-top: 10px;
+}
+
+.authSubmitButton {
+  padding: 12px 24px;
+  background: #22a37e;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 200px;
+  min-width: 150px;
+  box-shadow: 0 2px 4px rgba(34, 163, 126, 0.2);
+}
+
+.authSubmitButton:hover {
+  background: #00684a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(34, 163, 126, 0.3);
+}
+
+.authSubmitButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 @keyframes fadeIn {

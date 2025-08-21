@@ -3,9 +3,8 @@ import { registerUser, loginUser } from "@/api/auth";
 import { useNavigate } from "react-router-dom";
 import styles from "../../styles/Auth.module.css";
 
-const AuthForm = ({ authMode }) => {
-  // 🔹 Принимаем authMode как пропс
-  const isLogin = authMode === "login"; 
+const AuthForm = ({ authMode, setLoading }) => {
+  const isLogin = authMode === "login";
 
   const [formData, setFormData] = useState({
     name: "",
@@ -18,7 +17,6 @@ const AuthForm = ({ authMode }) => {
   });
 
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -30,14 +28,8 @@ const AuthForm = ({ authMode }) => {
     setError(null);
     setLoading(true);
 
-    const {
-      email,
-      password,
-      name,
-      goal,
-      targetWeight,      
-      initialWeight,
-    } = formData;
+    const { email, password, name, goal, targetWeight, initialWeight } =
+      formData;
 
     if (!email || !password) {
       setError("Please enter email and password.");
@@ -78,7 +70,7 @@ const AuthForm = ({ authMode }) => {
     <div className={styles.authContainer}>
       <h2>{isLogin ? "Login" : "Register"}</h2>
       {error && <p className={styles.error}>{error}</p>}
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form} id="auth-form">
         {!isLogin && (
           <>
             <input
@@ -89,17 +81,19 @@ const AuthForm = ({ authMode }) => {
               onChange={handleChange}
               required
             />
-            <div className={styles.goalContainer}>              
+            <div className={styles.goalContainer}>
               <select
-                id="goal"
                 name="goal"
                 value={formData.goal}
                 onChange={handleChange}
                 required
+                className={styles.input}
               >
-                <option value="">Select a goal</option>
-                <option value="lose">Lose Weight</option>
-                <option value="gain">Gain Weight</option>
+                <option value="" disabled>
+                  Select a goal
+                </option>
+                <option value="lose">Lose weight</option>
+                <option value="gain">Gain weight</option>
               </select>
             </div>
             <input
@@ -138,9 +132,6 @@ const AuthForm = ({ authMode }) => {
           onChange={handleChange}
           required
         />
-        <button type="submit" disabled={loading}>
-          {loading ? "Processing..." : isLogin ? "Login" : "Register"}
-        </button>
       </form>
     </div>
   );

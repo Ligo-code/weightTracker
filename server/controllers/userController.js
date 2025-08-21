@@ -89,7 +89,7 @@ export const resetPassword = async (req, res) => {
   }
 };
 
-// Обновление currentWeight у пользователя
+
 export const updateUserCurrentWeight = async (req, res) => {
   try {
     const { currentWeight } = req.body;

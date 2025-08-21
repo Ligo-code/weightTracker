@@ -3,11 +3,16 @@ import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./router";
 import Navbar from "./components/Layout/Navbar";
 import Footer from "./components/Layout/Footer";
+import ToastContainer from "./components/UI/ToastContainer";
+import { useToast } from "./hooks/useToast";
 import "./styles/global.css";
 
 function App() {
-  // Хранение состояния темы (единственный источник правды!)
-  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("theme") === "dark");
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
+  const { toasts, removeToast, showSuccess, showError, showWarning } =
+    useToast();
 
   useEffect(() => {
     document.body.classList.toggle("dark-mode", isDarkMode);
@@ -17,11 +22,12 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
-        <Navbar setIsDarkMode={setIsDarkMode} isDarkMode={isDarkMode} />        
+        <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
         <main className="main-content">
-          <AppRouter />
+          <AppRouter isDarkMode={isDarkMode} />
         </main>
         <Footer />
+        <ToastContainer toasts={toasts} removeToast={removeToast} />
       </div>
     </BrowserRouter>
   );

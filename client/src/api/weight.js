@@ -1,17 +1,23 @@
 const API_URL = "https://weighttracker-heqj.onrender.com/api/weight";
-/*const API_URL = "http://localhost:5000/api/weight";*/
 const getToken = () => localStorage.getItem("accessToken");
 
-// Получить все записи веса
-export const getWeightEntries = async (page = 1, limit = 5, sortBy = "date", order = "desc") => {
+export const getWeightEntries = async (
+  page = 1,
+  limit = 5,
+  sortBy = "date",
+  order = "desc"
+) => {
   try {
-    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    const response = await fetch(
+      `${API_URL}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
 
     if (!response.ok) throw new Error("Failed to fetch weight entries");
 
@@ -22,9 +28,8 @@ export const getWeightEntries = async (page = 1, limit = 5, sortBy = "date", ord
   }
 };
 
-// Добавить новую запись веса
 export const addWeightEntry = async (weight, note, date) => {
-  try {    
+  try {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
@@ -46,10 +51,9 @@ export const addWeightEntry = async (weight, note, date) => {
   }
 };
 
-// Обновить запись веса
 export const updateWeightEntry = async (id, data) => {
   try {
-    console.log("Updating entry with ID:", id); // Проверка ID
+    console.log("Updating entry with ID:", id); 
     const response = await fetch(`${API_URL}/${id}`, {
       method: "PUT",
       headers: {
@@ -65,14 +69,13 @@ export const updateWeightEntry = async (id, data) => {
     }
 
     const updatedEntry = await response.json();
-    return updatedEntry; // Возвращаем обновленную запись
+    return updatedEntry; 
   } catch (error) {
     console.error("[Update Weight Entry Error]:", error.message);
     throw error;
   }
 };
 
-// Удалить запись веса
 export const deleteWeightEntry = async (id) => {
   try {
     const response = await fetch(`${API_URL}/${id}`, {
@@ -89,4 +92,9 @@ export const deleteWeightEntry = async (id) => {
   }
 };
 
-export default { getWeightEntries, addWeightEntry, updateWeightEntry, deleteWeightEntry };
+export default {
+  getWeightEntries,
+  addWeightEntry,
+  updateWeightEntry,
+  deleteWeightEntry,
+};

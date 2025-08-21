@@ -1,7 +1,5 @@
 const API_URL = "https://weighttracker-heqj.onrender.com/api/users";
-/*const API_URL = "http://localhost:5000/api/users";*/
 
-// Функция для регистрации
 export const registerUser = async (userData) => {
   try {
     console.log("Отправка запроса на регистрацию:", userData);
@@ -12,8 +10,25 @@ export const registerUser = async (userData) => {
       body: JSON.stringify(userData),
     });
 
-    const data = await response.json();
-    console.log("JSON-ответ (регистрация):", data);
+    console.log("Response status:", response.status);
+    console.log("Response headers:", response.headers);
+
+        const responseText = await response.text();
+    console.log("Raw response text:", responseText);
+
+    let data;
+    if (responseText.trim()) {
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("JSON parse error:", parseError);
+        throw new Error("Invalid response format from server");
+      }
+    } else {      
+      data = { message: "Registration successful" };
+    }
+
+    console.log("Parsed data:", data);
 
     if (!response.ok) {
       throw new Error(data.message || "Registration failed");
@@ -26,7 +41,6 @@ export const registerUser = async (userData) => {
   }
 };
 
-// Функция для входа
 export const loginUser = async (formData) => {
   try {
     console.log("Отправка запроса на вход:", formData);
@@ -38,8 +52,24 @@ export const loginUser = async (formData) => {
       credentials: "include",
     });
 
-    const data = await response.json();
-    console.log("JSON-ответ (вход):", data);
+    console.log("Login response status:", response.status);
+
+    const responseText = await response.text();
+    console.log("Login raw response:", responseText);
+
+    let data;
+    if (responseText.trim()) {
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("Login JSON parse error:", parseError);
+        throw new Error("Invalid response format from server");
+      }
+    } else {
+      data = { message: "Login successful" };
+    }
+
+    console.log("Login parsed data:", data);
 
     if (!response.ok) {
       throw new Error(data.message || "Login failed");
@@ -55,7 +85,6 @@ export const loginUser = async (formData) => {
   }
 };
 
-// Функция для обновления токена
 export const refreshToken = async () => {
   try {
     const storedRefreshToken = localStorage.getItem("refreshToken");
@@ -89,8 +118,6 @@ export const refreshToken = async () => {
   }
 };
 
-
-// Функция выхода из аккаунта
 export const logoutUser = () => {
   console.log("Выход из аккаунта...");
   localStorage.removeItem("accessToken");

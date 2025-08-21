@@ -5,12 +5,13 @@ import rateLimit from "express-rate-limit";
 import xss from "xss-clean";
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
+import mongoose from "mongoose";
 import connectDB from "./db/connect.js";
 import userRoutes from "./routes/userRoutes.js";
 import weightRoutes from "./routes/weightRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
-import "dotenv/config"; 
+import "dotenv/config";
 connectDB();
 
 const app = express();
@@ -19,7 +20,7 @@ app.use(helmet());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10000,
+  max: 1000,
   message: "Too many requests, please try again later.",
 });
 app.use(limiter);
@@ -29,18 +30,16 @@ app.use(xss());
 app.use(mongoSanitize());
 
 const allowedOrigins = [
-  "https://weighttracker-1.onrender.com", // Фронтенд
-  "https://weighttracker-heqj.onrender.com", // Бэкенд
-  "http://localhost:5173", // Локальная разработка
-  "http://localhost:5000"
+  "https://weighttracker-1.onrender.com", 
+  "https://weighttracker-heqj.onrender.com", 
+  "http://localhost:5173", 
+  "http://localhost:5000",
 ];
 
-// Настройка CORS
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, origin || "*");
-      /*callback(null, true);*/
     } else {
       console.log(`Blocked CORS request from: ${origin}`);
       callback(new Error("CORS not allowed"), false);
@@ -51,19 +50,9 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-app.options("*", cors(corsOptions)); 
+app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 
-/*// Ручная настройка заголовков CORS
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", allowedOrigins.includes(req.headers.origin) ? req.headers.origin : "");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});*/
-
-// Ручная настройка CORS (подстраховка)
 app.use((req, res, next) => {
   if (allowedOrigins.includes(req.headers.origin)) {
     res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -78,6 +67,25 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/weight", weightRoutes);
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    mongodb:
+      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
+  });
+});
+
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: "API OK",
+    timestamp: new Date().toISOString(),
+    mongodb:
+      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
+  });
+});
 
 app.use(errorHandler);
 

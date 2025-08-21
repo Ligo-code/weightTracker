@@ -8,6 +8,13 @@ body {
   display: flex;
   flex-direction: column;
   transition: background 0.5s ease, color 0.5s ease;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .container,
@@ -24,6 +31,9 @@ body.dark-mode {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .main-content {
@@ -32,8 +42,10 @@ body.dark-mode {
 
 .container {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 h1,
@@ -104,7 +116,7 @@ select:focus {
 }
 
 .error {
-  color: #ff4d4d; 
+  color: #ff4d4d;
   font-size: 14px;
   text-align: center;
 }
@@ -124,16 +136,15 @@ a:hover {
 }
 
 .dark-mode a {
-  color: #e0f2e9; 
+  color: #e0f2e9;
 }
 
 .dark-mode a:hover {
-  color: #464c4f; 
+  color: #464c4f;
 }
 
-/* Основные стили */
 select {
-  appearance: none; 
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   padding: 12px;
@@ -146,7 +157,6 @@ select {
   cursor: pointer;
 }
 
-/* Темная тема */
 .dark-mode select {
   background: white;
   border-color: #00684a;
