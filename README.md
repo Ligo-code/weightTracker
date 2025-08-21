@@ -16,6 +16,7 @@ A modern, full-stack web application for tracking weight progress with beautiful
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 19** - Modern React with hooks and functional components
 - **Vite** - Fast build tool and development server
 - **Chart.js** - Interactive charts and data visualization
@@ -24,6 +25,7 @@ A modern, full-stack web application for tracking weight progress with beautiful
 - **Custom Hooks** - Reusable logic with custom React hooks
 
 ### Backend
+
 - **Node.js** - Server runtime environment
 - **Express.js** - Web application framework
 - **MongoDB** - NoSQL database for data storage
@@ -42,6 +44,7 @@ The application is deployed and ready to use! You can create an account and star
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - MongoDB (local or cloud)
 - Git
@@ -49,17 +52,19 @@ The application is deployed and ready to use! You can create an account and star
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Ligo-code/weightTracker.git
    cd weightTracker
    ```
 
 2. **Install dependencies**
+
    ```bash
    # Install server dependencies
    cd server
    npm install
-   
+
    # Install client dependencies
    cd ../client
    npm install
@@ -67,6 +72,7 @@ The application is deployed and ready to use! You can create an account and star
 
 3. **Environment Setup**
    Create `.env` file in the server directory:
+
    ```env
    MONGODB_URI=mongodb://localhost:27017/weighttracker
    JWT_SECRET=your-super-secret-jwt-key
@@ -76,10 +82,11 @@ The application is deployed and ready to use! You can create an account and star
    ```
 
 4. **Start the application**
+
    ```bash
    # Start server (from server directory)
    npm run dev
-   
+
    # Start client (from client directory)
    npm run dev
    ```
@@ -122,6 +129,7 @@ weightTracker/
 ## 🎨 Component Architecture
 
 ### Key Components
+
 - **App.jsx** - Main application component with theme management
 - **WeightTracker.jsx** - Core weight management interface
 - **WeightChart.jsx** - Chart visualization component
@@ -129,6 +137,7 @@ weightTracker/
 - **Toast.jsx** - Notification system component
 
 ### Custom Hooks
+
 - **useToast** - Toast notification management
 - **useAuth** - Authentication state management
 
@@ -137,6 +146,7 @@ weightTracker/
 ### Available Scripts
 
 #### Client
+
 ```bash
 npm run dev      # Start development server
 npm run build    # Build for production
@@ -144,12 +154,14 @@ npm run preview  # Preview production build
 ```
 
 #### Server
+
 ```bash
 npm run dev      # Start with nodemon
 npm start        # Start production server
 ```
 
 ### Code Style
+
 - ESLint configuration for consistent code style
 - CSS Modules for scoped styling
 - Functional components with hooks
@@ -174,6 +186,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Ligo-code**
+
 - GitHub: [@Ligo-code](https://github.com/Ligo-code)
 
 ---

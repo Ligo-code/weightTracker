@@ -1,5 +1,4 @@
-const API_URL = "https://weighttracker-1.onrender.com/api/users";
-
+const API_URL = "https://weighttracker-heqj.onrender.com/api/users";
 
 export const registerUser = async (userData) => {
   try {
@@ -43,7 +42,6 @@ export const registerUser = async (userData) => {
     throw error;
   }
 };
-
 
 export const loginUser = async (formData) => {
   try {
@@ -89,7 +87,6 @@ export const loginUser = async (formData) => {
   }
 };
 
-
 export const refreshToken = async () => {
   try {
     const storedRefreshToken = localStorage.getItem("refreshToken");
@@ -122,7 +119,6 @@ export const refreshToken = async () => {
     return null;
   }
 };
-
 
 export const logoutUser = () => {
   console.log("Выход из аккаунта...");

@@ -7,14 +7,16 @@
 
 .userInfo {
   position: absolute;
-  top: 20px;
+  top: 90px;
   left: 20px;
   background: #889397;
-  padding: 12px 18px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
   color: white;
+  min-width: 200px;
+  font-weight: 500;
 }
 
 .dark-mode .userInfo {
@@ -22,8 +24,21 @@
   color: #e0f2e9;
 }
 
+.userInfo p {
+  margin: 6px 0;
+  line-height: 1.4;
+}
+
+.userInfo p:first-child {
+  margin-top: 0;
+}
+
+.userInfo p:last-child {
+  margin-bottom: 0;
+}
+
 .title {
-  margin-top: 80px;
+  margin-top: 60px;
   text-align: center;
   color: #2c3e36;
 }
@@ -38,11 +53,67 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    padding: 15px 10px;
+    margin: 0;
+  }
+
   .userInfo {
     position: static;
-    margin: 10px auto;
-    width: 90%;
-    max-width: 300px;
+    margin: 0 auto 20px auto;
+    width: 95%;
+    max-width: 350px;
     text-align: center;
+    border-radius: 12px;
+    padding: 20px 24px;
+    min-width: auto;
+    font-size: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .userInfo p {
+    margin: 8px 0;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  .button {
+    padding: 14px 24px;
+    font-size: 16px;
+    border-radius: 12px;
+    min-height: 48px;
+    margin: 10px 5px;
+  }
+
+  .title {
+    margin-top: 20px;
+  }
+
+  .error {
+    font-size: 14px;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .userInfo {
+    width: 100%;
+    margin: 0 0 20px 0;
+    padding: 15px;
+  }
+
+  .userInfo p {
+    font-size: 14px;
+  }
+
+  .button {
+    width: 100%;
+    max-width: 250px;
+    margin: 8px auto;
+    display: block;
   }
 }

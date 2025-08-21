@@ -1,6 +1,5 @@
-const API_URL = "https://weighttracker-1.onrender.com/api/weight";
+const API_URL = "https://weighttracker-heqj.onrender.com/api/weight";
 const getToken = () => localStorage.getItem("accessToken");
-
 
 export const getWeightEntries = async (
   page = 1,
@@ -29,7 +28,6 @@ export const getWeightEntries = async (
   }
 };
 
-
 export const addWeightEntry = async (weight, note, date) => {
   try {
     const response = await fetch(API_URL, {
@@ -52,7 +50,6 @@ export const addWeightEntry = async (weight, note, date) => {
     throw error;
   }
 };
-
 
 export const updateWeightEntry = async (id, data) => {
   try {
@@ -78,7 +75,6 @@ export const updateWeightEntry = async (id, data) => {
     throw error;
   }
 };
-
 
 export const deleteWeightEntry = async (id) => {
   try {

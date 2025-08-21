@@ -1,6 +1,7 @@
 # 📚 Weight Tracker API Documentation
 
 ## Base URL
+
 ```
 Production: https://weighttracker-1.onrender.com
 Development: http://localhost:5000
@@ -9,6 +10,7 @@ Development: http://localhost:5000
 ## Authentication
 
 All protected endpoints require a Bearer token in the Authorization header:
+
 ```
 Authorization: Bearer <your-jwt-token>
 ```
@@ -16,6 +18,7 @@ Authorization: Bearer <your-jwt-token>
 ## Response Format
 
 ### Success Response
+
 ```json
 {
   "success": true,
@@ -27,6 +30,7 @@ Authorization: Bearer <your-jwt-token>
 ```
 
 ### Error Response
+
 ```json
 {
   "success": false,
@@ -42,11 +46,13 @@ Authorization: Bearer <your-jwt-token>
 ### 🔐 Authentication
 
 #### Register New User
+
 Creates a new user account.
 
 **Endpoint:** `POST /api/users/register`
 
 **Request Body:**
+
 ```json
 {
   "username": "string (required, 3-30 chars)",
@@ -57,6 +63,7 @@ Creates a new user account.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -76,6 +83,7 @@ Creates a new user account.
 ```
 
 **Validation Rules:**
+
 - Username: 3-30 characters, alphanumeric and underscores only
 - Email: Valid email format
 - Password: Minimum 6 characters
@@ -84,11 +92,13 @@ Creates a new user account.
 ---
 
 #### Login User
+
 Authenticates existing user.
 
 **Endpoint:** `POST /api/users/login`
 
 **Request Body:**
+
 ```json
 {
   "email": "string (required)",
@@ -97,6 +107,7 @@ Authenticates existing user.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -119,11 +130,13 @@ Authenticates existing user.
 ---
 
 #### Refresh Access Token
+
 Generates new access token using refresh token.
 
 **Endpoint:** `POST /api/users/refresh`
 
 **Request Body:**
+
 ```json
 {
   "refreshToken": "string (required)"
@@ -131,6 +144,7 @@ Generates new access token using refresh token.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -144,6 +158,7 @@ Generates new access token using refresh token.
 ---
 
 #### Logout User
+
 Invalidates user tokens.
 
 **Endpoint:** `POST /api/users/logout`
@@ -151,6 +166,7 @@ Invalidates user tokens.
 **Headers:** `Authorization: Bearer <token>`
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -161,6 +177,7 @@ Invalidates user tokens.
 ---
 
 #### Update Current Weight
+
 Updates user's current weight in profile.
 
 **Endpoint:** `PUT /api/users/current-weight`
@@ -168,6 +185,7 @@ Updates user's current weight in profile.
 **Headers:** `Authorization: Bearer <token>`
 
 **Request Body:**
+
 ```json
 {
   "currentWeight": "number (required, min 1)"
@@ -175,6 +193,7 @@ Updates user's current weight in profile.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -190,6 +209,7 @@ Updates user's current weight in profile.
 ### ⚖️ Weight Management
 
 #### Get Weight Entries
+
 Retrieves paginated weight entries for authenticated user.
 
 **Endpoint:** `GET /api/weight`
@@ -197,10 +217,12 @@ Retrieves paginated weight entries for authenticated user.
 **Headers:** `Authorization: Bearer <token>`
 
 **Query Parameters:**
+
 - `page` (optional): Page number (default: 1)
 - `limit` (optional): Items per page (default: 10, max: 50)
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -230,6 +252,7 @@ Retrieves paginated weight entries for authenticated user.
 ---
 
 #### Add Weight Entry
+
 Creates a new weight entry.
 
 **Endpoint:** `POST /api/weight`
@@ -237,6 +260,7 @@ Creates a new weight entry.
 **Headers:** `Authorization: Bearer <token>`
 
 **Request Body:**
+
 ```json
 {
   "weight": "number (required, min 1, max 1000)",
@@ -246,6 +270,7 @@ Creates a new weight entry.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -263,6 +288,7 @@ Creates a new weight entry.
 ```
 
 **Validation Rules:**
+
 - Weight: 1-1000 kg
 - Note: Maximum 200 characters
 - Date: Valid ISO date string
@@ -270,6 +296,7 @@ Creates a new weight entry.
 ---
 
 #### Update Weight Entry
+
 Updates an existing weight entry.
 
 **Endpoint:** `PUT /api/weight/:id`
@@ -277,9 +304,11 @@ Updates an existing weight entry.
 **Headers:** `Authorization: Bearer <token>`
 
 **URL Parameters:**
+
 - `id`: Weight entry ID
 
 **Request Body:**
+
 ```json
 {
   "weight": "number (optional, min 1, max 1000)",
@@ -289,6 +318,7 @@ Updates an existing weight entry.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -308,6 +338,7 @@ Updates an existing weight entry.
 ---
 
 #### Delete Weight Entry
+
 Deletes a weight entry.
 
 **Endpoint:** `DELETE /api/weight/:id`
@@ -315,9 +346,11 @@ Deletes a weight entry.
 **Headers:** `Authorization: Bearer <token>`
 
 **URL Parameters:**
+
 - `id`: Weight entry ID
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -327,21 +360,22 @@ Deletes a weight entry.
 
 ## Error Codes
 
-| Status Code | Description |
-|-------------|-------------|
-| 200 | Success |
-| 201 | Created |
-| 400 | Bad Request (validation error) |
-| 401 | Unauthorized (invalid/missing token) |
-| 403 | Forbidden (insufficient permissions) |
-| 404 | Not Found |
-| 409 | Conflict (duplicate email/username) |
-| 429 | Too Many Requests (rate limit exceeded) |
-| 500 | Internal Server Error |
+| Status Code | Description                             |
+| ----------- | --------------------------------------- |
+| 200         | Success                                 |
+| 201         | Created                                 |
+| 400         | Bad Request (validation error)          |
+| 401         | Unauthorized (invalid/missing token)    |
+| 403         | Forbidden (insufficient permissions)    |
+| 404         | Not Found                               |
+| 409         | Conflict (duplicate email/username)     |
+| 429         | Too Many Requests (rate limit exceeded) |
+| 500         | Internal Server Error                   |
 
 ## Common Error Examples
 
 ### Validation Error
+
 ```json
 {
   "success": false,
@@ -354,6 +388,7 @@ Deletes a weight entry.
 ```
 
 ### Authentication Error
+
 ```json
 {
   "success": false,
@@ -365,6 +400,7 @@ Deletes a weight entry.
 ```
 
 ### Rate Limit Error
+
 ```json
 {
   "success": false,
@@ -379,6 +415,7 @@ Deletes a weight entry.
 ## Security Headers
 
 The API includes the following security headers:
+
 - `X-Content-Type-Options: nosniff`
 - `X-Frame-Options: DENY`
 - `X-XSS-Protection: 1; mode=block`
@@ -387,6 +424,7 @@ The API includes the following security headers:
 ## CORS Policy
 
 CORS is configured to allow requests from:
+
 - `http://localhost:5173` (development)
 - `https://your-frontend-domain.com` (production)
 
@@ -432,6 +470,7 @@ curl -X POST http://localhost:5000/api/weight \
 ### Using Postman
 
 Import this collection URL:
+
 ```
 https://www.postman.com/collections/weight-tracker-api
 ```
@@ -439,8 +478,9 @@ https://www.postman.com/collections/weight-tracker-api
 ## SDK Examples
 
 ### JavaScript/Node.js
+
 ```javascript
-const API_BASE = 'https://weighttracker-1.onrender.com/api';
+const API_BASE = "https://weighttracker-1.onrender.com/api";
 
 class WeightTrackerAPI {
   constructor(token = null) {
@@ -451,11 +491,11 @@ class WeightTrackerAPI {
     const url = `${API_BASE}${endpoint}`;
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...(this.token && { Authorization: `Bearer ${this.token}` }),
-        ...options.headers
+        ...options.headers,
       },
-      ...options
+      ...options,
     };
 
     const response = await fetch(url, config);
@@ -463,22 +503,22 @@ class WeightTrackerAPI {
   }
 
   async login(email, password) {
-    const response = await this.request('/users/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password })
+    const response = await this.request("/users/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
     });
-    
+
     if (response.success) {
       this.token = response.data.token;
     }
-    
+
     return response;
   }
 
-  async addWeight(weight, note = '') {
-    return this.request('/weight', {
-      method: 'POST',
-      body: JSON.stringify({ weight, note })
+  async addWeight(weight, note = "") {
+    return this.request("/weight", {
+      method: "POST",
+      body: JSON.stringify({ weight, note }),
     });
   }
 
@@ -489,7 +529,7 @@ class WeightTrackerAPI {
 
 // Usage
 const api = new WeightTrackerAPI();
-await api.login('user@example.com', 'password');
+await api.login("user@example.com", "password");
 const entries = await api.getWeightEntries();
 ```
 

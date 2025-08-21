@@ -36,7 +36,6 @@ const allowedOrigins = [
   "http://localhost:5000",
 ];
 
-
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -53,7 +52,6 @@ const corsOptions = {
 
 app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
-
 
 app.use((req, res, next) => {
   if (allowedOrigins.includes(req.headers.origin)) {
@@ -76,7 +74,8 @@ app.get("/health", (req, res) => {
     status: "OK",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    mongodb: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
+    mongodb:
+      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
   });
 });
 
@@ -84,7 +83,8 @@ app.get("/api/health", (req, res) => {
   res.status(200).json({
     status: "API OK",
     timestamp: new Date().toISOString(),
-    mongodb: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
+    mongodb:
+      mongoose.connection.readyState === 1 ? "Connected" : "Disconnected",
   });
 });
 

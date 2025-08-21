@@ -127,19 +127,16 @@ const WeightTracker = ({ fetchUserData }) => {
       let updatedEntries = entries.filter((entry) => entry._id !== id);
 
       if (currentWeight && currentWeight._id === id) {
-
         const newCurrentWeight =
           updatedEntries.length > 0 ? updatedEntries[0] : null;
         setCurrentWeight(newCurrentWeight);
 
         if (newCurrentWeight) {
-
           await updateUserCurrentWeight(newCurrentWeight.weight);
         }
       }
 
       setEntries(updatedEntries);
-
 
       if (updatedEntries.length < 5 && currentPage < totalPages) {
         fetchEntries();
@@ -147,13 +144,11 @@ const WeightTracker = ({ fetchUserData }) => {
         setTotalPages(Math.max(1, Math.ceil((entries.length - 1) / 5)));
       }
 
-
       await fetchUserData();
     } catch (err) {
       setError(err.message);
     }
   };
-
 
   const updateUserCurrentWeight = async (newWeight) => {
     try {
@@ -275,8 +270,10 @@ const WeightTracker = ({ fetchUserData }) => {
           {currentPage === 1 && currentWeight && (
             <li key="current-weight-list" className={styles.listItem}>
               <div className={styles.entryContent}>
-                <strong>{formatDate(currentWeight.date)}</strong>
-                <span>{currentWeight.weight} kg</span>
+                <div className={styles.entryHeader}>
+                  <strong>{formatDate(currentWeight.date)}</strong>
+                  <span>{currentWeight.weight} kg</span>
+                </div>
                 <p className={styles.note}>{currentWeight.note || "No note"}</p>
               </div>
               <div className={styles.entryActions}>
@@ -299,8 +296,10 @@ const WeightTracker = ({ fetchUserData }) => {
           {entries.map((entry) => (
             <li key={entry._id} className={styles.listItem}>
               <div className={styles.entryContent}>
-                <strong>{formatDate(entry.date)}</strong>
-                <span>{entry.weight} kg</span>
+                <div className={styles.entryHeader}>
+                  <strong>{formatDate(entry.date)}</strong>
+                  <span>{entry.weight} kg</span>
+                </div>
                 <p className={styles.note}>{entry.note || "No note"}</p>
               </div>
               <div className={styles.entryActions}>

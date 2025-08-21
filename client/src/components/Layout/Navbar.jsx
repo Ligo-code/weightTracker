@@ -29,68 +29,64 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
   return (
     <nav className={styles.navbar}>
-      <h2 className={styles.logo}>Weight Tracker</h2>
-
-      <ul className={styles.navLinks}>
-        <li>
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? styles.active : styles.link
-            }
-          >
-            <FaHome title="Home" />
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/weightchart"
-            className={({ isActive }) =>
-              isActive ? styles.active : styles.link
-            }
-          >
-            <FaChartLine title="Weight Chart" />
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/profile"
-            className={({ isActive }) =>
-              isActive ? styles.active : styles.link
-            }
-          >
-            <FaUser title="Profile" />
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="#"
+      <div className={styles.navbarTop}>
+        <h2 className={styles.logo}>Weight Tracker</h2>
+        <div className={styles.navbarRight}>
+          <button
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className={({ isActive }) =>
-              isActive ? styles.active : styles.link
-            }
+            className={styles.themeToggle}
+            title={isDarkMode ? "Light Mode" : "Dark Mode"}
           >
-            {isDarkMode ? (
-              <FaSun title="Light Mode" />
-            ) : (
-              <FaMoon title="Dark Mode" />
+            {isDarkMode ? <FaSun /> : <FaMoon />}
+          </button>
+          
+          <ul className={styles.navLinks}>
+            <li>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.link
+                }
+              >
+                <FaHome title="Home" />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/weightchart"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.link
+                }
+              >
+                <FaChartLine title="Weight Chart" />
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive ? styles.active : styles.link
+                }
+              >
+                <FaUser title="Profile" />
+              </NavLink>
+            </li>
+            {token && (
+              <li>
+                <NavLink
+                  to="/"
+                  onClick={handleLogout}
+                  className={({ isActive }) =>
+                    isActive ? styles.active : styles.link
+                  }
+                >
+                  <FaSignOutAlt title="Logout" />
+                </NavLink>
+              </li>
             )}
-          </NavLink>
-        </li>
-        {token && (
-          <li>
-            <NavLink
-              to="/"
-              onClick={handleLogout}
-              className={({ isActive }) =>
-                isActive ? styles.active : styles.link
-              }
-            >
-              <FaSignOutAlt title="Logout" />
-            </NavLink>
-          </li>
-        )}
-      </ul>
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 };

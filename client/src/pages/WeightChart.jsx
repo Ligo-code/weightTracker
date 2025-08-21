@@ -89,12 +89,12 @@ const WeightChart = ({ isDarkMode }) => {
       {
         label: "Weight (kg)",
         data: filterEntriesByRange().map((entry) => entry.weight),
-        borderColor: isDarkMode ? "#464C4F" : "#22a37e",
+        borderColor: isDarkMode ? "#22A37E" : "#22a37e",
         backgroundColor: isDarkMode
           ? "rgba(34, 163, 126, 0.1)"
           : "rgba(44, 62, 54, 0.1)",
-        pointBackgroundColor: isDarkMode ? "#464C4F" : "#22a37e",
-        pointBorderColor: isDarkMode ? "#464C4F" : "#22a37e",
+        pointBackgroundColor: isDarkMode ? "#22A37E" : "#22a37e",
+        pointBorderColor: isDarkMode ? "#22A37E" : "#22a37e",
         tension: 0.3,
       },
     ],
@@ -105,22 +105,22 @@ const WeightChart = ({ isDarkMode }) => {
     plugins: {
       legend: {
         labels: {
-          color: isDarkMode ? "#464C4F" : "#22a37e",
+          color: isDarkMode ? "#22A37E" : "#22a37e",
         },
       },
     },
     scales: {
       x: {
         ticks: {
-          color: isDarkMode ? "#464C4F" : "#22a37e",
+          color: isDarkMode ? "#22A37E" : "#22a37e",
         },
         grid: {
-          color: isDarkMode ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)",
+          color: isDarkMode ? "rgba(34, 163, 126, 0.2)" : "rgba(0, 0, 0, 0.1)",
         },
       },
       y: {
         ticks: {
-          color: isDarkMode ? "#464C4F" : "#22a37e",
+          color: isDarkMode ? "#22A37E" : "#22a37e",
         },
         grid: {
           color: isDarkMode
@@ -148,15 +148,35 @@ const WeightChart = ({ isDarkMode }) => {
       )}
 
       <div className={styles.controls}>
-        <button onClick={() => setTimeRange("week")}>Last 7 Days</button>
-        <button onClick={() => setTimeRange("month")}>Last Month</button>
-        <button onClick={() => setTimeRange("all")}>All Time</button>
+        <button
+          className={timeRange === "week" ? styles.active : ""}
+          onClick={() => setTimeRange("week")}
+        >
+          Last 7 Days
+        </button>
+        <button
+          className={timeRange === "month" ? styles.active : ""}
+          onClick={() => setTimeRange("month")}
+        >
+          Last Month
+        </button>
+        <button
+          className={timeRange === "all" ? styles.active : ""}
+          onClick={() => setTimeRange("all")}
+        >
+          All Time
+        </button>
       </div>
 
       {entries.length === 0 ? (
-        <p>No weight data available.</p>
+        <div className={styles.noData}>
+          <p>No weight data available.</p>
+          <p>Start tracking your weight to see your progress here!</p>
+        </div>
       ) : (
-        <Line data={chartData} options={options} />
+        <div className={styles.chartContainer}>
+          <Line data={chartData} options={options} />
+        </div>
       )}
     </div>
   );
