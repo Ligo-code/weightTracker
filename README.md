@@ -2,11 +2,11 @@
 
 A modern, full-stack web application for tracking weight progress with beautiful charts and dark mode support.
 
-## 🚀 Live Application
+## 🌐 Live Demo
 
-**📱 [https://weighttracker-1.onrender.com/](https://weighttracker-1.onrender.com/)**
+**🔗 [Try Weight Tracker Live](https://weighttracker-1.onrender.com/)**
 
-_Try the live demo now! Create an account and start tracking your weight progress immediately._
+The application is deployed and ready to use! You can create an account and start tracking your weight progress immediately.
 
 ## 🌟 Features
 
@@ -40,12 +40,6 @@ _Try the live demo now! Create an account and start tracking your weight progres
 - **Helmet** - Security middleware
 - **CORS** - Cross-origin resource sharing
 - **Rate Limiting** - API protection against abuse
-
-## 🌐 Live Demo
-
-**🔗 [Try Weight Tracker Live](https://weighttracker-1.onrender.com/)**
-
-The application is deployed and ready to use! You can create an account and start tracking your weight progress immediately.
 
 ## 🚀 Quick Start
 
