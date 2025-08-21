@@ -1,4 +1,4 @@
-const API_URL = "https://weighttracker-heqj.onrender.com/api/users";
+const API_URL = "https://weighttracker-1.onrender.com/api/users";
 
 
 export const registerUser = async (userData) => {

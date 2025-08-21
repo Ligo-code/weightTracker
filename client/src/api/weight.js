@@ -1,4 +1,4 @@
-const API_URL = "https://weighttracker-heqj.onrender.com/api/weight";
+const API_URL = "https://weighttracker-1.onrender.com/api/weight";
 const getToken = () => localStorage.getItem("accessToken");
 
 
