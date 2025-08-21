@@ -11,8 +11,27 @@ export const registerUser = async (userData) => {
       body: JSON.stringify(userData),
     });
 
-    const data = await response.json();
-    console.log("JSON-ответ (регистрация):", data);
+    console.log("Response status:", response.status);
+    console.log("Response headers:", response.headers);
+
+    // Проверяем есть ли контент для парсинга
+    const responseText = await response.text();
+    console.log("Raw response text:", responseText);
+
+    let data;
+    if (responseText.trim()) {
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("JSON parse error:", parseError);
+        throw new Error("Invalid response format from server");
+      }
+    } else {
+      // Пустой ответ
+      data = { message: "Registration successful" };
+    }
+
+    console.log("Parsed data:", data);
 
     if (!response.ok) {
       throw new Error(data.message || "Registration failed");
@@ -37,8 +56,24 @@ export const loginUser = async (formData) => {
       credentials: "include",
     });
 
-    const data = await response.json();
-    console.log("JSON-ответ (вход):", data);
+    console.log("Login response status:", response.status);
+
+    const responseText = await response.text();
+    console.log("Login raw response:", responseText);
+
+    let data;
+    if (responseText.trim()) {
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("Login JSON parse error:", parseError);
+        throw new Error("Invalid response format from server");
+      }
+    } else {
+      data = { message: "Login successful" };
+    }
+
+    console.log("Login parsed data:", data);
 
     if (!response.ok) {
       throw new Error(data.message || "Login failed");

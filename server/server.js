@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import xss from "xss-clean";
 import mongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
+import mongoose from "mongoose";
 import connectDB from "./db/connect.js";
 import userRoutes from "./routes/userRoutes.js";
 import weightRoutes from "./routes/weightRoutes.js";
@@ -68,6 +69,24 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/weight", weightRoutes);
+
+// Health check endpoints
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    mongodb: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
+  });
+});
+
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: "API OK",
+    timestamp: new Date().toISOString(),
+    mongodb: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected"
+  });
+});
 
 app.use(errorHandler);
 
