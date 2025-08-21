@@ -8,6 +8,27 @@ A modern, full-stack web application for tracking weight progress with beautiful
 
 The application is deployed and ready to use! You can create an account and start tracking your weight progress immediately.
 
+<img width="378" height="180" alt="image" src="https://github.com/user-attachments/assets/c5c827b3-69ce-47aa-8ffa-a29bd08446a9" />
+<img width="378" height="180" alt="image" src="https://github.com/user-attachments/assets/e6a09c61-805e-4537-9725-1bfc14cd8d0a" />
+<img width="378" height="180" alt="image" src="https://github.com/user-attachments/assets/0d8999c7-7987-4f24-8b7a-2b92118c6274" />
+<img width="378" height="180" alt="image" src="https://github.com/user-attachments/assets/771ab238-1dd2-4a71-88e8-3f59978e0a2a" />
+<img width="378" height="180" alt="image" src="https://github.com/user-attachments/assets/47a6832d-a713-4dd5-8ebc-3660f4569e0f" />
+<img width="378" height="180" alt="image" src="https://github.com/user-attachments/assets/d08f9684-8d92-4057-bab8-eca7a3e3f3b5" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 🌟 Features
 
 - **📊 Visual Charts** - Interactive weight progress visualization using Chart.js
