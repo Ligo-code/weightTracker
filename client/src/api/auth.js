@@ -1,5 +1,4 @@
 const API_URL = "https://weighttracker-heqj.onrender.com/api/users";
-/*const API_URL = "http://localhost:5000/api/users";*/
 
 // Функция для регистрации
 export const registerUser = async (userData) => {

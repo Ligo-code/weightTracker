@@ -20,7 +20,6 @@ const Profile = () => {
     try {
       const response = await fetch(
         "https://weighttracker-heqj.onrender.com/api/users/profile",
-        /*"http://localhost:5000/api/users/profile",*/
         {
           headers: { Authorization: `Bearer ${token}`},
         }

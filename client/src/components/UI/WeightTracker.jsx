@@ -158,7 +158,6 @@ const WeightTracker = ({ fetchUserData }) => {
 const updateUserCurrentWeight = async (newWeight) => {
     try {
         const response = await fetch("https://weighttracker-heqj.onrender.com/api/users/updateWeight", 
-        /*const response = await fetch("http://localhost:5000/api/users/updateWeight", */
         {
             method: "PUT",
             headers: {

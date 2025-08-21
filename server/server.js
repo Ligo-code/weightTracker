@@ -40,7 +40,6 @@ const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, origin || "*");
-      /*callback(null, true);*/
     } else {
       console.log(`Blocked CORS request from: ${origin}`);
       callback(new Error("CORS not allowed"), false);
@@ -53,15 +52,6 @@ const corsOptions = {
 
 app.options("*", cors(corsOptions)); 
 app.use(cors(corsOptions));
-
-/*// Ручная настройка заголовков CORS
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", allowedOrigins.includes(req.headers.origin) ? req.headers.origin : "");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});*/
 
 // Ручная настройка CORS (подстраховка)
 app.use((req, res, next) => {
