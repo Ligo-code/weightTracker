@@ -6,7 +6,7 @@ import { Line } from "react-chartjs-2";
 import "chart.js/auto";
 import styles from "../styles/WeightChart.module.css";
 
-const WeightChart = ({ isDarkMode }) => {  
+const WeightChart = ({ isDarkMode }) => {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
   const [timeRange, setTimeRange] = useState("month");
@@ -16,7 +16,7 @@ const WeightChart = ({ isDarkMode }) => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/");  
+      navigate("/");
       return;
     }
     fetchUserData();
@@ -25,10 +25,12 @@ const WeightChart = ({ isDarkMode }) => {
 
   const fetchUserData = async () => {
     try {
-      const response = await fetch("https://weighttracker-heqj.onrender.com/api/users/profile",
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        "https://weighttracker-heqj.onrender.com/api/users/profile",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       if (response.status === 401) {
         const newToken = await refreshToken();
@@ -71,8 +73,10 @@ const WeightChart = ({ isDarkMode }) => {
     const now = new Date();
     return entries.filter((entry) => {
       const entryDate = new Date(entry.createdAt).getTime();
-      if (timeRange === "week") return now - entryDate <= 7 * 24 * 60 * 60 * 1000;
-      if (timeRange === "month") return now - entryDate <= 30 * 24 * 60 * 60 * 1000;
+      if (timeRange === "week")
+        return now - entryDate <= 7 * 24 * 60 * 60 * 1000;
+      if (timeRange === "month")
+        return now - entryDate <= 30 * 24 * 60 * 60 * 1000;
       return true;
     });
   };
@@ -85,8 +89,10 @@ const WeightChart = ({ isDarkMode }) => {
       {
         label: "Weight (kg)",
         data: filterEntriesByRange().map((entry) => entry.weight),
-        borderColor: isDarkMode ? "#464C4F" : "#22a37e", 
-        backgroundColor: isDarkMode ? "rgba(34, 163, 126, 0.1)" : "rgba(44, 62, 54, 0.1)",
+        borderColor: isDarkMode ? "#464C4F" : "#22a37e",
+        backgroundColor: isDarkMode
+          ? "rgba(34, 163, 126, 0.1)"
+          : "rgba(44, 62, 54, 0.1)",
         pointBackgroundColor: isDarkMode ? "#464C4F" : "#22a37e",
         pointBorderColor: isDarkMode ? "#464C4F" : "#22a37e",
         tension: 0.3,
@@ -117,7 +123,9 @@ const WeightChart = ({ isDarkMode }) => {
           color: isDarkMode ? "#464C4F" : "#22a37e",
         },
         grid: {
-          color: isDarkMode ? "rgba(34, 163, 126, 0.1)" : "rgba(34, 163, 126, 0.1)",
+          color: isDarkMode
+            ? "rgba(34, 163, 126, 0.1)"
+            : "rgba(34, 163, 126, 0.1)",
         },
       },
     },
@@ -145,7 +153,11 @@ const WeightChart = ({ isDarkMode }) => {
         <button onClick={() => setTimeRange("all")}>All Time</button>
       </div>
 
-      {entries.length === 0 ? <p>No weight data available.</p> : <Line data={chartData} options={options} />}
+      {entries.length === 0 ? (
+        <p>No weight data available.</p>
+      ) : (
+        <Line data={chartData} options={options} />
+      )}
     </div>
   );
 };

@@ -88,7 +88,6 @@ export const refreshToken = async () => {
   }
 };
 
-
 // Функция выхода из аккаунта
 export const logoutUser = () => {
   console.log("Выход из аккаунта...");

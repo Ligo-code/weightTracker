@@ -10,7 +10,7 @@ import userRoutes from "./routes/userRoutes.js";
 import weightRoutes from "./routes/weightRoutes.js";
 import errorHandler from "./middleware/errorMiddleware.js";
 
-import "dotenv/config"; 
+import "dotenv/config";
 connectDB();
 
 const app = express();
@@ -19,7 +19,7 @@ app.use(helmet());
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10000,
+  max: 1000,
   message: "Too many requests, please try again later.",
 });
 app.use(limiter);
@@ -32,7 +32,7 @@ const allowedOrigins = [
   "https://weighttracker-1.onrender.com", // Фронтенд
   "https://weighttracker-heqj.onrender.com", // Бэкенд
   "http://localhost:5173", // Локальная разработка
-  "http://localhost:5000"
+  "http://localhost:5000",
 ];
 
 // Настройка CORS
@@ -50,7 +50,7 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
-app.options("*", cors(corsOptions)); 
+app.options("*", cors(corsOptions));
 app.use(cors(corsOptions));
 
 // Ручная настройка CORS (подстраховка)

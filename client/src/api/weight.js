@@ -2,15 +2,23 @@ const API_URL = "https://weighttracker-heqj.onrender.com/api/weight";
 const getToken = () => localStorage.getItem("accessToken");
 
 // Получить все записи веса
-export const getWeightEntries = async (page = 1, limit = 5, sortBy = "date", order = "desc") => {
+export const getWeightEntries = async (
+  page = 1,
+  limit = 5,
+  sortBy = "date",
+  order = "desc"
+) => {
   try {
-    const response = await fetch(`${API_URL}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${getToken()}`,
-      },
-    });
+    const response = await fetch(
+      `${API_URL}?page=${page}&limit=${limit}&sortBy=${sortBy}&order=${order}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+      }
+    );
 
     if (!response.ok) throw new Error("Failed to fetch weight entries");
 
@@ -23,7 +31,7 @@ export const getWeightEntries = async (page = 1, limit = 5, sortBy = "date", ord
 
 // Добавить новую запись веса
 export const addWeightEntry = async (weight, note, date) => {
-  try {    
+  try {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
@@ -88,4 +96,9 @@ export const deleteWeightEntry = async (id) => {
   }
 };
 
-export default { getWeightEntries, addWeightEntry, updateWeightEntry, deleteWeightEntry };
+export default {
+  getWeightEntries,
+  addWeightEntry,
+  updateWeightEntry,
+  deleteWeightEntry,
+};

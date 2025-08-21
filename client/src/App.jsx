@@ -7,7 +7,9 @@ import "./styles/global.css";
 
 function App() {
   // Хранение состояния темы (единственный источник правды!)
-  const [isDarkMode, setIsDarkMode] = useState(localStorage.getItem("theme") === "dark");
+  const [isDarkMode, setIsDarkMode] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
 
   useEffect(() => {
     document.body.classList.toggle("dark-mode", isDarkMode);
@@ -17,7 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
-        <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />        
+        <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
         <main className="main-content">
           <AppRouter isDarkMode={isDarkMode} />
         </main>

@@ -1,11 +1,17 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "../../styles/Navbar.module.css";
-import {  FaMoon, FaSun, FaHome, FaChartLine, FaUser, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaMoon,
+  FaSun,
+  FaHome,
+  FaChartLine,
+  FaUser,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const token = localStorage.getItem("accessToken");
   const navigate = useNavigate();
-
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
@@ -15,7 +21,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
   const handleProtectedRoute = (path) => {
     if (!token) {
-      navigate("/"); 
+      navigate("/");
     } else {
       navigate(path);
     }
@@ -24,40 +30,63 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <nav className={styles.navbar}>
       <h2 className={styles.logo}>Weight Tracker</h2>
-      
+
       <ul className={styles.navLinks}>
         <li>
-          <NavLink to="/" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            <FaHome title="Home" /> 
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/weightchart" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            <FaChartLine title="Weight Chart" /> 
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/profile" className={({ isActive }) => (isActive ? styles.active : styles.link)}>
-            <FaUser title="Profile" /> 
-          </NavLink>
-        </li>
-        <li>
-          <NavLink 
-            to="#" 
-            onClick={() => setIsDarkMode(!isDarkMode)} 
-            className={({ isActive }) => (isActive ? styles.active : styles.link)}
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.link
+            }
           >
-            {isDarkMode ? <FaSun title="Light Mode" /> : <FaMoon title="Dark Mode" />} 
+            <FaHome title="Home" />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/weightchart"
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.link
+            }
+          >
+            <FaChartLine title="Weight Chart" />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/profile"
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.link
+            }
+          >
+            <FaUser title="Profile" />
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="#"
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className={({ isActive }) =>
+              isActive ? styles.active : styles.link
+            }
+          >
+            {isDarkMode ? (
+              <FaSun title="Light Mode" />
+            ) : (
+              <FaMoon title="Dark Mode" />
+            )}
           </NavLink>
         </li>
         {token && (
           <li>
-            <NavLink 
-              to="/" 
-              onClick={handleLogout} 
-              className={({ isActive }) => (isActive ? styles.active : styles.link)}
+            <NavLink
+              to="/"
+              onClick={handleLogout}
+              className={({ isActive }) =>
+                isActive ? styles.active : styles.link
+              }
             >
-              <FaSignOutAlt title="Logout" /> 
+              <FaSignOutAlt title="Logout" />
             </NavLink>
           </li>
         )}

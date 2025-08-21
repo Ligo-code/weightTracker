@@ -10,6 +10,7 @@ import {
 } from "../controllers/userController.js";
 import rateLimit from "express-rate-limit";
 import { protect } from "../middleware/authMiddleware.js";
+import { validateUserRegistration } from "../middleware/validationMiddleware.js";
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ const loginLimiter = rateLimit({
 });
 
 // Маршруты
-router.post("/register", registerUser);
+router.post("/register", validateUserRegistration, registerUser);
 router.post("/login", loginLimiter, loginUser);
 router.get("/profile", protect, getUserProfile);
 router.post("/refresh-token", refreshToken);
